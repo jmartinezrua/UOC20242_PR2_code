@@ -191,11 +191,32 @@ tApiError showList_add(tShowCatalog* list, tShow show) {
 
 // Add a new season at the beginning of the season list
 tApiError seasonList_add(tSeasonList* list, tSeason season) {
-   /////////////////////////////////
-	// PR2_3a
-	/////////////////////////////////
-   
-    return E_NOT_IMPLEMENTED;
+    // Validar precondiciones
+    if (list == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    // Reservar memoria para el nuevo nodo de temporada
+    tSeasonNode* newNode = (tSeasonNode*)malloc(sizeof(tSeasonNode));
+    if (newNode == NULL) {
+        return E_MEMORY_ERROR;
+    }
+
+    // Copiar la temporada al nuevo nodo
+    tApiError error = season_cpy(&newNode->season, &season);
+    if (error != E_SUCCESS) {
+        free(newNode);
+        return error;
+    }
+
+    // Insertar el nodo al principio de la lista
+    newNode->next = list->first;
+    list->first = newNode;
+
+    // Incrementar el contador de temporadas
+    list->count++;
+
+    return E_SUCCESS;
 }
 
 
@@ -377,12 +398,28 @@ int showsList_len(tShowCatalog shows) {
 
 // Free the memory allocated for show list
 tApiError showList_free(tShowCatalog* list) {
-	/////////////////////////////////
-	// PR2_4a
-	/////////////////////////////////       
-   
-    
-    return E_NOT_IMPLEMENTED;
+    if (list == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    tShowNode* current = list->first;
+    while (current != NULL) {
+        tShowNode* temp = current;
+        current = current->next;
+
+        // Liberar el contenido del show
+        show_free(&temp->show);
+
+        // Liberar el nodo
+        free(temp);
+    }
+
+    // Reiniciar los punteros y el contador
+    list->first = NULL;
+    list->last = NULL;
+    list->count = 0;
+
+    return E_SUCCESS;
 }
 
 // Free memory allocated for a single tShow (not the show list)
