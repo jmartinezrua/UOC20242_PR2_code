@@ -1,0 +1,6181 @@
+# Estructura de Carpetas
+
+- extracted_zip/
+  - 20241-S_PR2/
+    - .gitignore
+    - UOC20241/
+      - README.txt
+      - UOC20241.project
+      - UOC20241.workspace
+      - UOCTaxation/
+        - UOCTaxation.project
+        - include/
+          - api.h
+          - csv.h
+          - date.h
+          - error.h
+          - invoice.h
+          - landlord.h
+          - rental_incomes.h
+          - tax_office.h
+          - taxes.h
+          - tenant.h
+        - src/
+          - api.c
+          - csv.c
+          - date.c
+          - invoice.c
+          - landlord.c
+          - rental_incomes.c
+          - tax_office.c
+          - taxes.c
+          - tenant.c
+      - src/
+        - main.c
+      - test/
+        - include/
+          - test.h
+          - test_data.h
+          - test_pr1.h
+          - test_pr2.h
+          - test_suite.h
+        - src/
+          - test.c
+          - test_pr1.c
+          - test_pr2.c
+          - test_suite.c
+
+/* 20241-S_PR2/.gitignore */
+UOC20241/.build-debug/
+UOC20241/.codelite/
+UOC20241/.cache/
+UOC20241/.ctagsd
+UOC20241/bin/
+UOC20241/lib/
+UOC20241/UOC20241.mk
+UOC20241/UOC20241.txt
+UOC20241/UOCTaxation/UOCTaxation.txt
+UOC20241/UOCTaxation/UOCTaxation.mk
+UOC20241/Makefile
+UOC20241/compile_flags.txt
+UOC20241/tags
+UOC20241/build-Debug/
+UOC20241/UOCTaxation/compile_flags.txt
+UOC20241/UOCTaxation/tags
+UOC20241/UOCTaxation/UOCTaxation.txt
+UOC20241/UOCTaxation/Makefile
+UOC20241/build-Release/
+UOC20241/compile_commands.json
+*.csv
+UOC20241/Release/
+UOC20241.batch_build
+
+
+/* 20241-S_PR2/UOC20241/README.txt */
+student@uoc.edu
+Surname, Name
+Windows 11
+
+/* 20241-S_PR2/UOC20241/UOC20241.project */
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="UOC20241" Version="11000" InternalType="Console">
+  <VirtualDirectory Name="test">
+    <VirtualDirectory Name="src">
+      <File Name="test/src/test_pr2.c"/>
+      <File Name="test/src/test_suite.c"/>
+      <File Name="test/src/test_pr1.c"/>
+      <File Name="test/src/test.c"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="include">
+      <File Name="test/include/test_pr2.h"/>
+      <File Name="test/include/test_suite.h"/>
+      <File Name="test/include/test_pr1.h"/>
+      <File Name="test/include/test_data.h"/>
+      <File Name="test/include/test.h"/>
+    </VirtualDirectory>
+  </VirtualDirectory>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="src/main.c"/>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-gdwarf-2;-O0;-Wall" C_Options="-gdwarf-2;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="1">
+        <IncludePath Value="."/>
+        <IncludePath Value="./test/include"/>
+        <IncludePath Value="./UOCTaxation/include"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="./lib"/>
+        <Library Value="libUOCTaxation.a"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="./bin/$(ProjectName)d" IntermediateDirectory="build-$(ConfigurationName)" Command="$(ProjectName)d" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./bin" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Makefile Generator"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="clang64/clang-18.1.8" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="1">
+        <IncludePath Value="."/>
+        <IncludePath Value="./test/include"/>
+        <IncludePath Value="./UOCTaxation/include"/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes">
+        <LibraryPath Value="./lib"/>
+        <Library Value="libUOCTaxation.a"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="./bin/$(ProjectName)" IntermediateDirectory="build-$(ConfigurationName)" Command="$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="./bin" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Makefile Generator"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
+
+
+/* 20241-S_PR2/UOC20241/UOC20241.workspace */
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="UOC20241" Database="" Version="10000">
+  <Project Name="UOC20241" Path="UOC20241.project" Active="Yes"/>
+  <Project Name="UOCTaxation" Path="UOCTaxation/UOCTaxation.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug">
+      <Environment/>
+      <Project Name="UOC20241" ConfigName="Debug"/>
+      <Project Name="UOCTaxation" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release">
+      <Environment/>
+      <Project Name="UOC20241" ConfigName="Release"/>
+      <Project Name="UOCTaxation" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/UOCTaxation.project */
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="UOCTaxation" Version="11000" InternalType="Library">
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="src/tax_office.c"/>
+    <File Name="src/invoice.c"/>
+    <File Name="src/taxes.c"/>
+    <File Name="src/rental_incomes.c"/>
+    <File Name="src/tenant.c"/>
+    <File Name="src/landlord.c"/>
+    <File Name="src/api.c"/>
+    <File Name="src/csv.c"/>
+    <File Name="src/date.c"/>
+  </VirtualDirectory>
+  <VirtualDirectory Name="include">
+    <File Name="include/tax_office.h"/>
+    <File Name="include/invoice.h"/>
+    <File Name="include/taxes.h"/>
+    <File Name="include/rental_incomes.h"/>
+    <File Name="include/landlord.h"/>
+    <File Name="include/tenant.h"/>
+    <File Name="include/api.h"/>
+    <File Name="include/csv.h"/>
+    <File Name="include/date.h"/>
+    <File Name="include/error.h"/>
+  </VirtualDirectory>
+  <Settings Type="Static Library">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-gdwarf-2" C_Options="-gdwarf-2" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="1">
+        <IncludePath Value="."/>
+        <IncludePath Value="./include"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../lib/lib$(ProjectName).a" IntermediateDirectory="../build-$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Makefile Generator"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="clang64/clang-18.1.8" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="" C_Options="" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="1">
+        <IncludePath Value="."/>
+        <IncludePath Value="./include"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="../lib/lib$(ProjectName).a" IntermediateDirectory="../build-$(ConfigurationName)" Command="" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <BuildSystem Name="CodeLite Makefile Generator"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName/>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+</CodeLite_Project>
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/api.h */
+#ifndef __UOCTAXATION_API__H
+#define __UOCTAXATION_API__H
+#include <stdbool.h>
+#include "error.h"
+#include "csv.h"
+
+#include "tenant.h"
+#include "landlord.h"
+#include "rental_incomes.h"
+#include "invoice.h"
+#include "tax_office.h"
+
+// Type that stores all the application data
+typedef struct _ApiData {
+    ////////////////////////////////
+    // Ex PR1 2a
+    ////////////////////////////////
+    // Tenants
+    tTenantData tenants;	
+	// Landlords
+    tLandlords landlords;
+    // Landlords rental income
+    tRentalIncomeList rentalIncomes;
+	 ////////////////////////////////
+    // Ex PR2 3b
+    tTaxOfficeList taxOffices;
+    ////////////////////////////////   
+
+	
+    ////////////////////////////////
+} tApiData;
+
+// Get the API version information
+const char* api_version();
+
+// Load data from a CSV file. If reset is true, remove previous data
+tApiError api_loadData(tApiData* data, const char* filename, bool reset);
+
+// Initialize the data structure
+tApiError api_initData(tApiData* data);
+
+// Add a tenant into the data if it does not exist
+tApiError api_addTenant(tApiData* data, tCSVEntry entry);
+
+// Add a landlord if it does not exist
+tApiError api_addLandlord(tApiData* data, tCSVEntry entry);
+
+// Add a property into the properties of an specific landlord
+tApiError api_addProperty(tApiData* data, tCSVEntry entry);
+
+// Add a rental income into a list if the landlord already exists
+tApiError api_addRentalIncome(tApiData* data, tCSVEntry entry);
+
+// Find a rental income by year and landlord document id
+tRentalIncome* rentalIncomes_find(tRentalIncomeList list, int year, const char* document_id);
+
+// Get the number of tenants registered on the application
+int api_tenantCount(tApiData data);
+
+// Get the number of landlords registered on the application
+int api_landlordsCount(tApiData data);
+
+// Get the number of properties in all landlords registered on the application
+int api_propertiesCount(tApiData data);
+
+// Get the number of rental incomes registered
+int api_rentalIncomesCount(tApiData data);
+
+// Get the number of health centers registered on the application
+int api_taxOfficeCount(tApiData data);
+
+// Free all used memory
+tApiError api_freeData(tApiData* data);
+
+// Add a new entry
+tApiError api_addDataEntry(tApiData* data, tCSVEntry entry);
+
+// Get landlord data
+tApiError api_getLandlord(tApiData data, const char *id, tCSVEntry *entry);
+
+// Get the rental income by year of a landlord
+tApiError api_getRentalIncome(tApiData data, int year, const char* id, tCSVEntry *entry);
+
+// Get registered properties
+tApiError api_getProperties(tApiData data, tCSVData *properties);
+
+// Get registered rental incomes
+tApiError api_getRentalIncomes(tApiData data, tCSVData *rentalIncomes);
+
+
+#endif // __UOCTAXATION_API__H
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/csv.h */
+#ifndef __CSV_H__
+#define __CSV_H__
+
+#include <stdbool.h>
+#define CSV_SEPARATOR_CHAR ;
+
+// Store one entry from a CSV file
+typedef struct _tCSVEntry {
+    int numFields;
+    char* type;
+    char** fields;    
+} tCSVEntry;
+
+// Store the content of a CSV file
+typedef struct _tCSVData {
+    tCSVEntry *entries;
+    int count;
+    bool isValid;
+} tCSVData;
+
+// Initialize the tCSVData structure
+void csv_init(tCSVData* data);
+
+// Initialize the tCSVEntry structure
+void csv_initEntry(tCSVEntry* entry);
+
+// Parse the contents of a CSV file
+void csv_parse(tCSVData* data, const char* input, const char* type);
+
+// Add a new entry to the CSV Data
+void csv_addStrEntry(tCSVData* data, const char* entry, const char* type);
+
+// Print the content of the CSV data structure
+void csv_print(tCSVData data);
+
+// Print the content of the CSV entry structure
+void csv_printEntry(tCSVEntry entry);
+
+// Parse the contents of a CSV line   "f1;f2;f3" =>  field_0 = f1, field_1 = f2, field_2 = f3
+void csv_parseEntry(tCSVEntry* entry, const char* input, const char* type);
+
+// Get the number of entries
+bool csv_isValid(tCSVData data);
+
+// Remove all data from structure
+void csv_free(tCSVData* data);
+
+// Remove all data from structure
+void csv_freeEntry(tCSVEntry* entry);
+
+// Get the number of entries
+int csv_numEntries(tCSVData data);
+
+// Get the type of information contained in the entry
+const char* csv_getType(tCSVEntry* entry);
+
+// Get an entry from the CSV data
+tCSVEntry* csv_getEntry(tCSVData data, int position);
+
+// Get the number of fields for a given entry
+int csv_numFields(tCSVEntry entry);
+
+// Get a field from the given entry as integer
+int csv_getAsInteger(tCSVEntry entry, int position);
+
+// Get a field from the given entry as string. The value is copied to the provided buffer with provided maximum length
+void csv_getAsString(tCSVEntry entry, int position, char* buffer, int length);
+
+// Get a field from the given entry as integer
+float csv_getAsReal(tCSVEntry entry, int position);
+
+// Compare if two entries are the same
+bool csv_equalsEntry(tCSVEntry entry1, tCSVEntry entry2);
+
+// Compare if two data objects are the same
+bool csv_equals(tCSVData data1, tCSVData data2);
+
+#endif
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/date.h */
+#ifndef __DATE_H__
+#define __DATE_H__
+#include <stdbool.h>
+#include <time.h>
+
+
+// Length of the date
+#define DATE_LENGTH 10
+
+typedef struct _tDate {    
+    int day; 
+    int month;
+    int year;
+} tDate;
+
+typedef struct _tTime {
+    int hour; 
+    int minutes;
+} tTime;
+
+typedef struct _tDateTime {
+    tDate date;
+    tTime time;    
+} tDateTime;
+
+// Parse a tDate from string information
+void date_parse(tDate* date, const char* text);
+
+// Copy a date from src to dst
+void date_cpy(tDate *dst, tDate src);
+
+// Compare two dates
+int date_cmp(tDate date1, tDate date2);
+
+// Parse a tDateTime from string information
+void dateTime_parse(tDateTime* dateTime, const char* date, const char* time);
+
+// Compare two tDateTime structures and return -1 if dateTime1<dateTime2, 0 if equals and 1 if dateTime1>dateTime2.
+int dateTime_cmp(tDateTime dateTime1, tDateTime dateTime2);
+
+// Compare two tDateTime structures and return true if they contain the same value or false otherwise.
+bool dateTime_equals(tDateTime dateTime1, tDateTime dateTime2);
+
+// Initialize a time structure
+void dateTime_fromTime(tDateTime *timestamp, struct tm std_time);
+
+// Initialize a time structure
+void dateTime_initTime(struct tm *std_time, tDateTime timestamp);
+
+
+// Add months to a given date
+void date_addMonth(tDate* date, int month);
+
+
+#endif // __DATE_H__
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/error.h */
+#ifndef __UOCHEALTHCENTER_ERROR__H
+#define __UOCHEALTHCENTER_ERROR__H
+
+// Errors enum for the library
+typedef enum {
+    OK = 0,
+    ERR_NOT_IMPLEMENTED = -1,
+    ERR_INVALID = -2,
+    ERR_MEMORY_ERROR = -3,
+    ERR_NOT_FOUND = -4,
+    ERR_DUPLICATED = -5,
+    ERR_INVALID_INDEX = -6,
+    ERR_EMPTY = -7,
+    ERR_EMPTY_LIST = -8,
+    ERR_INVALID_CONTRACT = -9,
+    ERR_CONTRACT_NOT_FOUND = -10
+} tError;
+
+// Define error codes
+enum _tApiError
+{
+    E_SUCCESS = 0, // No error
+    E_NOT_IMPLEMENTED = -1, // Called method is not implemented
+    E_FILE_NOT_FOUND = -2, // File not found
+    E_INVALID_ENTRY_TYPE = -3, // Invalid entry type
+    E_INVALID_ENTRY_FORMAT = -4, // Invalid entry format
+    E_MEMORY_ERROR = -5, // Memory error
+    E_LANDLORD_DUPLICATED = -6, // Landlord duplicated
+    E_LANDLORD_NOT_FOUND = -7, // Landlord not found
+    E_TENANT_DUPLICATED = -8, // Tenant duplicated
+    E_RENTAL_INCOME_NOT_FOUND = -9, // Rental income not found
+    E_PROPERTY_DUPLICATED = -10 // Property duplicated
+};
+
+// Define an error type
+typedef enum _tApiError tApiError;
+
+#endif // __UOCHEALTHCENTER_ERRORS__H
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/invoice.h */
+#ifndef __INVOICE_H__
+#define __INVOICE_H__
+
+#include "date.h"
+#include "error.h"
+#include <stdbool.h>
+#include "tenant.h"
+
+
+// Invoice structure holding information about rent and cadastral reference.
+typedef struct _tRentInvoice {   
+    float rent;
+    char cadastral_ref[MAX_CADASTRAL_REF + 1];   
+} tRentInvoice;
+
+typedef struct _tRentInvoiceNode {    
+    tRentInvoice elem;
+    struct _tRentInvoiceNode* next;
+} tRentInvoiceNode;
+
+// Monthly Rent Invoice
+typedef struct _tRentInvoiceMonthly {    
+    tDate month;
+    tRentInvoiceNode* first;
+    int count;
+    struct _tRentInvoiceMonthly* next;
+} tRentInvoiceMonthly;
+
+// Invoice rent data
+typedef struct _tRentInvoiceData {        
+    tRentInvoiceMonthly* first;
+    int count;
+} tRentInvoiceData;
+
+
+// Initialize an invoice list
+void invoiceList_init(tRentInvoiceData* list);
+
+// Modify the rent of a certain invoice
+void invoiceList_update(tRentInvoiceData* list, tDate startMonthDate, tDate endMonthDate, char * cadastral_ref, float rent);
+
+// Get the rent amount for a certain invoice and date
+float getInvoiceMonthly(tRentInvoiceData* data, tDate date);
+
+// Release a list of invoices
+void invoiceList_free(tRentInvoiceData * list);
+
+// AUX METHODS
+
+// Initialize an invoice element
+void invoice_init(tRentInvoice* invoice, float rent, const char* cadastral_ref);
+
+// Get the rent amount for a certain invoice and date
+float invoiceList_getRentAmount(tRentInvoiceData* list, tDate date, tRentInvoice* invoice);
+
+// Initialize an invoice node element
+void invoiceNode_init(tRentInvoiceNode* node, float rent, const char* cadastral_ref);
+
+// Initialize a monthly invoice element
+void monthlyInvoice_init(tRentInvoiceMonthly* invoice, tDate date);
+
+// Remove a monthly invoice element data
+void monthlyInvoice_free(tRentInvoiceMonthly* invoice);
+
+// Function to find a monthly invoice by date
+tRentInvoiceMonthly* findMonthlyInvoiceByDate(tRentInvoiceData* list, tDate date) ;
+
+// Print on the screen the information of an invoice list
+void printRentInvoiceData(tRentInvoiceData* list);
+
+// Print on the screen the information of a Node of a list of rent invoices
+void printRentInvoiceNode(tRentInvoiceNode* node);
+
+///// AUX Methods: Test PR2 //////
+
+// Structure for testing to represent expected invoice data for a month
+typedef struct {
+    int invoiceCount;
+    struct {
+        char cadastral_ref[MAX_CADASTRAL_REF + 1];
+        float rent;
+    } invoices[30]; // Adjust size as needed
+} ExpectedInvoices;
+
+// Release a list of invoices
+void invoiceList_free(tRentInvoiceData* list);
+
+int testVerifySpecificDate(tRentInvoiceData* invoiceList, const char* dateStr, ExpectedInvoices* expectedInvoices);
+
+///// AUX Methods: Top-down design //////
+
+//Retrieves the last rent invoice from a linked list of rent invoices.
+tRentInvoiceMonthly* getLastRentInvoice(tRentInvoiceData* list);
+
+// Update the rent amount for a given invoice
+void monthlyInvoice_update(tRentInvoiceMonthly* invoice, char* cadastral_ref, float rent);
+
+// Copy the contents from source to destination
+void monthlyInvoice_copy(tRentInvoiceMonthly* src, tRentInvoiceMonthly* dst, char * cadastral_ref, float rent);
+
+// Find the monthly invoice for a given date
+tRentInvoiceMonthly* invoiceList_find(tRentInvoiceData* list, tDate date);
+
+// Extend the list adding empty month cells on left
+void invoiceList_expandLeft(tRentInvoiceData* list, tDate start_date, tDate end_date, char * cadastral_ref, float rent);
+
+// Extend the list to the right os the start of contract
+void invoiceList_expandRight(tRentInvoiceData* list, tDate start_date, tDate end_date, char * cadastral_ref, float rent);
+
+// Get the rent amount for a certain invoice and date
+float invoiceList_getRent(tRentInvoiceData* list, char * cadastral_ref, tRentInvoice* invoice);
+
+
+
+#endif 
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/landlord.h */
+#ifndef __TAXATION_H__
+#define __TAXATION_H__
+#include "csv.h"
+#include "tenant.h"
+
+///////////////////////////
+#define MAX_PROPERTIES 80
+#define MAX_NAME 15
+#define MAX_STREET 25
+#define AMOUNT_NO_RENT 150.0
+
+#define NUM_FIELDS_LANDLORD 3
+#define NUM_FIELDS_PROPERTY 4
+
+typedef struct _tAddress {
+    char street[MAX_STREET];
+    int number;
+} tAddress;
+
+typedef struct _tProperty {
+    char cadastral_ref[MAX_CADASTRAL_REF + 1];
+    tAddress address;
+    char landlord_id[MAX_PERSON_ID + 1];
+} tProperty;
+
+typedef struct _tProperties {
+    tProperty elems[MAX_PROPERTIES];
+    int count;
+} tProperties;
+
+typedef struct _tLandlord {
+    char *name;
+    char id[MAX_PERSON_ID + 1];
+    float tax;
+    tProperties properties;
+} tLandlord;
+
+typedef struct _tLandlords {
+    tLandlord *elems;
+    int count;
+} tLandlords;
+
+//////////////////////////////////
+// Available methods
+//////////////////////////////////
+// Initialize the properties data
+void properties_init(tProperties* data);
+
+// Get the number of properties
+int properties_len(tLandlord data);
+
+// Initialize the landlords data
+void landlords_init(tLandlords* data);
+
+// Get the number of landlords
+int landlords_len(tLandlords data);
+
+// Get the number of properties of all landlords
+int landlords_propertiesCount(tLandlords data);
+
+// Initialize a landlord
+void landlord_init(tLandlord* data);
+
+// Parse input from CSVEntry
+void landlord_parse(tLandlord* data, tCSVEntry entry);
+
+// Release a landlord
+void landlord_free(tLandlord* data);
+
+// Add a new tenant
+void landlords_add(tLandlords* data, tLandlord tenant);
+
+//Remove a landlord
+void landlords_del(tLandlords* data, char* id);
+
+// Remove all elements
+void landlords_free(tLandlords* data);
+
+// Copy the data from the source to destination
+void landlords_cpy(tLandlords* destination, tLandlords source);
+
+// Parse input from CSVEntry
+void property_parse(tProperty* data, tCSVEntry entry);
+
+// Add a new property
+void landlord_add_property(tLandlords* data, tProperty property);
+
+// Calculate and update taxation given tenant
+void landlords_process_tenant(tLandlords* data, tTenant tenant);
+
+// Get landlord data in a string
+void landlord_get(tLandlords data, int index, char* buffer);
+
+// Get a property data in a string
+void property_get(tLandlord data, int index, char* buffer);
+
+// returns true if field tax of expected[index] is greater than the one in declarant[index]
+bool mismatch_tax_declaration(tLandlords expected, tLandlords declarant, int index);
+
+/////////////////////////////////////
+// Aux methods
+/////////////////////////////////////
+
+// [AUX METHOD] Return the position of a property entry with provided information. -1 if it does not exist
+int properties_find(tProperties data, const char* cadastral_ref);
+
+// [AUX METHODS] Copy the data from the source to destination
+void property_cpy(tProperty* destination, tProperty source);
+
+// [AUX METHODS] returns the position of a landlord that has a property with that cadastral ref
+int landlords_find_by_cadastral_ref(tLandlords data, const char* cadastral_ref);
+
+// [AUX METHOD] Return the position of a landl entry with that landlord id. -1 if it does not exist
+int landlords_find(tLandlords data, const char* landlord_id);
+
+// [AUX METHODS] Copy the data from the source to destination
+void landlord_cpy(tLandlord* destination, tLandlord source);
+
+// [AUX METHODS] Copy the properties from sources to destination
+void properties_cpy(tProperties *destination, tProperties source);
+
+////////////////////////////////////////////
+
+
+#endif
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/rental_incomes.h */
+#ifndef __RENTAL_INCOMES_H__
+#define __RENTAL_INCOMES_H__
+
+#include <stdbool.h>
+#include "error.h"
+#include "tenant.h"
+#include "landlord.h"
+
+#define NUM_FIELDS_RENTAL_INCOME 3
+
+typedef struct _tRentalIncome {
+    tLandlord *landlord;
+    int year;
+    float totalIncome;
+} tRentalIncome;
+
+typedef struct _tRentalIncomeListNode {
+    tRentalIncome elem;
+    struct _tRentalIncomeListNode *next;
+} tRentalIncomeListNode;
+
+typedef struct _tRentalIncomeList {
+    tRentalIncomeListNode *first;
+    int count;
+} tRentalIncomeList;
+
+// Parse a rental income
+void rentalIncome_parse(tRentalIncome* data, tCSVEntry entry);
+
+// Initialize a rental incomes list
+void rentalIncomes_init(tRentalIncomeList *list);
+
+// Check if the linked list is empty
+bool rentalIncomes_isEmpty(tRentalIncomeList list);
+
+// Return the number of elements of the list
+int rentalIncomes_len(tRentalIncomeList list);
+
+// Create and initialize a node of tRentalIncomeListNode
+tRentalIncomeListNode* rentalIncomes_createNode(tRentalIncome rentalIncome);
+
+// Add an element into the linked list
+tApiError rentalIncomes_add(tRentalIncomeList *list, tRentalIncome rentalIncome);
+
+// Release the list
+void rentalIncomes_free(tRentalIncomeList *list);
+
+#endif
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/tax_office.h */
+#ifndef __TAX_OFFICE_H__
+#define __TAX_OFFICE_H__
+
+#include "invoice.h"
+#define MAX_OFFICE_CODE 8
+
+// Tax Inspection Office
+typedef struct _tTaxOffice {    
+    char office_code[MAX_OFFICE_CODE + 1];  // Unique identifier for the tax office
+    tRentInvoiceData rentInvoices;  // Data structure managing all rent invoices   
+   
+} tTaxOffice;
+
+// Tax Inspection Office list node
+typedef struct _tTaxOfficeNode {    
+    tTaxOffice elem;
+    struct _tTaxOfficeNode *next;
+} tTaxOfficeNode;
+
+// Tax Inspection Office list
+typedef struct _tTaxOfficeList {    
+    tTaxOfficeNode* first;  // Pointer to the first tax office in the list
+    int count;               // Number of tax offices in the list
+} tTaxOfficeList;
+
+// Initialize a tax office
+void taxOffice_init(tTaxOffice* office, const char* office_code);
+
+// Release a tax office's data
+void taxOffice_free(tTaxOffice* office);
+
+// Initialize a list of tax offices
+void taxOfficeList_init(tTaxOfficeList* list);
+
+// Release a list of tax offices
+void taxOfficeList_free(tTaxOfficeList* list);
+
+// Insert a new tax office
+void taxOfficeList_insert(tTaxOfficeList* list, const char* office_code);
+
+// Find a tax office
+tTaxOffice* taxOfficeList_find(tTaxOfficeList* list, const char* office_code);
+
+// Check if an office code is valid
+bool check_office_code(const char* office_code);
+
+
+#endif // __TAX_OFFICE_H__
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/taxes.h */
+#ifndef __TAXES_H__
+#define __TAXES_H__
+
+#include <stdbool.h>
+
+// Node of the tax queue
+typedef struct _tTaxNode {
+    float taxAmount;
+    int month; // Month (1-12)
+    struct _tTaxNode *next;
+} tTaxNode;
+
+// Queue of taxes assigned to a landlord
+typedef struct _tTaxQueue {
+    tTaxNode *front;
+    tTaxNode *rear;
+    int count;
+} tTaxQueue;
+
+// Initialize the tax queue
+void taxQueue_init(tTaxQueue *queue);
+
+// Check if the tax queue is empty
+bool taxQueue_isEmpty(tTaxQueue queue);
+
+// Return the number of elements in the tax queue
+int taxQueue_len(tTaxQueue queue);
+
+// Enqueue a tax into the queue
+void taxQueue_enqueue(tTaxQueue *queue, float taxAmount, int month);
+
+// Dequeue a tax from the queue
+void taxQueue_dequeue(tTaxQueue *queue);
+
+// Free the memory of the tax queue
+void taxQueue_free(tTaxQueue *queue);
+
+// Get a string representation of the tax queue
+void taxQueue_toString(tTaxQueue queue, char *buffer, int bufferSize);
+
+#endif // __TAXES_H__
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/include/tenant.h */
+#ifndef __TENANT_H__
+#define __TENANT_H__
+
+#include "date.h"
+#include "csv.h"
+
+#define MAX_PERSON_ID 9
+#define MAX_CADASTRAL_REF 7
+#define MAX_POSTAL_CODE 8
+
+#define NUM_FIELDS_TENANT 8
+
+typedef struct _tTenant {
+    tDate start_date;
+    tDate end_date;
+    char tenant_id[MAX_PERSON_ID + 1];
+    char *name;
+    float rent;
+    int age;
+	char postal_code [MAX_CADASTRAL_REF + 1];;
+    char cadastral_ref[MAX_POSTAL_CODE + 1];
+} tTenant;
+
+typedef struct _tTenantData {
+    tTenant *elems;
+    int count;
+} tTenantData;
+
+// Initialize a tenant
+void tenant_init(tTenant *tenant);
+
+void tenant_initialize(tTenant *tenant, const char* start_date, const char * end_date, const char *tenant_id, 
+                      const char *name, float rent, int age, const char *cadastral_ref, const char *postal_code );
+
+// Copy a tenant
+void tenant_cpy(tTenant *dst, tTenant src);
+
+// Parse input from CSVEntry
+void tenant_parse(tTenant* data, tCSVEntry entry);
+
+// Release a tenant
+void tenant_free(tTenant *tenant);
+
+// Initialize the tenants data
+void tenantData_init(tTenantData *data);
+
+// Return the number of tenants
+int tenantData_len(tTenantData tenants);
+
+// Add a tenant to the data
+void tenantData_add(tTenantData *data, tTenant tenant);
+
+// Find a tenant into the data
+int tenantData_find(tTenantData data, const char* tenant_id);
+
+// Release the tenants data
+void tenantData_free(tTenantData *data);
+
+#endif
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/api.c */
+#include <stdio.h>
+#include <assert.h>
+#include "csv.h"
+#include "api.h"
+
+#include <string.h>
+
+
+#define FILE_READ_BUFFER_SIZE 2048
+
+// Get the API version information
+const char* api_version() {
+    return "UOC PP 20241";
+}
+
+// Load data from a CSV file. If reset is true, remove previous data
+tApiError api_loadData(tApiData* data, const char* filename, bool reset) {
+    tApiError error;
+    FILE *fin;    
+    char buffer[FILE_READ_BUFFER_SIZE];
+    tCSVEntry entry;
+    
+    // Check input data
+    assert( data != NULL );
+    assert(filename != NULL);
+    
+    // Reset current data    
+    if (reset) {
+        // Remove previous information
+        error = api_freeData(data);
+        if (error != E_SUCCESS) {
+            return error;
+        }
+        
+        // Initialize the data
+        error = api_initData(data);
+        if (error != E_SUCCESS) {
+            return error;
+        }
+    }
+
+    // Open the input file
+    fin = fopen(filename, "r");
+    if (fin == NULL) {
+        return E_FILE_NOT_FOUND;
+    }
+    
+    // Read file line by line
+    while (fgets(buffer, FILE_READ_BUFFER_SIZE, fin)) {
+        // Remove new line character     
+        buffer[strcspn(buffer, "\n\r")] = '\0';
+        
+        csv_initEntry(&entry);
+        csv_parseEntry(&entry, buffer, NULL);
+        // Add this new entry to the api Data
+        error = api_addDataEntry(data, entry);
+        if (error != E_SUCCESS) {
+            return error;
+        }
+        csv_freeEntry(&entry);
+
+    }
+    
+    fclose(fin);
+    
+    return E_SUCCESS;
+}
+
+// Initialize the data structure
+tApiError api_initData(tApiData* data) {            
+    //////////////////////////////////
+    // Ex PR1 2b
+    /////////////////////////////////
+    // Check input data structure
+    assert(data != NULL);
+    
+    // Initialize data structures
+    tenantData_init(&(data->tenants));
+    landlords_init(&(data->landlords));
+    rentalIncomes_init(&(data->rentalIncomes));
+	
+	//////////////////////////////////
+    // Ex PR2 3b
+    /////////////////////////////////
+	taxOfficeList_init(&(data->taxOffices));
+    /////////////////////////////////
+    
+
+    
+    return E_SUCCESS;
+    
+    /////////////////////////////////
+    // return E_NOT_IMPLEMENTED;
+}
+
+// Add a tenant into the data if it does not exist
+tApiError api_addTenant(tApiData* data, tCSVEntry entry) {
+    //////////////////////////////////
+    // Ex PR1 2c
+    /////////////////////////////////
+    tTenant tenant;
+	
+	//////////////////////////////////
+    // Ex PR2 3c
+    ///////////////////////////////// 
+	tTaxOffice * pTaxOffice;
+    /////////////////////////////////
+
+    
+    // Check input data structure
+    assert(data != NULL);
+    
+    // Check the entry type
+    if (strcmp(csv_getType(&entry), "TENANT") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    
+    // Check the number of fields
+    if(csv_numFields(entry) != NUM_FIELDS_TENANT) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+    
+    // Parse a tenant
+    tenant_parse(&tenant, entry);
+    
+    // Check if the tenant already exists
+    if (tenantData_find(data->tenants, tenant.tenant_id) >= 0) {
+        // Release the allocated memory
+        tenant_free(&tenant);
+        
+        return E_TENANT_DUPLICATED;
+    }
+    
+    // Add the tenant into the data
+    tenantData_add(&(data->tenants), tenant);
+	
+	//////////////////////////////////
+    // Ex PR2 3c
+    /////////////////////////////////
+	
+    pTaxOffice = taxOfficeList_find(&(data->taxOffices), tenant.postal_code);
+    if (pTaxOffice == NULL) {
+		taxOfficeList_insert(&data->taxOffices,tenant.postal_code);     
+       
+        pTaxOffice = taxOfficeList_find(&(data->taxOffices), tenant.postal_code);
+    }
+	invoiceList_update(&pTaxOffice->rentInvoices, tenant.start_date, tenant.end_date, tenant.cadastral_ref, tenant.rent);		
+
+    /////////////////////////////////
+
+    
+    // Release the allocated memory
+    tenant_free(&tenant);
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    // return E_NOT_IMPLEMENTED;
+}
+
+// Add a landlord if it does not exist
+tApiError api_addLandlord(tApiData* data, tCSVEntry entry) {
+    //////////////////////////////////
+    // Ex PR1 2d
+    /////////////////////////////////
+    tLandlord landlord;
+    
+    // Check input data structure
+    assert(data != NULL);
+    
+    // Check the entry type
+    if (strcmp(csv_getType(&entry), "LANDLORD") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    
+    // Check the number of fields
+    if(csv_numFields(entry) != NUM_FIELDS_LANDLORD) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+    
+    // Initialize the landlord
+    landlord_init(&landlord);
+    
+    // Parse the landlord
+    landlord_parse(&landlord, entry);
+    
+    // Check if the landlord already exists
+    if (landlords_find(data->landlords, landlord.id) >= 0) {
+        // Release the memory
+        landlord_free(&landlord);
+        
+        return E_LANDLORD_DUPLICATED;
+    }
+    
+    // Insert the landlord
+    landlords_add(&(data->landlords), landlord);
+    
+    // Release the memory
+    landlord_free(&landlord);
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    // return E_NOT_IMPLEMENTED;
+}
+
+// Add a property into the properties of an specific landlord
+tApiError api_addProperty(tApiData* data, tCSVEntry entry) {
+    //////////////////////////////////
+    // Ex PR1 2e
+    /////////////////////////////////
+    tProperty property;
+    
+    // Check input data structure
+    assert(data != NULL);
+    
+    // Check the entry type
+    if (strcmp(csv_getType(&entry), "PROPERTY") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    
+    // Check the number of fields
+    if(csv_numFields(entry) != NUM_FIELDS_PROPERTY) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+    
+    // Parse the property
+    property_parse(&property, entry);
+    
+    // Check if the landlord exist
+    if (landlords_find(data->landlords, property.landlord_id) < 0) {
+        return E_LANDLORD_NOT_FOUND;
+    }
+    
+    // Check if the property already exists
+    if (landlords_find_by_cadastral_ref(data->landlords, property.cadastral_ref) >= 0) {
+        return E_PROPERTY_DUPLICATED;
+    }
+    
+    // Add the property to the landlord
+    landlord_add_property(&(data->landlords), property);
+    
+    // No release data because it does not use allocated memory
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    // return E_NOT_IMPLEMENTED;
+}
+
+// Add a rental income into a list if the landlord already exists
+tApiError api_addRentalIncome(tApiData* data, tCSVEntry entry) {
+    //////////////////////////////////
+    // Ex PR1 2f
+    /////////////////////////////////
+    char document[MAX_PERSON_ID + 1];
+    int idx;
+    tRentalIncome rentalIncome;
+    tRentalIncome *pRentalIncome;
+    
+    // Check input data structure
+    assert(data != NULL);
+    
+    // Check the entry type
+    if (strcmp(csv_getType(&entry), "RENTAL_INCOME") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    
+    // Check the number of fields
+    if(csv_numFields(entry) != NUM_FIELDS_RENTAL_INCOME) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+    
+    // Get the document id
+    csv_getAsString(entry, 2, document, MAX_PERSON_ID + 1);
+    
+    // Check if the landlord exist
+    idx = landlords_find(data->landlords, document);
+    if (idx < 0) {
+        return E_LANDLORD_NOT_FOUND;
+    }
+    
+    // Parse the information of the rental income
+    rentalIncome_parse(&rentalIncome, entry);
+    
+    // Point the landlord of the rental income to the landlord of the vector
+    rentalIncome.landlord = &(data->landlords.elems[idx]);
+    
+    // Insert the rental income into the list
+    rentalIncomes_add(&(data->rentalIncomes), rentalIncome);
+    
+    // No release data because it does not use allocated memory
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    // return E_NOT_IMPLEMENTED;
+}
+
+// Find a rental income by year and landlord document id
+tRentalIncome* rentalIncomes_find(tRentalIncomeList list, int year, const char* document_id) {
+    //////////////////////////////////
+    // Ex PR1 2g
+    /////////////////////////////////
+    tRentalIncomeListNode *pNode = NULL;
+    tRentalIncome *rentalIncome = NULL;
+    
+    // Check input data (Pre-conditions)
+    assert(document_id != NULL);
+    
+    rentalIncome = NULL;
+    pNode = list.first;
+    
+    while (pNode != NULL && rentalIncome == NULL) {
+        if (pNode->elem.year == year && strcmp(pNode->elem.landlord->id, document_id) == 0) {
+            rentalIncome = &(pNode->elem);
+        }
+        
+        pNode = pNode->next;
+    }
+    
+    return rentalIncome;
+    /////////////////////////////////
+    // return NULL;
+}
+
+// Get the number of tenants registered on the application
+int api_tenantCount(tApiData data) {
+    //////////////////////////////////
+    // Ex PR1 2h
+    /////////////////////////////////
+    return tenantData_len(data.tenants);
+    /////////////////////////////////
+    //return -1;
+}
+
+
+// Get the number of landlords registered on the application
+int api_landlordsCount(tApiData data) {
+    //////////////////////////////////
+    // Ex PR1 2h
+    /////////////////////////////////
+    return landlords_len(data.landlords);    
+    /////////////////////////////////
+    //return -1;
+}
+
+// Get the number of properties in all landlords registered on the application
+int api_propertiesCount(tApiData data) {
+    //////////////////////////////////
+    // Ex PR1 2h
+    /////////////////////////////////
+	return landlords_propertiesCount(data.landlords);    
+    /////////////////////////////////
+    //return -1;
+}
+
+// Get the number of rental incomes registered
+int api_rentalIncomesCount(tApiData data) {
+    //////////////////////////////////
+    // Ex PR1 2h
+    /////////////////////////////////
+	return rentalIncomes_len(data.rentalIncomes);    
+    /////////////////////////////////
+    //return -1;
+}
+
+// Get the number of health centers registered on the application
+int api_taxOfficeCount(tApiData data) {
+    //////////////////////////////////
+    // Ex PR2 3e
+    
+    return data.taxOffices.count;
+    
+    /////////////////////////////////
+    // return -1;
+}
+
+
+// Free all used memory
+tApiError api_freeData(tApiData* data) {
+    //////////////////////////////////
+    // Ex PR1 2i
+    /////////////////////////////////
+    tenantData_free(&(data->tenants));
+    landlords_free(&(data->landlords));
+    rentalIncomes_free(&(data->rentalIncomes));  
+    //////////////////////////////////
+    // Ex PR2 3d
+    /////////////////////////////////  
+    taxOfficeList_free(&(data->taxOffices)); 
+	/////////////////////////////////
+    return E_SUCCESS;
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED;
+}
+
+
+// Add a new entry
+tApiError api_addDataEntry(tApiData* data, tCSVEntry entry) { 
+    //////////////////////////////////
+    // Ex PR1 2j
+    /////////////////////////////////
+    assert(data != NULL);
+
+    if (strcmp(csv_getType(&entry), "TENANT") == 0) {
+        // Add a tenant
+        return api_addTenant(data, entry);
+	} else if (strcmp(csv_getType(&entry), "LANDLORD") == 0) {
+        // Add winegrower
+        return api_addLandlord(data, entry);   
+    } else if (strcmp(csv_getType(&entry), "PROPERTY") == 0) {
+        // Add a property
+        return api_addProperty(data, entry);
+	} else if (strcmp(csv_getType(&entry), "RENTAL_INCOME") == 0) {
+        // Add vineyard plot
+        return api_addRentalIncome(data, entry);           
+    } else {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    return E_SUCCESS;
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED;
+}
+
+// Get landlord data
+tApiError api_getLandlord(tApiData data, const char *id, tCSVEntry *entry) {
+    //////////////////////////////////
+    // Ex PR1 3a
+    /////////////////////////////////
+    char buffer[2048];
+    
+    tLandlord* landlord = NULL;
+    int idx;
+        
+    assert(id != NULL);
+    assert(entry != NULL);
+    
+    // Search the landlord
+    idx = landlords_find(data.landlords, id);
+	
+	if (idx < 0) {
+		return E_LANDLORD_NOT_FOUND;
+	}
+	
+    landlord = &(data.landlords.elems[idx]);
+    
+    // Print data in the buffer
+    sprintf(buffer, "%s;%s;%.1f", landlord->name, landlord->id, landlord->tax);
+    // Initialize the output structure
+    csv_initEntry(entry);
+    csv_parseEntry(entry, buffer, "LANDLORD");
+    
+    return E_SUCCESS;
+    
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED; 
+}
+
+// Get the rental income by year of a landlord
+tApiError api_getRentalIncome(tApiData data, int year, const char* id, tCSVEntry *entry) {
+    //////////////////////////////////
+    // Ex PR1 3b
+    /////////////////////////////////
+    char buffer[2048];    
+	tRentalIncome *rentalIncome= NULL; 
+
+    assert(id != NULL);
+    assert(entry != NULL);
+    
+    rentalIncome = rentalIncomes_find(data.rentalIncomes, year, id);
+        
+    if (rentalIncome == NULL) {
+        return E_RENTAL_INCOME_NOT_FOUND;
+    }
+
+    // Print data in the buffer
+    sprintf(buffer, "%d;%.1f;%s", 
+        rentalIncome->year,
+        rentalIncome->totalIncome,
+        rentalIncome->landlord->id
+    );
+    // Initialize the output structure
+    csv_initEntry(entry);
+    csv_parseEntry(entry, buffer, "RENTAL_INCOME");
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED; 
+}
+
+// Get registered properties
+tApiError api_getProperties(tApiData data, tCSVData *properties) {
+    //////////////////////////////////
+    // Ex PR1 3c
+    /////////////////////////////////
+    char buffer[2048];
+    tProperty *property;
+    
+    csv_init(properties);
+    
+    for (int i = 0; i < data.landlords.count; i++) {
+        for (int j = 0; j < data.landlords.elems[i].properties.count; j++) {
+            property = &(data.landlords.elems[i].properties.elems[j]);
+            sprintf(buffer, "%s;%s;%d;%s", 
+                property->cadastral_ref,
+                property->address.street,
+                property->address.number,
+                property->landlord_id
+            );
+            
+            csv_addStrEntry(properties, buffer, "PROPERTY");
+        }
+    }
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED;
+}
+
+// Get registered rental incomes
+tApiError api_getRentalIncomes(tApiData data, tCSVData *rentalIncomes) {
+    //////////////////////////////////
+    // Ex PR1 3d
+    /////////////////////////////////
+    char buffer[2048];
+    tRentalIncomeListNode *pNode = NULL;
+    
+    csv_init(rentalIncomes);
+        
+    pNode = data.rentalIncomes.first;
+    while(pNode != NULL) {
+        sprintf(buffer, "%d;%.2f;%s", 
+            pNode->elem.year,
+            pNode->elem.totalIncome,
+            pNode->elem.landlord->id
+        );
+
+        csv_addStrEntry(rentalIncomes, buffer, "RENTAL_INCOME");
+        pNode = pNode->next;
+    }    
+    
+    return E_SUCCESS;
+    /////////////////////////////////
+    //return E_NOT_IMPLEMENTED;
+}
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/csv.c */
+#include "csv.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+// Initialize the tCSVData structure
+void csv_init(tCSVData* data) {
+    data->count = 0;
+    data->isValid = false;
+    data->entries = NULL;
+}
+
+// Initialize the tCSVEntry structure
+void csv_initEntry(tCSVEntry* entry) {
+    entry->numFields = 0;    
+    entry->fields = NULL;
+    entry->type = NULL;
+}
+
+// Add a new entry to the CSV Data
+void csv_addStrEntry(tCSVData* data, const char* entry, const char* type) {
+    assert( data != NULL );
+    assert( entry != NULL );
+    data->count++;
+    if (data->count == 1) {
+        data->entries = (tCSVEntry*) malloc(sizeof(tCSVEntry));
+    } else {
+        data->entries = (tCSVEntry*) realloc(data->entries, data->count * sizeof(tCSVEntry));
+    }
+    csv_initEntry(&(data->entries[data->count-1]));
+    csv_parseEntry(&(data->entries[data->count-1]), entry, type);
+}
+
+// Parse the contents of a CSV file
+void csv_parse(tCSVData* data, const char* input, const char* type) {
+    const char *pStart, *pEnd;
+    char *line;
+    int len;
+    
+    assert(data->count == 0);
+    assert(data->entries == NULL);
+    assert(!data->isValid);
+    
+    pStart = input;
+    pEnd = strchr(pStart, '\n');    
+    while(pEnd != NULL && pEnd != pStart) {
+        len = pEnd - pStart + 1;
+        line = (char*) malloc(len * sizeof(char));
+        memset(line, 0, len * sizeof(char));
+        strncpy(line, pStart, pEnd - pStart);
+        // Add the new entry line
+        csv_addStrEntry(data, line, type);
+        free(line);
+        pStart = pEnd + 1;
+        pEnd = strchr(pStart, '\n');
+    }
+    pEnd = strchr(pStart, '\0');
+    if (pEnd != NULL && pEnd != pStart) {
+        len = pEnd - pStart + 1;
+        line = (char*) malloc(len * sizeof(char));
+        memset(line, 0, len * sizeof(char));
+        strncpy(line, pStart, pEnd - pStart);
+        data->count++;
+        if (data->count == 1) {
+            data->entries = (tCSVEntry*) malloc(sizeof(tCSVEntry));
+        } else {
+            data->entries = (tCSVEntry*) realloc(data->entries, data->count * sizeof(tCSVEntry));
+        }
+        csv_initEntry(&(data->entries[data->count-1]));
+        csv_parseEntry(&(data->entries[data->count-1]), line, type);
+        free(line);
+    }
+    data->isValid = true;
+}
+
+// Print the content of the CSV data structure
+void csv_print(tCSVData data) {
+    int i;
+    tCSVEntry* entry = NULL;
+    
+    for (i = 0; i < csv_numEntries(data); i++) {
+        entry = csv_getEntry(data, i);
+        printf("===============\n");
+        printf("Entry %d: %s\n", i, entry->type);
+        printf("===============\n");
+        csv_printEntry(*entry);
+        printf("===============\n");
+    }    
+}
+
+// Print the content of the CSV entry structure
+void csv_printEntry(tCSVEntry entry) {
+    int i;
+    char buffer[512];    
+    printf("\tNum Fields: %d\n", csv_numFields(entry));
+    for (i = 0; i < csv_numFields(entry); i++) {
+        csv_getAsString(entry, i, buffer, 512);
+        printf("\tField %d: %s\n", i, buffer);
+    }
+}
+
+// Parse the contents of a CSV line
+void csv_parseEntry(tCSVEntry* entry, const char* input, const char* type) {
+    const char *pStart, *pEnd;    
+    int len;
+    bool readType = true;
+    
+    assert(entry->numFields == 0);
+    assert(entry->fields == NULL);
+    
+    // If the type of the entry is not provided, use the first field
+    if(type != NULL) {
+        len = strlen(type) + 1;
+        entry->type = (char*) malloc(len * sizeof(char));
+        memset(entry->type, 0, len * sizeof(char));
+        strncpy(entry->type, type, len);
+        readType = false;
+    }        
+    pStart = input;
+    pEnd = strchr(pStart, ';');    
+    while(pEnd != NULL && pEnd != pStart) {        
+        // Get the length of the field
+        len = pEnd - pStart + 1;
+        
+        if(readType) {
+            entry->type = (char*) malloc(len * sizeof(char));
+            memset(entry->type, 0, len * sizeof(char));
+            strncpy(entry->type, pStart, pEnd - pStart);
+            readType = false;
+        } else {
+            entry->numFields++;
+            if (entry->numFields == 1) {
+                entry->fields = (char**) malloc(sizeof(char*));
+            } else {
+                entry->fields = (char**) realloc(entry->fields, entry->numFields * sizeof(char*));
+            }                
+            entry->fields[entry->numFields - 1] = (char*) malloc(len * sizeof(char));
+            memset(entry->fields[entry->numFields - 1], 0, len * sizeof(char));
+            strncpy(entry->fields[entry->numFields - 1], pStart, pEnd - pStart);
+        }
+        
+        pStart = pEnd + 1;
+        pEnd = strchr(pStart, ';');
+    }
+    pEnd = strchr(pStart, '\0');
+    if (pEnd != NULL && pEnd != pStart) {
+        
+        assert(!readType);
+        
+        entry->numFields++;
+        if (entry->numFields == 1) {
+            entry->fields = (char**) malloc(sizeof(char*));
+        } else {
+            entry->fields = (char**) realloc(entry->fields, entry->numFields * sizeof(char*));
+        }        
+        len = pEnd - pStart + 1;
+        entry->fields[entry->numFields - 1] = (char*) malloc(len * sizeof(char));
+        memset(entry->fields[entry->numFields - 1], 0, len * sizeof(char));
+        strncpy(entry->fields[entry->numFields - 1], pStart, pEnd - pStart);
+    }
+}
+
+// Get the number of entries
+bool csv_isValid(tCSVData data) {
+    return data.isValid;
+}
+
+// Remove all data from structure
+void csv_free(tCSVData* data) {
+    int i;
+    
+    for (i = 0; i < data->count; i++) {
+        csv_freeEntry(&(data->entries[i]));
+    }
+    free(data->entries);
+    csv_init(data);
+}
+
+// Remove all data from structure
+void csv_freeEntry(tCSVEntry* entry) {
+    int i;
+    
+    if(entry->fields != NULL) {
+        for(i = 0; i < entry->numFields; i++) {
+            free(entry->fields[i]);
+            entry->fields[i] = NULL;
+        }
+        
+        free(entry->fields);
+    }
+    if(entry->type != NULL) {
+        free(entry->type);
+    }
+    csv_initEntry(entry);
+}
+
+// Get the number of entries
+int csv_numEntries(tCSVData data) {
+    return data.count;
+}
+
+// Get the type of information contained in the entry
+const char* csv_getType(tCSVEntry* entry) {
+    return (const char*)entry->type;
+}
+
+// Get an entry from the CSV data
+tCSVEntry* csv_getEntry(tCSVData data, int position) {
+    return &(data.entries[position]);
+}
+
+// Get the number of fields for a given entry
+int csv_numFields(tCSVEntry entry) {
+    return entry.numFields;
+}
+
+// Get a field from the given entry as integer
+int csv_getAsInteger(tCSVEntry entry, int position) {
+    return atoi(entry.fields[position]);
+}
+
+// Get a field from the given entry as string
+void csv_getAsString(tCSVEntry entry, int position, char* buffer, int length) {
+    memset(buffer, 0, length);
+    strncpy(buffer, entry.fields[position], length - 1);
+}
+
+// Get a field from the given entry as integer
+float csv_getAsReal(tCSVEntry entry, int position) {
+    return atof(entry.fields[position]);
+}
+
+// Compare if two entries are the same
+bool csv_equalsEntry(tCSVEntry entry1, tCSVEntry entry2) {
+    int i;
+    if (entry1.numFields != entry2.numFields) {
+        return false;
+    }
+    if (strcmp(entry1.type, entry2.type) != 0) {
+        return false;
+    }
+    for (i = 0; i < entry1.numFields ; i++) {
+        if (strcmp(entry1.fields[i], entry2.fields[i]) != 0) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Compare if two data objects are the same
+bool csv_equals(tCSVData data1, tCSVData data2) {
+    int i;
+    if (data1.count != data2.count) {
+        return false;
+    }
+    for (i = 0; i < data1.count ; i++) {
+        if (!csv_equalsEntry(data1.entries[i], data2.entries[i])) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/date.c */
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+#include <string.h>
+#include "date.h"
+
+// Parse a tDate from string information
+void date_parse(tDate* date, const char* text)
+{
+    // Check output data
+    assert(date != NULL);
+    
+    // Check input date
+    assert(text != NULL);
+    assert(strlen(text) == DATE_LENGTH);
+ 
+    // Parse the input date
+    sscanf(text, "%d/%d/%d", &(date->day), &(date->month), &(date->year));
+}
+
+// Copy a date from src to dst
+void date_cpy(tDate *dst, tDate src) {
+    // Check output data
+    assert(dst != NULL);
+    
+    dst->day = src.day;
+    dst->month = src.month;
+    dst->year = src.year;
+}
+
+// Compare two dates
+int date_cmp(tDate date1, tDate date2) {
+    // Checkl year
+    if (date1.year < date2.year) {
+        return -1;
+    }
+    if (date1.year > date2.year) {
+        return 1;
+    }
+    // Check month
+    if (date1.month < date2.month) {
+        return -1;
+    }
+    if (date1.month > date2.month) {
+        return 1;
+    }  
+    // Check day
+    if (date1.day < date2.day) {
+        return -1;
+    }
+    if (date1.day > date2.day) {
+        return 1;
+    }
+    
+    return 0;
+}
+
+// Parse a tDateTime from string information
+void dateTime_parse(tDateTime* dateTime, const char* date, const char* time) {
+    // Check output data
+    assert(dateTime != NULL);
+    
+    // Check input date
+    assert(date != NULL);
+    assert(strlen(date) == 10);
+    
+    // Check input time
+    assert(time != NULL);
+    assert(strlen(time) == 5);
+    
+    // Parse the input date
+    sscanf(date, "%d/%d/%d", &(dateTime->date.day), &(dateTime->date.month), &(dateTime->date.year));
+    
+    // Parse the input time
+    sscanf(time, "%d:%d", &(dateTime->time.hour), &(dateTime->time.minutes));
+}
+
+// Compare two tDateTime structures and return -1 if dateTime1<dateTime2, 0 if equals and 1 if dateTime1>dateTime2.
+int dateTime_cmp(tDateTime dateTime1, tDateTime dateTime2) {    
+    // Checkl year
+    if (dateTime1.date.year < dateTime2.date.year) {
+        return -1;
+    }
+    if (dateTime1.date.year > dateTime2.date.year) {
+        return 1;
+    }
+    // Check month
+    if (dateTime1.date.month < dateTime2.date.month) {
+        return -1;
+    }
+    if (dateTime1.date.month > dateTime2.date.month) {
+        return 1;
+    }  
+    // Check day
+    if (dateTime1.date.day < dateTime2.date.day) {
+        return -1;
+    }
+    if (dateTime1.date.day > dateTime2.date.day) {
+        return 1;
+    }
+    // Check hour
+    if (dateTime1.time.hour < dateTime2.time.hour) {
+        return -1;
+    }
+    if (dateTime1.time.hour > dateTime2.time.hour) {
+        return 1;
+    }
+    // Check minutes
+    if (dateTime1.time.minutes < dateTime2.time.minutes) {
+        return -1;
+    }
+    if (dateTime1.time.minutes > dateTime2.time.minutes) {
+        return 1;
+    }
+    
+    return 0;
+}
+
+// Compare two tDateTime structures and return true if they contain the same value or false otherwise.
+bool dateTime_equals(tDateTime dateTime1, tDateTime dateTime2) {
+    return dateTime_cmp(dateTime1, dateTime2) == 0;
+}
+
+// Initialize a time structure
+void dateTime_initTime(struct tm *std_time, tDateTime timestamp) {
+    std_time->tm_sec = 0;
+    std_time->tm_min = timestamp.time.minutes;
+    std_time->tm_hour = timestamp.time.hour;
+    std_time->tm_mday = timestamp.date.day;
+    std_time->tm_mon = timestamp.date.month - 1;
+    std_time->tm_year = timestamp.date.year - 1900;    
+    
+    // Upate the date
+    mktime(std_time);
+}
+
+// Initialize a time structure
+void dateTime_fromTime(tDateTime *timestamp, struct tm std_time) {
+    
+    assert (timestamp != NULL);
+
+    timestamp->time.minutes = std_time.tm_min;
+    timestamp->time.hour = std_time.tm_hour;
+    timestamp->date.day = std_time.tm_mday;
+    timestamp->date.month = std_time.tm_mon + 1;
+    timestamp->date.year = std_time.tm_year + 1900;    
+}
+
+
+// Add a months to a given date
+void dateTime_addMonth(tDateTime* dateTime, int months) {
+    struct tm initTimestamp = { 0 };   
+    time_t timeValue;
+    assert(dateTime != NULL);
+    
+    // Get standard time representation
+    dateTime_initTime(&initTimestamp, *dateTime);
+    
+    // Add the number of months    
+    initTimestamp.tm_mon += months;
+    
+    // Upate the date
+    timeValue =mktime(&initTimestamp);
+    
+    // Update output structure
+    dateTime_fromTime(dateTime, initTimestamp);
+
+}
+
+
+
+// Add months to a given date
+void date_addMonth(tDate* date, int months) {
+    tDateTime timestamp;
+    
+    assert(date != NULL);
+
+    timestamp.date = *date;
+    timestamp.time.hour = 0;
+    timestamp.time.minutes = 0;
+    
+    dateTime_addMonth(&timestamp, months);
+    
+    *date = timestamp.date;
+}
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/invoice.c */
+#include "tenant.h"
+#include "invoice.h"
+#include "date.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <assert.h>
+
+
+// Initialize an invoice list
+void invoiceList_init(tRentInvoiceData * list) {
+    // PR2 Ex 1a
+    assert(list != NULL);
+    list -> first = NULL;
+    list -> count = 0;
+}
+
+// Function to update or add a tenant's rent across their tenancy period
+void invoiceList_update(tRentInvoiceData * list, tDate startMonthDate, tDate endMonthDate, char * cadastral_ref, float rent) {
+    // PR2 Ex 1b
+    tRentInvoiceMonthly * pNode;
+    tRentInvoiceMonthly * last;
+
+    assert(list != NULL);
+    assert(cadastral_ref != NULL);
+
+    startMonthDate.day = 1;
+    endMonthDate.day = 1;
+
+    // If the list is empty, just add a new element	
+    if (list -> count == 0) {
+        // Create the new element
+        list -> first = (tRentInvoiceMonthly * ) malloc(sizeof(tRentInvoiceMonthly));
+        assert(list -> first != NULL);
+
+        list -> count = 1;
+        // Initialize the new element
+        monthlyInvoice_init(list -> first, startMonthDate);
+        assert(list -> first -> next == NULL);
+        pNode = list -> first -> next;
+        date_addMonth( & startMonthDate, 1);
+        // Update the rent
+        monthlyInvoice_update(list -> first, cadastral_ref, rent);
+
+    }
+
+    //else {
+    last = getLastRentInvoice(list);
+    // Expandir la lista para cubrir el período de alquiler del inquilino
+    if (date_cmp(list -> first -> month, startMonthDate) > 0) {
+        // La fecha de inicio del inquilino es antes de la fecha más temprana en la lista
+        tDate penultimateMonth = list -> first -> month;
+        date_addMonth( & penultimateMonth, -1);
+        invoiceList_expandLeft(list, startMonthDate, penultimateMonth, cadastral_ref, rent);
+        // Set start position for update the first element
+        pNode = list -> first;
+
+    } else if (date_cmp(last -> month, endMonthDate) > 0) {
+        // Date is in the range of dates we already have. We will start updating on provided date.
+        pNode = invoiceList_find(list, startMonthDate);
+        assert(pNode != NULL);
+    } else {
+        // La fecha de finalización del inquilino es después de la última fecha en la lista
+        invoiceList_expandRight(list, startMonthDate, endMonthDate, cadastral_ref, rent);
+        //last = getLastRentInvoice(list);
+        //pNode = last;
+        pNode = invoiceList_find(list, startMonthDate);
+    }
+
+    // Update all invoices from the pNode position to the end month date  
+    while (pNode != NULL && date_cmp(pNode -> month, endMonthDate) <= 0) {
+        monthlyInvoice_update(pNode, cadastral_ref, rent);
+        pNode = pNode -> next;
+    }
+
+}
+
+// Get the rent amount for a certain invoice and date
+float getInvoiceMonthly(tRentInvoiceData * data, tDate date) {
+    // PR2 Ex 1c
+    assert(data != NULL);
+
+    // Normalize the date by setting the day to 1
+    date.day = 1;
+
+    // Find the monthly invoice for the given date
+    tRentInvoiceMonthly * monthlyInvoice = findMonthlyInvoiceByDate(data, date);
+    if (monthlyInvoice == NULL) {
+        // No invoices for this date
+        return 0.0f;
+    }
+
+    // Sum up the rent amounts
+    float totalRent = 0.0f;
+    tRentInvoiceNode * currentInvoiceNode = monthlyInvoice -> first;
+    while (currentInvoiceNode != NULL) {
+        totalRent += currentInvoiceNode -> elem.rent;
+        currentInvoiceNode = currentInvoiceNode -> next;
+    }
+
+    return totalRent;
+}
+
+// Release a list of invoices
+void invoiceList_free(tRentInvoiceData * list) {
+    // PR2 Ex 1d
+    assert(list != NULL);
+    tRentInvoiceMonthly * current = list -> first;
+    while (current != NULL) {
+        tRentInvoiceMonthly * next = current -> next;
+        monthlyInvoice_free(current);
+        free(current);
+        current = next;
+    }
+    list -> first = NULL;
+    list -> count = 0;
+}
+
+
+// Initialize an invoice element
+void invoice_init(tRentInvoice * invoice, float rent,
+    const char * cadastral_ref) {
+    invoice -> rent = rent;
+    strncpy(invoice -> cadastral_ref, cadastral_ref, MAX_CADASTRAL_REF);
+    invoice -> cadastral_ref[MAX_CADASTRAL_REF] = '\0';
+}
+
+// Initialize an invoice node element
+void invoiceNode_init(tRentInvoiceNode * node, float rent,
+    const char * cadastral_ref) {
+    assert(node != NULL);
+    invoice_init( & node -> elem, rent, cadastral_ref);
+    node -> next = NULL;
+}
+
+// Initialize a monthly invoice element
+void monthlyInvoice_init(tRentInvoiceMonthly * invoice, tDate date) {
+    assert(invoice != NULL);
+    invoice -> month = date;
+    invoice -> first = NULL;
+    invoice -> count = 0;
+    invoice -> next = NULL;
+}
+
+// Remove a monthly invoice element data
+void monthlyInvoice_free(tRentInvoiceMonthly * invoice) {
+    assert(invoice != NULL);
+    tRentInvoiceNode * current = invoice -> first;
+    while (current != NULL) {
+        tRentInvoiceNode * next = current -> next;
+        free(current);
+        current = next;
+    }
+    invoice -> first = NULL;
+    invoice -> count = 0;
+}
+
+// Function to find a monthly invoice by date
+tRentInvoiceMonthly * findMonthlyInvoiceByDate(tRentInvoiceData * list, tDate date) {
+    assert(list != NULL);
+
+    tRentInvoiceMonthly * current = list -> first;
+    while (current != NULL) {
+        int cmpResult = date_cmp(current -> month, date);
+        if (cmpResult == 0) {
+            // Found the monthly invoice for the specified date
+            return current;
+        } else if (cmpResult > 0) {
+            // Since the list is ordered chronologically, no need to continue
+            break;
+        }
+        current = current -> next;
+    }
+    // Monthly invoice for the specified date not found
+    return NULL;
+}
+
+
+// Print on the screen the information of an invoice list
+void printRentInvoiceData(tRentInvoiceData * list) {
+    assert(list != NULL);
+    tRentInvoiceMonthly * current = list -> first;
+    while (current != NULL) {
+        printf("Month: %d-%d\n", current -> month.year, current -> month.month);
+        printRentInvoiceNode(current -> first);
+        current = current -> next;
+    }
+}
+
+// Print on the screen the information of a Node of a list of rent invoices
+void printRentInvoiceNode(tRentInvoiceNode * node) {
+    assert(node != NULL);
+    while (node != NULL) {
+        printf("Cadastral Ref: %s, Rent: %.2f\n", node -> elem.cadastral_ref, node -> elem.rent);
+        node = node -> next;
+    }
+}
+
+/////////////////////////////////////////
+///// AUX Methods: Test PR2		   //////
+/////////////////////////////////////////
+
+// Function to verify invoices within a monthly invoice node
+bool verifyMonthlyInvoices(tRentInvoiceMonthly * monthlyInvoice, ExpectedInvoices * expectedInvoices) {
+    assert(monthlyInvoice != NULL);
+    assert(expectedInvoices != NULL);
+
+    // Verify the number of invoices
+    if (monthlyInvoice -> count != expectedInvoices -> invoiceCount) {
+        return false;
+    }
+
+    tRentInvoiceNode * currentInvoiceNode = monthlyInvoice -> first;
+    int invoiceIndex = 0;
+
+    while (currentInvoiceNode != NULL && invoiceIndex < expectedInvoices -> invoiceCount) {
+        // Verify cadastral_ref and rent
+        if (strcmp(currentInvoiceNode -> elem.cadastral_ref, expectedInvoices -> invoices[invoiceIndex].cadastral_ref) != 0 ||
+            currentInvoiceNode -> elem.rent != expectedInvoices -> invoices[invoiceIndex].rent) {
+
+            return false;
+        }
+        currentInvoiceNode = currentInvoiceNode -> next;
+        invoiceIndex++;
+    }
+
+    // Check if there are extra invoices
+    if (currentInvoiceNode != NULL || invoiceIndex != expectedInvoices -> invoiceCount) {
+        return false;
+    }
+
+    // All invoices match
+    return true;
+}
+
+int testVerifySpecificDate(tRentInvoiceData * invoiceList,
+    const char * dateStr, ExpectedInvoices * expectedInvoices) {
+    tDate dateToVerify;
+    date_parse( & dateToVerify, dateStr);
+    dateToVerify.day = 1;
+    int passed = 0;
+    tRentInvoiceMonthly * monthlyInvoice = findMonthlyInvoiceByDate(invoiceList, dateToVerify);
+
+    if (monthlyInvoice == NULL) {
+
+    }
+
+    if (verifyMonthlyInvoices(monthlyInvoice, expectedInvoices)) {
+        passed = 1;
+    } else {
+
+    }
+    return passed;
+}
+
+
+
+/////////////////////////////////////////
+///// AUX Methods: Top-down design //////
+/////////////////////////////////////////
+
+// Retrieves the last rent invoice from a linked list of rent invoices.
+tRentInvoiceMonthly * getLastRentInvoice(tRentInvoiceData * list) {
+    // Ensure the list pointer is not NULL and the list is not empty
+    if (list == NULL || list -> count == 0) {
+        return NULL; // The list is empty or NULL
+    }
+
+    // Initialize the current node to the first invoice
+    tRentInvoiceMonthly * currentNode = list -> first;
+
+    // Iterate through the list until the last invoice is reached
+    while (currentNode -> next != NULL) {
+        currentNode = currentNode -> next;
+    }
+
+    return currentNode; // Return the last invoice node
+}
+
+// Update the rent amount for a given invoice
+void monthlyInvoice_update(tRentInvoiceMonthly * invoice, char * cadastral_ref, float rent) {
+    tRentInvoiceNode * current = invoice -> first;
+    tRentInvoiceNode * prev = NULL;
+
+    // Search for the correct position to insert, maintaining order by cadastral_ref
+    while (current != NULL && strcmp(current -> elem.cadastral_ref, cadastral_ref) < 0) {
+        prev = current;
+        current = current -> next;
+    }
+
+    if (current != NULL && strcmp(current -> elem.cadastral_ref, cadastral_ref) == 0) {
+        // The invoice already exists, update the rent
+        current -> elem.rent = rent;
+    } else {
+        // Create a new invoice node
+        tRentInvoiceNode * newNode = (tRentInvoiceNode * ) malloc(sizeof(tRentInvoiceNode));
+        assert(newNode != NULL);
+        invoice_init( & newNode -> elem, rent, cadastral_ref);
+
+        // Insert the new node into the list, maintaining order
+        if (prev == NULL) {
+            // Insert at the beginning
+            newNode -> next = invoice -> first;
+            invoice -> first = newNode;
+        } else {
+            // Insert between prev and current
+            prev -> next = newNode;
+            newNode -> next = current;
+        }
+        invoice -> count++;
+    }
+}
+
+// Copy the contents from source to destination
+void monthlyInvoice_copy(tRentInvoiceMonthly * src, tRentInvoiceMonthly * dst, char * cadastral_ref, float rent) {
+    tRentInvoiceNode * pNode;
+
+    // Ensure destination is initialized
+    monthlyInvoice_init(dst, dst -> month);
+
+    // Add vaccines from soruce to destination
+    pNode = src -> first;
+    while (pNode != NULL) {
+
+        monthlyInvoice_update(dst, cadastral_ref, rent);
+        pNode = pNode -> next;
+    }
+
+}
+
+// Find the monthly invoice for a given date
+tRentInvoiceMonthly * invoiceList_find(tRentInvoiceData * list, tDate date) {
+    tRentInvoiceMonthly * pNode;
+    tRentInvoiceMonthly * pDate;
+    tRentInvoiceMonthly * last;
+    assert(list != NULL);
+
+    // Initialize the return pointer
+    pDate = NULL;
+
+    // Get the last monthly node in the list
+    last = getLastRentInvoice(list);
+
+    // Check if the list is not empty and the date is within the range of dates in the list
+    if (list -> count > 0 && date_cmp(list -> first -> month, date) <= 0 && date_cmp(last -> month, date) >= 0) {
+        pNode = list -> first;
+        while (pNode != NULL && pDate == NULL) {
+            if (date_cmp(pNode -> month, date) == 0) {
+                // Point to the current node
+                pDate = pNode;
+            }
+            pNode = pNode -> next;
+        }
+    }
+
+    return pDate;
+}
+
+// Extend the invoice list to the left with the data of the first position
+void invoiceList_expandLeft(tRentInvoiceData * list, tDate start_date, tDate end_date, char * cadastral_ref, float rent) {
+    tDate currentMonth;
+    tRentInvoiceMonthly * newMonthly;
+
+    // Ensure the list is not empty
+    assert(list -> first != NULL);
+
+    currentMonth = end_date;
+
+    // Iterate and add invoices until reaching the target date
+    while (date_cmp(currentMonth, start_date) >= 0) {
+        newMonthly = (tRentInvoiceMonthly * ) malloc(sizeof(tRentInvoiceMonthly));
+        assert(newMonthly != NULL);
+
+        // Initialize the new monthly invoice node
+        monthlyInvoice_init(newMonthly, currentMonth);
+
+        // Add the invoice for cadastral_ref and rent
+        monthlyInvoice_update(newMonthly, cadastral_ref, rent);
+        // Insert the new node at the beginning of the list
+        newMonthly -> next = list -> first;
+        list -> first = newMonthly;
+        list -> count++;
+
+        // Decrement the currentDate by one month
+        date_addMonth( & currentMonth, -1);
+    }
+}
+
+// Extend the list to the right os the start of contract
+void invoiceList_expandRight(tRentInvoiceData * list, tDate start_date, tDate end_date, char * cadastral_ref, float rent) {
+    tDate currentDate;
+    tRentInvoiceMonthly * last = getLastRentInvoice(list);
+
+    // Ensure the list is not empty
+    assert(last != NULL);
+
+    // Set currentDate to the month after the last invoice's date
+    currentDate = last -> month;
+    date_addMonth( & currentDate, 1);
+    //currentDate = start_date;   
+
+    // Iterate and add invoices until reaching the target date
+    while (date_cmp(currentDate, end_date) <= 0) {
+        // Allocate memory for a new monthly invoice
+        last -> next = (tRentInvoiceMonthly * ) malloc(sizeof(tRentInvoiceMonthly));
+        assert(last -> next != NULL);
+        list -> count++;
+
+        // Initialize the new invoice with the currentDate
+        monthlyInvoice_init(last -> next, currentDate);
+
+        // Copy the contents from the last invoice to the new invoice
+        monthlyInvoice_copy(last, last -> next, cadastral_ref, rent);
+
+        // Move to the newly added invoice
+        last = last -> next;
+
+        // Increment the currentDate by one month
+        date_addMonth( & currentDate, 1);
+    }
+}
+
+
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/landlord.c */
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
+#include <stdio.h>
+#include "landlord.h"
+
+//////////////////////////////////
+// Available methods
+//////////////////////////////////
+
+// Initialize the properties
+void properties_init(tProperties* data) {   
+    /////////////
+    // Set the initial number of elements to zero.
+    data->count = 0;
+    /////////////
+}
+
+// Get the number of properties
+int properties_len(tLandlord data) {
+    //////////////
+    // Return the number of elements
+    return data.properties.count;
+    //////////////
+}
+
+// Initialize the landlords
+void landlords_init(tLandlords* data) {   
+    /////////////
+    // Set the initial number of elements to zero.
+    data->count = 0;
+	data->elems = NULL;
+    /////////////
+}
+
+// Get the number of landlords
+int landlords_len(tLandlords data) {   
+    //////////////
+    // Return the number of elements
+    return data.count;
+    //////////////
+}
+
+// Get the number of properties of all landlords
+int landlords_propertiesCount(tLandlords data) {
+    int i;
+    int count = 0;
+    
+    // Iterate all landlords
+    for (i = 0; i < data.count; i++) {
+        count += properties_len(data.elems[i]);
+    }
+    
+    return count;
+}
+
+
+////////////////////////////////////////
+void landlords_process_tenant(tLandlords* data, tTenant tenant) {
+    int idx;
+
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    
+    // Check if an entry with this data already exists
+    idx = landlords_find_by_cadastral_ref(*data, tenant.cadastral_ref);
+    
+    // If it does not exist, create a new entry
+    if (idx >= 0) {
+        int months_rented = tenant.end_date.month - tenant.start_date.month + 1;
+        float tax_factor;
+        float amount_to_add;
+        if (tenant.age <= 35)
+            tax_factor = 0.1;
+        else 
+            tax_factor = 0.2;
+        amount_to_add = months_rented * tenant.rent * tax_factor - AMOUNT_NO_RENT * months_rented;
+        data->elems[idx].tax = data->elems[idx].tax + amount_to_add;
+    }
+}
+
+
+// Get a property
+void property_get(tLandlord data, int index, char* buffer) { 
+    assert(index < data.properties.count);
+    sprintf(buffer, "%s;%s,%d;%s", 
+        data.properties.elems[index].cadastral_ref,
+        data.properties.elems[index].address.street,
+        data.properties.elems[index].address.number,
+        data.properties.elems[index].landlord_id     
+    );
+}
+
+// Parse input from CSVEntry
+void property_parse(tProperty* data, tCSVEntry entry) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    assert(csv_numFields(entry) == NUM_FIELDS_PROPERTY);
+    
+    // Get the date and time
+    csv_getAsString(entry, 0, data->cadastral_ref, MAX_CADASTRAL_REF + 1);    
+    csv_getAsString(entry, 1, data->address.street, MAX_STREET + 1);    
+    data->address.number = csv_getAsInteger(entry, 2);
+    csv_getAsString(entry, 3, data->landlord_id, MAX_PERSON_ID + 1);    
+}
+
+////////////////////////////////////////
+
+// Add a new property
+void landlord_add_property(tLandlords* data, tProperty property) {
+    int idx_landlord;
+
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    
+    idx_landlord = landlords_find(*data, property.landlord_id);
+    if (idx_landlord >= 0) {
+        int idx_property = -1;
+
+        // Check if an entry with this data already exists
+        idx_property = properties_find(data->elems[idx_landlord].properties, property.cadastral_ref);
+        
+        // If it does not exist, create a new entry
+        if (idx_property < 0) {
+            int property_count = data->elems[idx_landlord].properties.count;
+            assert(property_count < MAX_PROPERTIES);
+            property_cpy(&(data->elems[idx_landlord].properties.elems[property_count]), property);
+            data->elems[idx_landlord].properties.count++;
+            data->elems[idx_landlord].tax = data->elems[idx_landlord].tax + AMOUNT_NO_RENT*12;
+        }
+    }
+}
+
+// Get a landlord
+void landlord_get(tLandlords data, int index, char* buffer) {
+    assert(index < data.count);
+    sprintf(buffer, "%s;%s;%.1f", 
+        data.elems[index].name,
+        data.elems[index].id,
+        data.elems[index].tax
+    );
+}
+
+// Initialize a landlord
+void landlord_init(tLandlord* data) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    
+    data->name = NULL;
+}
+
+// Parse input from CSVEntry
+void landlord_parse(tLandlord* data, tCSVEntry entry) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    assert(csv_numFields(entry) == NUM_FIELDS_LANDLORD);
+    data->properties.count = 0;
+    
+    data->name = (char*) malloc((strlen(entry.fields[0]) + 1) * sizeof(char));
+    assert(data->name != NULL);
+    memset(data->name, 0, (strlen(entry.fields[0]) + 1) * sizeof(char));
+    csv_getAsString(entry, 0, data->name, strlen(entry.fields[0]) + 1);    
+    
+    csv_getAsString(entry, 1, data->id, MAX_PERSON_ID + 1);    
+    
+    data->tax = csv_getAsInteger(entry, 2);
+    
+    // Initialize the properties
+    properties_init(&(data->properties));
+}
+
+// Release a landlord
+void landlord_free(tLandlord* data) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);   
+    
+    // Release the name
+    if (data->name != NULL) {
+        free(data->name);
+    }
+    data->name = NULL;
+}
+
+////////////////////////////////////////
+
+// Add a new landlord
+void landlords_add(tLandlords* data, tLandlord landlord) {
+    int idx;
+
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    
+    // Check if an entry with this data already exists
+    idx = landlords_find(*data, landlord.id);
+    
+    // If it does not exist, create a new entry
+    if (idx < 0) {
+        if (data->elems == NULL) {
+            data->elems = (tLandlord*) malloc(sizeof(tLandlord));
+        } else {
+            data->elems = (tLandlord*) realloc(data->elems, (data->count + 1) * sizeof(tLandlord));
+        }
+        assert(data->elems != NULL);
+        /////////////////////////////////  
+        landlord_cpy(&(data->elems[data->count]), landlord);
+        data->count++;        
+    }
+}
+
+// Remove a landlord
+void landlords_del(tLandlords* data, char* id) 
+{
+    int idx;
+    int i;
+    
+    // Check if an entry with this data already exists
+    idx = landlords_find(*data, id);
+    
+    if (idx >= 0) {
+        // Shift elements to remove selected
+        for(i = idx; i < data->count-1; i++) {
+                // Copy element on position i+1 to position i
+                landlord_cpy(&(data->elems[i]), data->elems[i+1]);
+        }
+        // Update the number of elements
+        data->count--;  
+        /////////////////////////////////
+        if (data->count > 0) {
+            data->elems = (tLandlord*) realloc(data->elems, data->count * sizeof(tLandlord));
+            assert(data->elems != NULL);
+        } else {
+			landlords_free(data);
+        }
+        /////////////////////////////////   
+    }
+}
+
+// returns true if field tax of expected[index] is greater than the one in declarant[index]
+bool mismatch_tax_declaration(tLandlords expected, tLandlords declarant, int index) {
+    return (expected.elems[index].tax > declarant.elems[index].tax);
+}
+
+// Copy the data from the source to destination
+void landlords_cpy(tLandlords* destination, tLandlords source) {
+    int i;
+    destination->count = source.count;
+	destination->elems = (tLandlord*) malloc(source.count * sizeof(tLandlord));
+	
+    for(i = 0 ; i < landlords_len(source) ; i++) {
+        landlord_cpy(&(destination->elems[i]), source.elems[i]);
+        // we want to copy all fields from source.elems[i] but want 
+        // to set tax to 0 in the expected landlords
+        destination->elems[i].tax = 0.0;
+    }    
+}
+
+// [AUX METHOD] Return the position of a tenant entry with provided information. -1 if it does not exist
+int landlords_find(tLandlords data, const char* id) {
+    int i;
+    int res = -1;
+
+    i = 0;
+    while ((i < data.count) && (res < 0)) {
+        if((strcmp(data.elems[i].id, id) == 0)) {
+            res = i;
+        }
+        else {
+            i++;
+        } 
+    }
+    
+    return res;
+}
+
+
+// [AUX METHOD] Return the position of a tenant entry with provided information. -1 if it does not exist
+int landlords_find_by_cadastral_ref(tLandlords data, const char* id) {
+    int i, j;
+    int res = -1;
+
+    i = 0;
+    while ((i < data.count) && (res < 0)) {
+        j = 0;
+        while ((j < data.elems[i].properties.count) && (res < 0)) {
+            if((strcmp(data.elems[i].properties.elems[j].cadastral_ref, id) == 0)) {
+                res = i;
+            }
+            j++;
+        }
+        i++;
+    }
+    
+    return res;
+}
+
+
+// [AUX METHODS] Copy the data from the source to destination
+void landlord_cpy(tLandlord* destination, tLandlord source) {
+
+    destination->name = (char*) malloc(sizeof(char) * (strlen(source.name) + 1));
+    assert(destination->name != NULL);
+    strcpy(destination->name, source.name);
+    
+    strcpy(destination->id, source.id);
+    destination->tax = source.tax;
+    
+    properties_cpy(&(destination->properties), source.properties);
+}
+
+// [AUX METHODS] Copy the properties from sources to destination
+void properties_cpy(tProperties *destination, tProperties source) {
+    int i;
+    
+    for (i = 0; i < source.count; i++) {
+        property_cpy(&(destination->elems[i]), source.elems[i]);
+    }
+    
+    destination->count = source.count;
+}
+
+// [AUX METHOD] Return the position of a property entry with provided information. -1 if it does not exist
+int properties_find(tProperties data, const char* cadastral_ref) {
+    int i;
+    int res = -1;
+
+    i = 0;
+    while ((i < data.count) && (res < 0)) {
+        if((strcmp(data.elems[i].cadastral_ref, cadastral_ref) == 0)) {
+            res = i;
+        }
+        else {
+            i++;
+        } 
+    }
+    return res;
+}
+
+// [AUX METHODS] Copy the data from the source to destination
+void property_cpy(tProperty* destination, tProperty source) {
+    strcpy(destination->cadastral_ref, source.cadastral_ref);
+    strcpy(destination->address.street, source.address.street);
+    destination->address.number = source.address.number;
+    strcpy(destination->landlord_id, source.landlord_id);
+}
+
+// Remove all elements 
+void landlords_free(tLandlords* data) { 
+    /////////////////////////////////
+    if (data->elems != NULL) {
+        for(int i = 0 ; i < landlords_len(*data) ; i++) {
+        landlord_free(&(data->elems[i]));
+    }  
+        
+    free(data->elems);
+    }
+    landlords_init(data);
+    /////////////////////////////////    
+}
+
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/rental_incomes.c */
+#include <assert.h>
+#include <string.h>
+#include <stdlib.h>
+#include "rental_incomes.h"
+
+// Parse a rental income
+void rentalIncome_parse(tRentalIncome* data, tCSVEntry entry) {
+    assert(data != NULL);
+    assert(csv_numFields(entry) == NUM_FIELDS_RENTAL_INCOME);
+    
+    data->year = csv_getAsInteger(entry, 0);
+    data->totalIncome = csv_getAsReal(entry, 1);
+}
+
+// Initialize a rental incomes list
+void rentalIncomes_init(tRentalIncomeList *list) {
+    // Check input data (Pre-conditions)
+    assert(list != NULL);
+    
+    list->first = NULL;
+    list->count = 0;
+}
+
+// Check if the linked list is empty
+bool rentalIncomes_isEmpty(tRentalIncomeList list) {
+    return list.count == 0;
+}
+
+// Return the number of elements of the list
+int rentalIncomes_len(tRentalIncomeList list) {
+    return list.count;
+}
+
+// Create and initialize a node of tRentalIncomeListNode
+tRentalIncomeListNode* rentalIncomes_createNode(tRentalIncome rentalIncome) {
+    tRentalIncomeListNode *pNode = NULL;
+    
+    pNode = (tRentalIncomeListNode*) malloc(sizeof(tRentalIncomeListNode));
+    assert(pNode != NULL);
+    
+    pNode->elem.landlord = rentalIncome.landlord;
+    pNode->elem.year = rentalIncome.year;
+    pNode->elem.totalIncome = rentalIncome.totalIncome;
+    
+    pNode->next = NULL;
+    
+    return pNode;
+}
+
+// Add an element into the linked list
+tApiError rentalIncomes_add(tRentalIncomeList *list, tRentalIncome rentalIncome) {
+    tRentalIncomeListNode *pNode = NULL, *pCurrent = NULL, *pPrev = NULL;
+    
+    // Check input data (Pre-conditions)
+    assert(list != NULL);
+    
+    pNode = rentalIncomes_createNode(rentalIncome);
+    
+    if (pNode == NULL) {
+        return E_MEMORY_ERROR;
+    }
+    
+    pCurrent = list->first;
+    pPrev = NULL;
+    
+    while (pCurrent != NULL && (pCurrent->elem.year < rentalIncome.year ||
+           (pCurrent->elem.year == rentalIncome.year && strcmp(pCurrent->elem.landlord->id, rentalIncome.landlord->id) < 0))) {
+        pPrev = pCurrent;
+        pCurrent = pCurrent->next;
+    }
+
+    if (pPrev == NULL) {
+        pNode->next = list->first;
+        list->first = pNode;
+    } else {
+        pPrev->next = pNode;
+        pNode->next = pCurrent;
+    }
+    
+    list->count++;
+    
+    return E_SUCCESS;
+}
+
+// Release the list
+void rentalIncomes_free(tRentalIncomeList *list) {
+    tRentalIncomeListNode *pNode = NULL, *pAux = NULL;
+    
+    // Check input data (Pre-conditions)
+    assert(list != NULL);
+    
+    pNode = list->first;
+    
+    while (pNode != NULL) {
+        pAux = pNode->next;
+        free(pNode);
+        pNode = pAux;
+    }
+    
+    rentalIncomes_init(list);
+}
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/tax_office.c */
+#include <string.h>
+#include <assert.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "tax_office.h"
+// Initialize a tax office
+void taxOffice_init(tTaxOffice * office,  const char * office_code) {
+	// Ex PR3 2a
+    assert(office != NULL);
+
+    // Copy the office_code
+    strcpy(office -> office_code, office_code);
+    // Initialize the rent invoices
+    invoiceList_init( &(office -> rentInvoices));
+
+}
+
+// Release a tax office's data
+void taxOffice_free(tTaxOffice * office) {
+	// Ex PR3 2b
+   
+    // Release rent invoices data
+    invoiceList_free( &(office -> rentInvoices));
+	office->office_code[0] = '\0';
+
+}
+
+// Initialize a list of tax offices
+void taxOfficeList_init(tTaxOfficeList * list) {
+	// Ex PR3 2c
+    assert(list != NULL);
+
+    list -> count = 0;
+    list -> first = NULL;
+}
+
+// Check if an office code is valid
+bool check_office_code(const char * office_code) {
+	// Ex PR3 2d
+    bool valid = true;
+
+    int length = 0;
+    int i;
+
+    // Ensure that office_code is not NULL
+    assert(office_code != NULL);
+
+    // Get the total length of the code
+    length = strlen(office_code);
+
+    // Verify that the length is 6 or 7
+    if (length != 6 && length != 7) {
+        return false;
+    }
+
+    // Determine the number of province characters
+    int province_length = (length == 7) ? 2 : 1;
+
+    // Verify that the first 'province_length' characters are uppercase letters
+    for (i = 0; i < province_length; i++) {
+        if (!isalpha(office_code[i]) || !isupper(office_code[i])) {
+            return false;
+        }
+    }
+
+    // Verify that the next 5 characters are digits
+    for (i = province_length; i < province_length + 5; i++) {
+        if (!isdigit(office_code[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Insert a new tax office
+void taxOfficeList_insert(tTaxOfficeList * list,  const char * office_code) {
+	// Ex PR3 2e
+    tTaxOfficeNode * pNode;
+    tTaxOfficeNode * pAux;
+
+    assert(list != NULL);
+
+    // Check office code
+    if (!check_office_code(office_code)) {
+        // Do not add the office because parameters are wrong
+        return;
+    }
+
+    if (taxOfficeList_find(list, office_code) == NULL) {
+        // Check if insertion point is the first position
+        if (list -> first == NULL || strcmp(list -> first -> elem.office_code, office_code) > 0) {
+            // Insert as initial position
+            pAux = list -> first;
+            list -> first = (tTaxOfficeNode * ) malloc(sizeof(tTaxOfficeNode));
+            assert(list -> first != NULL);
+            list -> first -> next = pAux;
+            taxOffice_init( & (list -> first -> elem), office_code);
+        } else {
+            // Search insertion point
+            pAux = list -> first;
+            pNode = pAux -> next;
+            while (pNode != NULL && strcmp(pNode -> elem.office_code, office_code) > 0) {
+                pAux = pNode;
+                pNode = pNode -> next;
+            }
+            pAux -> next = (tTaxOfficeNode * ) malloc(sizeof(tTaxOfficeNode));
+            assert(pAux -> next != NULL);
+            pAux -> next -> next = pNode;
+            taxOffice_init( & (pAux -> next -> elem), office_code);
+        }
+        // Increase the number of elements
+        list -> count++;
+    }
+}
+
+// Find a tax office
+tTaxOffice * taxOfficeList_find(tTaxOfficeList * list,  const char * office_code) {
+	// Ex PR3 2f
+    tTaxOfficeNode * pNode;
+    tTaxOffice * pOffice;
+
+    assert(list != NULL);
+
+    // Search office with provided office_code
+    pNode = list -> first;
+    pOffice = NULL;
+    while (pNode != NULL && pOffice == NULL) {
+        if (strcmp(office_code, pNode -> elem.office_code) == 0) {
+            pOffice = & (pNode -> elem);
+        }
+        pNode = pNode -> next;
+    }
+
+    return pOffice;
+}
+
+// Release a list of tax offices
+void taxOfficeList_free(tTaxOfficeList * list) {
+	// Ex PR3 2g
+    tTaxOfficeNode * pNode;
+    tTaxOfficeNode * pAux;
+
+    assert(list != NULL);
+
+    // Remove all elements in the list
+    pNode = list -> first;
+    while (pNode != NULL) {
+        taxOffice_free( & (pNode -> elem));
+        pAux = pNode;
+        pNode = pNode -> next;
+        free(pAux);
+    }
+
+    list -> count = 0;
+    list -> first = NULL;
+}
+
+
+
+
+
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/taxes.c */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "taxes.h"
+
+// Initialize the tax queue
+void taxQueue_init(tTaxQueue *queue) {
+    queue->front = NULL;
+    queue->rear = NULL;
+    queue->count = 0;
+}
+
+// Check if the tax queue is empty
+bool taxQueue_isEmpty(tTaxQueue queue) {
+    return queue.count == 0;
+}
+
+// Return the number of elements in the tax queue
+int taxQueue_len(tTaxQueue queue) {
+    return queue.count;
+}
+
+// Enqueue a tax into the queue
+void taxQueue_enqueue(tTaxQueue *queue, float taxAmount, int month) {
+    tTaxNode *newNode = (tTaxNode *)malloc(sizeof(tTaxNode));
+    if (newNode == NULL) {
+        printf("Error allocating memory for a new tax node.\n");
+        exit(1);
+    }
+    newNode->taxAmount = taxAmount;
+    newNode->month = month;
+    newNode->next = NULL;
+    if (taxQueue_isEmpty(*queue)) {
+        queue->front = newNode;
+    } else {
+        queue->rear->next = newNode;
+    }
+    queue->rear = newNode;
+    queue->count++;
+}
+
+// Dequeue a tax from the queue
+void taxQueue_dequeue(tTaxQueue *queue) {
+    if (taxQueue_isEmpty(*queue)) {
+        printf("The tax queue is empty.\n");
+        return;
+    }
+    tTaxNode *temp = queue->front;
+    queue->front = queue->front->next;
+    if (queue->front == NULL) {
+        queue->rear = NULL;
+    }
+    free(temp);
+    queue->count--;
+}
+
+// Free the memory of the tax queue
+void taxQueue_free(tTaxQueue *queue) {
+    while (!taxQueue_isEmpty(*queue)) {
+        taxQueue_dequeue(queue);
+    }
+}
+
+// Get a string representation of the tax queue
+void taxQueue_toString(tTaxQueue queue, char *buffer, int bufferSize) {
+    tTaxNode *current = queue.front;
+    char temp[256];
+    buffer[0] = '\0';
+    while (current != NULL) {
+        snprintf(temp, sizeof(temp), "Month: %d, Tax: %.2f\n", current->month, current->taxAmount);
+        strncat(buffer, temp, bufferSize - strlen(buffer) - 1);
+        current = current->next;
+    }
+}
+
+
+/* 20241-S_PR2/UOC20241/UOCTaxation/src/tenant.c */
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include "tenant.h"
+
+// Initialize a tenant
+void tenant_init(tTenant *tenant) {
+    // Check input data (Pre-conditions)
+    assert(tenant != NULL);
+    
+    tenant->start_date.day = -1;
+    tenant->start_date.month = -1;
+    tenant->start_date.year = -1;
+    
+    tenant->end_date.day = -1;
+    tenant->end_date.month = -1;
+    tenant->end_date.year = -1;
+    
+    tenant->name = NULL;
+    tenant->rent = -1.0;
+    tenant->age = - 1;
+}
+
+// Initialize a tenant with values
+void tenant_initialize(tTenant *tenant, const char* start_date, const char * end_date, const char *tenant_id, 
+                      const char *name, float rent, int age, const char *cadastral_ref, const char *postal_code
+                      ) {
+						  
+    // Assign start and end dates
+	date_parse( &tenant->start_date, start_date);
+	date_parse( &tenant->end_date, end_date);
+    
+    
+    // Copy tenant_id to structure
+	
+    strcpy(tenant->tenant_id, tenant_id);
+
+    // Allocate memory and copy name
+    tenant->name = malloc(strlen(name) + 1);
+    if (tenant->name != NULL) {
+        strcpy(tenant->name, name);
+    }
+    
+    // Assign other fields
+    tenant->rent = rent;
+    tenant->age = age;
+    
+    // Copy postal_code and cadastral_ref
+    strcpy(tenant->postal_code, postal_code);
+    strcpy(tenant->cadastral_ref, cadastral_ref);
+}
+
+// Copy a tenant
+void tenant_cpy(tTenant *dst, tTenant src) {
+    // Check input data (Pre-conditions)
+    assert(dst != NULL);
+    
+    // Remove old data 
+    tenant_free(dst);
+    
+    // Copy the start date
+    date_cpy(&(dst->start_date), src.start_date);
+    
+    // Copy the end date
+    date_cpy(&(dst->end_date), src.end_date);
+    
+    // Copy the tenant id
+    strcpy(dst->tenant_id, src.tenant_id);
+    
+    // Copy the name
+    dst->name = (char*) malloc((strlen(src.name) + 1) * sizeof(char));
+    assert(dst->name != NULL);
+    strcpy(dst->name, src.name);
+    
+    // Copy the rent
+    dst->rent = src.rent;
+    
+    // Copy the age
+    dst->age = src.age;
+    
+    // Copy the cadastral_ref
+    strcpy(dst->cadastral_ref, src.cadastral_ref);
+	
+	// Copy the postal_code
+    strcpy(dst->postal_code, src.postal_code);
+}
+
+// Parse input from CSVEntry
+void tenant_parse(tTenant* data, tCSVEntry entry) {
+    char start_date[11];
+    char end_date[11];
+	char postal_code[8];
+    
+    // Check input data (Pre-conditions)
+    assert(data != NULL);    
+    assert(csv_numFields(entry) == NUM_FIELDS_TENANT);
+    
+    // Initialize the tentant
+    tenant_init(data);
+    
+    // Get the date and time
+    csv_getAsString(entry, 0, start_date, 11);    
+    date_parse(&(data->start_date), start_date);
+
+    csv_getAsString(entry, 1, end_date, 11);    
+    date_parse(&(data->end_date), end_date);
+    
+    // Assign the tenant ID
+    csv_getAsString(entry, 2, data->tenant_id, MAX_PERSON_ID + 1);
+
+    // Assign the tenant name
+    data->name = (char*) malloc((strlen(entry.fields[3]) + 1) * sizeof(char));
+    assert(data->name != NULL);
+    memset(data->name, 0, (strlen(entry.fields[3]) + 1) * sizeof(char));
+    csv_getAsString(entry, 3, data->name, strlen(entry.fields[3]) + 1);	
+	
+    data->rent = csv_getAsInteger(entry, 4);
+    data->age = csv_getAsInteger(entry, 5);
+    csv_getAsString(entry, 6, data->cadastral_ref, MAX_CADASTRAL_REF + 1);
+	// Assign the tenant postal_code
+	csv_getAsString(entry, 7, data->postal_code, MAX_POSTAL_CODE + 1);
+    
+}
+
+// Release a tenant
+void tenant_free(tTenant *tenant) {
+    // Check input data (Pre-conditions)
+    assert(tenant != NULL);
+    
+    // Release the name
+    if (tenant->name != NULL) {
+        free(tenant->name);
+    }
+    tenant->name = NULL;
+	
+	
+}
+
+// Initialize the tenants data
+void tenantData_init(tTenantData *data) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);
+    
+    data->elems = NULL;
+    data->count = 0;
+}
+
+// Return the number of tenants
+int tenantData_len(tTenantData tenants) {
+    return tenants.count;
+}
+
+// Add a tenant to the data
+void tenantData_add(tTenantData *data, tTenant tenant) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);
+    
+    // If tenant does not exist, add it
+    if (tenantData_find(*(data), tenant.tenant_id) < 0) {
+        // Allocate memory for new element
+        if (data->count == 0) {
+            // Request new memory space
+            data->elems = (tTenant*) malloc(sizeof(tTenant));
+        } else {
+            // Modify currently allocated memory
+            data->elems = (tTenant*) realloc(data->elems, sizeof(tTenant) * (data->count + 1));
+        }
+        
+        assert(data->elems != NULL);
+    
+        // Initialize the new element
+        tenant_init(&(data->elems[data->count]));
+        
+        // Copy the element to the position
+        tenant_cpy(&(data->elems[data->count]), tenant);
+        
+        // Increase the number of elements
+        data->count++;
+    }
+}
+
+// Return the position of the tenant if it exists, otherwise, it returns -1
+int tenantData_find(tTenantData data, const char* tenant_id) {
+    int i;
+    
+    // Check input data (Pre-conditions)
+    assert(tenant_id != NULL);
+    
+    for (i = 0; i < data.count; i++) {
+        if (strcmp(data.elems[i].tenant_id, tenant_id) == 0) {
+            return i;
+        }
+    }
+    
+    return -1;
+}
+
+// Release the tenants data
+void tenantData_free(tTenantData *data) {
+    // Check input data (Pre-conditions)
+    assert(data != NULL);
+    
+    // Release memory
+    if (data->elems != NULL) {
+        for(int i = 0 ; i < data->count ; i++) {
+        tenant_free(&(data->elems[i]));
+        }  
+        free(data->elems);
+    }
+    
+    // Initialize the structure again
+    tenantData_init(data);
+}
+
+
+/* 20241-S_PR2/UOC20241/src/main.c */
+#include <stdio.h>
+#include <stdlib.h>
+#include "test_suite.h"
+#include "test.h"
+
+int main(int argc, char **argv)
+{
+	tAppArguments parameters;
+    tTestSuite testSuite;
+    
+    // Parse input arguments
+    if (!parseArguments(&parameters, argc, argv)) {
+        printf("ERROR: Invalid input arguments");
+        // Wait user to press a key to ensure error is shown
+        waitKey(parameters);
+        // Exit with error
+        exit(EXIT_FAILURE);
+    }
+    
+    // Initialize the test suite
+    testSuite_init(&testSuite);
+    
+    // Set the progress file
+    testSuite_set_progress_file(&testSuite, parameters.progress_file);
+    
+    // Run all tests
+    testSuite_run(&testSuite, parameters.in_file, parameters.readme_file);
+    
+    // Print test results
+    testSuite_print(&testSuite);
+    
+    // Store test results
+    if (parameters.out_file != NULL) {
+        testSuite_export(&testSuite, parameters.out_file);
+        printf("Restults stored in %s\n", parameters.out_file);
+    }
+    if (parameters.progress_file != NULL) {        
+        printf("Progress stored in %s\n", parameters.progress_file);
+    }
+    
+    // Remove test suite data
+    testSuite_free(&testSuite);    
+    
+    // Wait user to press a key to ensure results are shown
+    waitKey(parameters);
+    
+	exit(EXIT_SUCCESS);
+}
+
+
+/* 20241-S_PR2/UOC20241/test/include/test.h */
+#ifndef __TEST__H
+#define __TEST__H
+#include "test_suite.h"
+
+// Write data to file
+void save_data(const char* filename, const char* data);
+
+// Run all available tests
+void testSuite_run(tTestSuite* test_suite, const char* input, const char* readme);
+
+// Check if README.txt is available and have the correct information
+//void readReadme(tTestSuite* test_suite);
+
+#endif // __TEST__H
+
+/* 20241-S_PR2/UOC20241/test/include/test_data.h */
+#ifndef __TEST_DATA__H
+#define __TEST_DATA__H
+
+// Define test data for PR1
+const char* test_data_pr1_str = "TENANT;01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001\n" \
+								"TENANT;01/01/2024;31/12/2024;87654321B;Jason;750.0;30;ZYX1234;BA08002\n" \
+								"TENANT;01/06/2024;31/08/2024;98765432J;Mary;888.25;32;QWE1234;BA08003\n" \
+								"LANDLORD;John;87654321K;1200.0\n" \
+								"LANDLORD;William;54927077H;1500.0\n" \
+								"PROPERTY;ABC1234;Balmes;25;87654321K\n" \
+								"PROPERTY;ZYX1234;Balmes;26;87654321K\n" \
+								"PROPERTY;QWE1234;Turing;99;54927077H\n" \
+								"RENTAL_INCOME;2023;3500.00;87654321K\n" \
+								"RENTAL_INCOME;2024;8800.55;87654321K\n" \
+								"RENTAL_INCOME;2024;7500.10;54927077H\n" \
+								"RENTAL_INCOME;2025;3500.99;54927077H\n";
+								
+const char* test_data_pr2_str = "TENANT;01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001\n" \
+								"TENANT;01/01/2024;31/12/2024;87654321B;Jason;750.0;30;ZYX1234;BA08002\n" \
+								"TENANT;01/06/2024;31/08/2024;98765432J;Mary;888.25;32;QWE1234;BA08003\n"; \
+												
+                                                  
+#endif // TEST_DATA__H
+
+/* 20241-S_PR2/UOC20241/test/include/test_pr1.h */
+#ifndef __TEST_PR1_H__
+#define __TEST_PR1_H__
+
+#include <stdbool.h>
+#include "test_suite.h"
+
+// Run all tests for PR1
+bool run_pr1(tTestSuite* test_suite, const char* input);
+
+// Run tests for PR1 exercice 1
+bool run_pr1_ex1(tTestSection* test_section, const char* input);
+
+// Run tests for PR1 exercice 2
+bool run_pr1_ex2(tTestSection* test_section, const char* input);
+
+// Run tests for PR1 exercice 3
+bool run_pr1_ex3(tTestSection* test_section, const char* input);
+
+
+#endif // __TEST_PR1_H__
+
+/* 20241-S_PR2/UOC20241/test/include/test_pr2.h */
+#ifndef __TEST_PR2_H__
+#define __TEST_PR2_H__
+
+#include <stdbool.h>
+#include "test_suite.h"
+
+// Run all tests for PR2
+bool run_pr2(tTestSuite* test_suite, const char* input);
+
+// Run tests for PR2 exercice 1
+bool run_pr2_ex1(tTestSection* test_section, const char* input);
+
+// Run tests for PR2 exercice 2
+bool run_pr2_ex2(tTestSection* test_section, const char* input);
+
+// Run tests for PR2 exercice 3
+bool run_pr2_ex3(tTestSection* test_section, const char* input);
+
+
+
+
+#endif // __TEST_PR2_H__
+
+/* 20241-S_PR2/UOC20241/test/include/test_suite.h */
+#ifndef __TEST_SUITE__H
+#define __TEST_SUITE__H
+#include <stdbool.h>
+#include <stdbool.h>
+#include <stdio.h>
+
+// #define PRINT_TEST_PROGRESS
+// #define DSLAB
+
+// Size of the buffer used to read files data
+#define BUFFER_SIZE 2048
+
+// Arguments for a test program
+typedef struct _AppArguments {
+    char* app_name;
+    char* out_file;    
+    char* in_file;
+    char* readme_file;
+    char* progress_file;
+    bool wait_on_exit;
+} tAppArguments;
+
+// Status of a test
+typedef enum {
+    TEST_RUNNING,
+    TEST_NOT_IMPLEMENTED,
+    TEST_PASSED,
+    TEST_FAILED
+} tTestResult;
+
+// A single test
+typedef struct {
+    // Code of the test
+    char* code;
+    // Description of the test
+    char* description;
+    // Result of the test
+    tTestResult result;
+} tTest;
+
+// Grup of tests
+typedef struct {
+    // Code of the test section
+    char* code;
+    // Title of the section
+    char* title;
+    // Number of tests
+    int numTests;    
+    // Array of tests
+    tTest* tests;
+    // Progress file
+    char* progress_file;
+} tTestSection;
+
+// Test suit learner data
+typedef struct {
+    // Email
+    char* email;
+    // Username
+    char* username;
+    // First name
+    char* first_name;   
+    // Last name
+    char* last_name;
+    // Environment
+    char* environment;
+    // Whether the learner data file exists or not
+    bool file_exists;
+} tLearnerData;
+
+// Test suit with multiple sections
+typedef struct {
+    // Learner data
+    tLearnerData learner;
+    // Number of sections
+    int numSections;    
+    // Array of sections
+    tTestSection* sections;
+    // Progress file
+    char* progress_file;
+} tTestSuite;
+
+// Buffer. It is an autoincremental dynamic string
+typedef struct {
+    char* data;
+    int count;
+} tBuffer;
+
+// Wait user key
+void waitKey(tAppArguments parameters);
+
+// Display help text
+void help(const char* app_name);
+
+// Parse application arguments
+bool parseArguments(tAppArguments* arguments, int argc, char **argv);
+
+
+// Initialize a test Suite
+void testSuite_init(tTestSuite* object);
+
+// Set output progress file
+void testSuite_set_progress_file(tTestSuite* object, char* progress_file);
+
+// Load learner data
+bool testSuite_load_learner(tTestSuite* object, const char* file);
+
+// Remove a test Suite
+void testSuite_free(tTestSuite* object);
+
+// Add a test Section
+void testSuite_addSection(tTestSuite* object, const char* code, const char* title);
+
+// Add a test
+void testSuite_addTest(tTestSuite* object, const char* section_code, const char* code, const char* description, tTestResult result);
+
+// Update a test result
+void testSuite_updateTest(tTestSuite* object, const char* section_code, const char* test_code, tTestResult result);
+
+// Get a pointer to a section
+tTestSection* testSuite_getSection(tTestSuite* object, const char* section_code);
+
+// Get a pointer to a test
+tTest* testSuite_getTest(tTestSuite* object, const char* section_code, const char* test_code);
+
+// Get test statistics
+void testSuite_getStats(tTestSuite* object, int* total, int* passed, int* failed, int* not_implemented);
+
+// Print test suite
+void testSuite_print(tTestSuite* object);
+
+// Export a test suite
+void testSuite_export(tTestSuite* object, const char* output);
+
+
+
+// Initialize a test Section
+void testSection_init(tTestSection* object, const char* code, const char* title);
+
+// Remove a test Section
+void testSection_free(tTestSection* object);
+
+// Add a test to the Section
+void testSection_addTest(tTestSection* object, const char* code, const char* description, tTestResult result);
+
+// Update a test result
+void testSection_updateTest(tTestSection* object, const char* test_code, tTestResult result);
+
+// Get a pointer to a test
+tTest* testSection_getTest(tTestSection* object, const char* test_code);
+
+// Get test statistics
+void testSection_getStats(tTestSection* object, int* total, int* passed, int* failed, int* not_implemented);
+
+// Print test section
+void testSection_print(tTestSection* object, tBuffer* buffer);
+
+// Export a test section
+void testSection_export(tTestSection* object, FILE* fout);
+
+
+
+// Initialize a test
+void test_init(tTest* object, const char* code, const char* description, tTestResult result);
+
+// Remove a test
+void test_free(tTest* object);
+
+// Update a test result
+void test_updateTest(tTest* object, tTestResult result);
+
+// Print test
+void test_print(tTest* object, tBuffer* buffer);
+
+// Export a test
+void test_export(tTest* object, FILE* fout);
+
+
+// Start a test
+void start_test(tTestSection* section, const char* code, const char* description);
+
+// Finish a test
+void end_test(tTestSection* section, const char* code, bool passed);
+
+// Set output progress file
+void _save_progress(tTestSection* section, const char* test_code, const char* test_result);
+
+// Output test progress
+void _print_progress(tTestResult result, const char *code, const char *description);
+
+
+
+// Open and initializes a buffer
+void open_buffer(tBuffer* buffer);
+
+// Close a buffer and free its internal string
+void close_buffer(tBuffer* buffer);
+
+// Add a formated string to a buffer. Analog to functions like sprintf or fprintf
+void bprintf(tBuffer* buffer, const char* pString, ...);
+
+#endif // __TEST_SUITE__H
+
+/* 20241-S_PR2/UOC20241/test/src/test.c */
+#include <assert.h>
+#include <string.h>
+#include "test_data.h"
+#include "test.h"
+#include "test_pr1.h"
+#include "test_pr2.h"
+
+// Write data to file
+void save_data(const char* filename, const char* data) {
+    FILE *fout;
+    fout = fopen(filename, "w");
+    assert(fout != NULL);
+    fwrite(data, strlen(data), 1, fout);
+    fclose(fout);
+}
+
+
+// Run all available tests
+void testSuite_run(tTestSuite* test_suite, const char* input, const char* readme) {    
+    const char* default_readme = "../README.txt";    
+    const char* filename;
+    
+    assert(test_suite != NULL);
+    
+    // Load the README.txt file
+    if (readme == NULL) {
+        testSuite_load_learner(test_suite, default_readme);
+    } else {
+        testSuite_load_learner(test_suite, readme);
+    }
+    
+    //////////////////////
+    // Run tests for PR1
+    //////////////////////
+    
+    // If no file is provided, use default data for PR1
+    if (input == NULL) {
+        filename = "test_data_pr1.csv";
+        save_data(filename, test_data_pr1_str);        
+    } else {
+        filename = input;
+    }
+    // Run tests
+    run_pr1(test_suite, filename);
+	
+	//////////////////////
+    // Run tests for PR2
+    //////////////////////
+    
+    // If no file is provided, use default data for PR2
+    if (input == NULL) {
+        filename = "test_data_pr2.csv";
+        save_data(filename, test_data_pr2_str);        
+    } else {
+        filename = input;
+    }
+    // Run tests
+    run_pr2(test_suite, filename);
+}
+
+
+/* 20241-S_PR2/UOC20241/test/src/test_pr1.c */
+#include "test_pr1.h"
+#include "api.h"
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+// Run all tests for PR1
+bool run_pr1(tTestSuite *test_suite, const char *input) {
+    bool ok = true;
+    tTestSection* section = NULL;
+
+    assert(test_suite != NULL);
+
+    testSuite_addSection(test_suite, "PR1", "Tests for PR1 exercices");
+
+    section = testSuite_getSection(test_suite, "PR1");
+    assert(section != NULL);
+
+    ok = run_pr1_ex1(section, input);
+    ok = run_pr1_ex2(section, input) && ok;
+    ok = run_pr1_ex3(section, input) && ok;
+
+    return ok;
+}
+
+// Run all tests for Exercice 1 of PR1
+bool run_pr1_ex1(tTestSection *test_section, const char *input) {
+  bool passed = true, failed = false;
+  const char *version;
+
+  /////////////////////////////
+  /////  PR1 EX1 TEST 1  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX1_1", "Read version information.");
+  // Get the version
+  version = api_version();
+  if (strcmp(version, "UOC PP 20241") != 0) {
+    failed = true;
+    passed = false;
+  }
+  end_test(test_section, "PR1_EX1_1", !failed);
+
+  return passed;
+}
+
+// Run all tests for Exercice 2 of PR1
+bool run_pr1_ex2(tTestSection *test_section, const char *input) {
+  tApiData data;
+  tApiError error;
+  tCSVEntry entry;
+  
+  tRentalIncome *pRentalIncome = NULL;
+  int nTenants = 0;
+  int nLandlords = 0;
+  int nProperties = 0;
+  int nRentalIncomes = 0;
+  bool passed = true;
+  bool failed = false;
+  bool fail_all = false;
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 1  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_1", "Initialize the API data structure");
+  // Initialize the data
+  error = api_initData(&data);
+  if (error != E_SUCCESS) {
+    failed = true;
+    passed = false;
+    fail_all = true;
+  }
+  end_test(test_section, "PR1_EX2_1", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 2  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_2", "Add an invalid tenant");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_parseEntry(&entry, "01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001;EXTRA", "TENANTT");
+	
+    error = api_addTenant(&data, entry);
+    if (error != E_INVALID_ENTRY_TYPE) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001;EXTRA", "TENANT");
+	
+    error = api_addTenant(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234", "TENANT");
+	
+    error = api_addTenant(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_2", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 3  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_3", "Add a valid tenant");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001", "TENANT");
+    
+    error = api_addTenant(&data, entry);
+    if (error != E_SUCCESS) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_3", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 4  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_4", "Add a duplicated tenant");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "01/01/2023;31/12/2023;12345678A;Lucas;600.0;25;ABC1234;BA08001", "TENANT");
+              
+    error = api_addTenant(&data, entry);
+    if (error != E_TENANT_DUPLICATED) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_4", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 5  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_5", "Add an invalid landlord");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_parseEntry(&entry, "John;87654321K;0;EXTRA", "LANDLORDD");
+	
+    error = api_addLandlord(&data, entry);
+    if (error != E_INVALID_ENTRY_TYPE) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "John;87654321K;0;EXTRA", "LANDLORD");
+	
+    error = api_addLandlord(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "John;87654321K", "LANDLORD");
+	
+    error = api_addLandlord(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_5", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 6  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_6", "Add a valid landlord");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "John;87654321K;0", "LANDLORD");
+              
+    error = api_addLandlord(&data, entry);
+    if (error != E_SUCCESS) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_6", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 7  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_7", "Add a duplicated landlord");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "John;87654321K;0", "LANDLORD");
+              
+    error = api_addLandlord(&data, entry);
+    if (error != E_LANDLORD_DUPLICATED) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_7", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 8  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_8", "Add an invalid property");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_parseEntry(&entry, "ABC1234;Balmes;25;87654321K;EXTRA", "PROPERTYY");
+	
+    error = api_addProperty(&data, entry);
+    if (error != E_INVALID_ENTRY_TYPE) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "ABC1234;Balmes;25;87654321K;EXTRA", "PROPERTY");
+	
+    error = api_addProperty(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "ABC1234;Balmes;25", "PROPERTY");
+	
+    error = api_addProperty(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+    
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "ABC1234;Balmes;25;00000000T", "PROPERTY");
+	
+    error = api_addProperty(&data, entry);
+    if (error != E_LANDLORD_NOT_FOUND) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_8", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 9  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_9", "Add a valid property");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "ABC1234;Balmes;25;87654321K", "PROPERTY");
+              
+    error = api_addProperty(&data, entry);
+    if (error != E_SUCCESS) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_9", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 10  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_10", "Add a duplicated property");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "ABC1234;Balmes;25;87654321K", "PROPERTY");
+              
+    error = api_addProperty(&data, entry);
+    if (error != E_PROPERTY_DUPLICATED) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_10", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 11  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_11", "Add an invalid rental income");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_parseEntry(&entry, "2024;3500.0;87654321K;EXTRA", "RENTAL_INCOMEE");
+	
+    error = api_addRentalIncome(&data, entry);
+    if (error != E_INVALID_ENTRY_TYPE) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "2024;3500.0;87654321K;EXTRA", "RENTAL_INCOME");
+	
+    error = api_addRentalIncome(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	csv_parseEntry(&entry, "2024;3500.0", "RENTAL_INCOME");
+	
+    error = api_addRentalIncome(&data, entry);
+    if (error != E_INVALID_ENTRY_FORMAT) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+    
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "2024;3500.0;00000000T", "RENTAL_INCOME");
+	
+    error = api_addRentalIncome(&data, entry);
+    if (error != E_LANDLORD_NOT_FOUND) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_11", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 12  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_12", "Add a valid rental income");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	csv_parseEntry(&entry, "2024;3500.0;87654321K", "RENTAL_INCOME");
+              
+    error = api_addRentalIncome(&data, entry);
+    if (error != E_SUCCESS) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX2_12", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 13  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_13", "Find a rental income in the data");
+  if (fail_all) {
+    failed = true;
+  } else {
+
+	pRentalIncome = rentalIncomes_find(data.rentalIncomes, 2024, "00000000T");
+    
+    if (pRentalIncome != NULL) {
+        failed = true;
+        passed = false;
+        fail_all = true;
+    } else {
+        pRentalIncome = rentalIncomes_find(data.rentalIncomes, 2024, "87654321K");
+        
+        if (pRentalIncome == NULL) {
+          failed = true;
+          passed = false;
+          fail_all = true;
+        } else if ((strcmp(pRentalIncome->landlord->id, "87654321K") != 0)) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+    }
+  }
+  end_test(test_section, "PR1_EX2_13", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 14  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_14", "Check the number of tenants");
+  if (fail_all) {
+    failed = true;
+  } else {
+    nTenants = api_tenantCount(data);
+    if (nTenants != 1) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+  }
+  end_test(test_section, "PR1_EX2_14", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 15  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_15", "Check the number of landlords");
+  if (fail_all) {
+    failed = true;
+  } else {
+    nLandlords = api_landlordsCount(data);
+    if (nLandlords != 1) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+  }
+  end_test(test_section, "PR1_EX2_15", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 16  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_16", "Check the number of properties");
+  if (fail_all) {
+    failed = true;
+  } else {
+    nProperties = api_propertiesCount(data);
+    if (nProperties != 1) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+  }
+  end_test(test_section, "PR1_EX2_16", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 17  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_17", "Check the number of rental incomes");
+  if (fail_all) {
+    failed = true;
+  } else {
+    nRentalIncomes = api_rentalIncomesCount(data);
+    if (nRentalIncomes != 1) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+  }
+  end_test(test_section, "PR1_EX2_17", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX2 TEST 18  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_18", "Free API data");
+  if (fail_all) {
+    failed = true;
+  } else {
+    error = api_freeData(&data);
+    nTenants = api_tenantCount(data);
+    nLandlords = api_landlordsCount(data);
+	nProperties = api_propertiesCount(data);
+    nRentalIncomes = api_rentalIncomesCount(data);
+    if (error != E_SUCCESS || nTenants != 0 || nLandlords != 0 || nProperties != 0 || nRentalIncomes != 0) {
+      failed = true;
+      passed = false;
+      fail_all = true;
+    }
+  }
+  end_test(test_section, "PR1_EX2_18", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX2 TEST 19  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX2_19", "Load data from file");
+  // Load basic data to the API
+  if (fail_all) {
+    failed = true;
+  } else {
+    error = api_loadData(&data, input, true);
+    nTenants = api_tenantCount(data);
+    nLandlords = api_landlordsCount(data);
+	nProperties = api_propertiesCount(data);
+    nRentalIncomes = api_rentalIncomesCount(data);
+    if (error != E_SUCCESS || nTenants != 3 || nLandlords != 2 || nProperties != 3 || nRentalIncomes != 4) {
+      failed = true;
+      passed = false;
+    }
+  }
+  end_test(test_section, "PR1_EX2_19", !failed);
+
+  // Release all data
+  api_freeData(&data);
+
+  return passed;
+}
+
+// Run all tests for Exercice 3 of PR1
+bool run_pr1_ex3(tTestSection *test_section, const char *input) {
+  tApiData data;
+  tApiError error;
+  tCSVEntry entry;
+  tCSVEntry refEntry;
+  tCSVData report;
+  tCSVData refReport;
+  int nTenants;
+  int nLandlords;
+  int nProperties;
+  int nRentalIncomes;
+  bool passed = true;
+  bool failed = false;
+  bool fail_all = false;
+
+  // Initialize the data
+  error = api_initData(&data);
+  if (error != E_SUCCESS) {
+    passed = false;
+    fail_all = true;
+  }
+
+  if (!fail_all) {
+    error = api_loadData(&data, input, true);
+	
+	
+    nTenants = api_tenantCount(data);
+    nLandlords = api_landlordsCount(data);
+	nProperties = api_propertiesCount(data);
+    nRentalIncomes = api_rentalIncomesCount(data);
+    if (error != E_SUCCESS || nTenants != 3 || nLandlords != 2 || nProperties != 3 || nRentalIncomes != 4) {
+      passed = false;
+      fail_all = true;
+    }
+  }
+  
+
+
+  /////////////////////////////
+  /////  PR1 EX3 TEST 1  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_1", "Request a valid landlord");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_initEntry(&refEntry);
+    csv_parseEntry(&refEntry, "John;87654321K;4800.0", "LANDLORD");
+    error = api_getLandlord(data, "87654321K", &entry);
+    if (error != E_SUCCESS || !csv_equalsEntry(entry, refEntry)) {
+      failed = true;
+      passed = false;
+    }
+    csv_freeEntry(&entry);
+    csv_freeEntry(&refEntry);
+  }
+  end_test(test_section, "PR1_EX3_1", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX3 TEST 2  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_2", "Request a missing landlord");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	error = api_getLandlord(data, "NO_LANDLORD", &entry);
+	if (error != E_LANDLORD_NOT_FOUND) {
+      failed = true;
+      passed = false;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX3_2", !failed);
+  
+  /////////////////////////////
+  /////  PR1 EX3 TEST 3  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_3", "Request a valid rental income");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+    csv_initEntry(&refEntry);
+    csv_parseEntry(&refEntry, "2023;3500.0;87654321K", "RENTAL_INCOME");
+    error = api_getRentalIncome(data, 2023, "87654321K", &entry);
+    if (error != E_SUCCESS || !csv_equalsEntry(entry, refEntry)) {
+      failed = true;
+      passed = false;
+    }
+    csv_freeEntry(&entry);
+    csv_freeEntry(&refEntry);
+  }
+  end_test(test_section, "PR1_EX3_3", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX3 TEST 4  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_4", "Request a missing rental income");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_initEntry(&entry);
+	error = api_getRentalIncome(data, 2024, "NO_RENTAL_INCOME", &entry);
+	if (error != E_RENTAL_INCOME_NOT_FOUND) {
+      failed = true;
+      passed = false;
+    }
+    csv_freeEntry(&entry);
+	
+	csv_initEntry(&entry);
+	error = api_getRentalIncome(data, 2026, "87654321K", &entry);
+	if (error != E_RENTAL_INCOME_NOT_FOUND) {
+      failed = true;
+      passed = false;
+    }
+    csv_freeEntry(&entry);
+  }
+  end_test(test_section, "PR1_EX3_4", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX3 TEST 5  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_5", "Get registered properties");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_init(&report);
+    csv_init(&refReport);
+
+	csv_addStrEntry(&refReport, "ABC1234;Balmes;25;87654321K", "PROPERTY");	
+	csv_addStrEntry(&refReport, "ZYX1234;Balmes;26;87654321K", "PROPERTY");
+	csv_addStrEntry(&refReport, "QWE1234;Turing;99;54927077H", "PROPERTY");
+
+    error = api_getProperties(data, &report);
+    if (error != E_SUCCESS || !csv_equals(report, refReport)) {
+      failed = true;
+      passed = false;
+    }
+    csv_free(&report);
+    csv_free(&refReport);
+  }
+  end_test(test_section, "PR1_EX3_5", !failed);
+
+  /////////////////////////////
+  /////  PR1 EX3 TEST 6  //////
+  /////////////////////////////
+  failed = false;
+  start_test(test_section, "PR1_EX3_6", "Get registered rental incomes");
+  if (fail_all) {
+    failed = true;
+  } else {
+    csv_init(&report);
+    csv_init(&refReport);		
+    		
+	csv_addStrEntry(&refReport, "2023;3500.00;87654321K" ,"RENTAL_INCOME");
+	csv_addStrEntry(&refReport, "2024;7500.10;54927077H" ,"RENTAL_INCOME");
+	csv_addStrEntry(&refReport, "2024;8800.55;87654321K" ,"RENTAL_INCOME");
+	csv_addStrEntry(&refReport, "2025;3500.99;54927077H" ,"RENTAL_INCOME");		
+		
+    error = api_getRentalIncomes(data, &report);
+    if (error != E_SUCCESS || !csv_equals(report, refReport)) {
+      failed = true;
+      passed = false;
+    }
+    csv_free(&report);
+    csv_free(&refReport);
+  }
+  end_test(test_section, "PR1_EX3_6", !failed);
+	
+  // Release all data
+  api_freeData(&data);
+
+  return passed;
+}
+
+
+/* 20241-S_PR2/UOC20241/test/src/test_pr2.c */
+#include "test_pr2.h"
+#include "api.h"
+#include <assert.h>
+#include <stdlib.h>
+#include <string.h>
+#include "taxes.h"
+
+
+// Run all tests for PR2
+bool run_pr2(tTestSuite * test_suite,
+    const char * input) {
+    bool ok = true;
+    tTestSection * section = NULL;
+
+    assert(test_suite != NULL);
+
+    testSuite_addSection(test_suite, "PR2", "Tests for PR2 exercices");
+
+    section = testSuite_getSection(test_suite, "PR2");
+    assert(section != NULL);
+
+    ok = run_pr2_ex1(section, input);
+    ok = run_pr2_ex2(section, input) && ok;
+    ok = run_pr2_ex3(section, input) && ok;
+
+    return ok;
+}
+
+// Run all tests for Exercice 1 of PR1
+bool run_pr2_ex1(tTestSection * test_section,
+    const char * input) {
+
+    ExpectedInvoices expectedInvoices;
+    tRentInvoiceData invoiceList;
+    tTenant tenant, tenant2, tenant3, tenant4;
+    float totalRent = 0.0f;
+    tDate date;
+
+    bool passed = true;
+    bool failed = false;
+    bool fail_all = false;
+
+    tenant_init(&tenant);
+    tenant_init(&tenant2);
+    tenant_init(&tenant3);
+    tenant_init(&tenant4);
+    
+    /////////////////////////////
+    /////  PR2 EX1 TEST 1  //////
+    /////////////////////////////
+    start_test(test_section, "PR2_EX1_1", "Initialize invoices data structure");
+
+    // set with wrong values to test the Initialization
+    invoiceList.count = -34;
+
+    // Initialize the data    
+    invoiceList_init(&invoiceList);
+    invoiceList_init(&invoiceList);
+
+    if (invoiceList.count != 0 || invoiceList.first != NULL) {
+        failed = true;
+        passed = false;
+        fail_all = true;
+    }
+
+    end_test(test_section, "PR2_EX1_1", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 2  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_2", "Add a contract to an empty invoice list");
+
+    if (!fail_all) {
+
+        // Initialize an empty rent invoice list
+        invoiceList.first = NULL;
+        invoiceList.count = 0;
+
+		// Ensure all fields are initialized		
+		tenant_initialize(&tenant,"01/09/2022","31/08/2023","T001","John Doe",1000.0f,30,"ZYX1234","LE24001");				
+
+        // Update the invoice list with the tenant
+        if (!failed) {
+            invoiceList_update( &invoiceList, tenant.start_date, tenant.end_date, tenant.cadastral_ref, tenant.rent);
+        }
+
+        // Check the results
+        if (!failed) {
+            // Verify that the invoice list has exactly one monthly invoice
+            if (invoiceList.count != 12) {
+                failed = true;
+            } else if (invoiceList.first == NULL) {
+                failed = true;
+            } else {
+                // Verify date 01/09/2022
+                expectedInvoices.invoiceCount = 1;
+                strcpy(expectedInvoices.invoices[0].cadastral_ref, "ZYX1234");
+                expectedInvoices.invoices[0].rent = 1000.00f;
+
+                if (!testVerifySpecificDate( &invoiceList, "01/09/2022", & expectedInvoices)) {
+                    failed = true;
+                }
+
+                // Verify date 01/08/2022
+                expectedInvoices.invoiceCount = 1;
+                strcpy(expectedInvoices.invoices[0].cadastral_ref, "ZYX1234");
+                expectedInvoices.invoices[0].rent = 1000.00f;
+                if (!testVerifySpecificDate( & invoiceList, "01/08/2023", & expectedInvoices)) {
+                    failed = true;
+                }
+            } //
+        }
+        
+
+        // If any check failed, mark the entire test as failed
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+
+    // End the test and report the result
+    end_test(test_section, "PR2_EX1_2", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 3  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_3", "Add new contract in order");
+
+    if (!fail_all) {
+		// Ensure all fields are initialized
+		
+		tenant_initialize(&tenant2,"01/01/2023","31/12/2023","12345678A","Jason Garcia",1400.0f,36,"GHI1234","LE24001");		
+   
+        if (!failed) {
+            invoiceList_update( &invoiceList, tenant2.start_date, tenant2.end_date, tenant2.cadastral_ref, tenant2.rent);
+
+        }
+
+        // Verify that the invoice list has exactly one monthly invoice
+        if (invoiceList.count != 16) {
+            failed = true;
+        } else {
+            // Verify date 01/09/2022
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[0].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/09/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/01/2023
+            expectedInvoices.invoiceCount = 2;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[1].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( &invoiceList, "01/01/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/09/2023
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            if (!testVerifySpecificDate( &invoiceList, "01/09/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/12/2023
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            if (!testVerifySpecificDate( &invoiceList, "01/12/2023", & expectedInvoices)) {
+                failed = true;
+            }
+        } //
+
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+
+    end_test(test_section, "PR2_EX1_3", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 4  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_4", "Add contract before existing invoices");
+
+    if (!fail_all) {
+		tenant_initialize(&tenant3,"01/01/2022","31/12/2022","12345678A","Ana Fernandez",800.0f,41,"ABC1234","BA08001");		
+    
+        if (!failed) {
+            invoiceList_update( & invoiceList, tenant3.start_date, tenant3.end_date, tenant3.cadastral_ref, tenant3.rent);
+
+        }
+
+        // Verify that the invoice list has exactly one monthly invoice
+        if (invoiceList.count != 24) {
+            failed = true;
+        } else {
+            // Verify date 01/01/2022
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/01/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/08/2022
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/08/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/09/2022
+            expectedInvoices.invoiceCount = 2;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[1].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/09/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 31/12/2022
+            expectedInvoices.invoiceCount = 2;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[1].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "31/12/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/01/2023
+            expectedInvoices.invoiceCount = 2;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[1].rent = 1000.00f;
+            if (!testVerifySpecificDate( & invoiceList, "01/01/2023", & expectedInvoices)) {
+                failed = true;
+            }
+        } //
+
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+
+    end_test(test_section, "PR2_EX1_4", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 5  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_5", "Add another contract");
+
+    if (!fail_all) {
+		tenant_initialize(&tenant4,"01/09/2022","31/07/2023","87654321Z","Maria Jackson",1300.0f,50,"JKL0123","BA08005");		
+    
+        if (!failed) {
+            invoiceList_update( & invoiceList, tenant4.start_date, tenant4.end_date, tenant4.cadastral_ref, tenant4.rent);
+
+        }
+
+        // Verify that the invoice list has exactly one monthly invoice
+        if (invoiceList.count != 24) {
+            failed = true;
+        } else {
+            // Verify date 01/01/2022
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/01/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/08/2022
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/08/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/09/2022
+            expectedInvoices.invoiceCount = 3;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "JKL0123");
+            expectedInvoices.invoices[1].rent = 1300.00f;
+            strcpy(expectedInvoices.invoices[2].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[2].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/09/2022", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/01/2023
+            expectedInvoices.invoiceCount = 3;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "JKL0123");
+            expectedInvoices.invoices[1].rent = 1300.00f;
+            strcpy(expectedInvoices.invoices[2].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[2].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/01/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/08/2023
+            expectedInvoices.invoiceCount = 2;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[1].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/08/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/12/2023
+            expectedInvoices.invoiceCount = 1;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/12/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+        } //
+
+    }
+    end_test(test_section, "PR2_EX1_5", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 6  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_6", "Update contract rent");
+
+    if (!fail_all) {
+        // Actualizar el contrato reciente (tenant4) para revertir el último test
+
+        date_parse( & tenant4.start_date, "01/10/2022");
+        tenant4.rent += 400.0f; // Increase rent
+
+        if (!failed) {
+            invoiceList_update( & invoiceList, tenant4.start_date, tenant4.end_date, tenant4.cadastral_ref, tenant4.rent);
+
+        }
+
+        // Verify that the invoice list has exactly one monthly invoice
+        if (invoiceList.count != 24) {
+            failed = true;
+        } else {
+
+            // Verify date 01/09/2022
+            expectedInvoices.invoiceCount = 3;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "JKL0123");
+            expectedInvoices.invoices[1].rent = 1300.00f;
+            strcpy(expectedInvoices.invoices[2].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[2].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/09/2022", & expectedInvoices)) {
+                failed = true;
+            }
+
+            // Verify date 01/10/2022
+            expectedInvoices.invoiceCount = 3;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "ABC1234");
+            expectedInvoices.invoices[0].rent = 800.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "JKL0123");
+            expectedInvoices.invoices[1].rent = 1700.00f;
+            strcpy(expectedInvoices.invoices[2].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[2].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/10/2022", & expectedInvoices)) {
+                failed = true;
+            }
+            // Verify date 01/07/2023
+            expectedInvoices.invoiceCount = 3;
+            strcpy(expectedInvoices.invoices[0].cadastral_ref, "GHI1234");
+            expectedInvoices.invoices[0].rent = 1400.00f;
+            strcpy(expectedInvoices.invoices[1].cadastral_ref, "JKL0123");
+            expectedInvoices.invoices[1].rent = 1700.00f;
+            strcpy(expectedInvoices.invoices[2].cadastral_ref, "ZYX1234");
+            expectedInvoices.invoices[2].rent = 1000.00f;
+
+            if (!testVerifySpecificDate( & invoiceList, "01/07/2023", & expectedInvoices)) {
+                failed = true;
+            }
+
+        } //
+
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+
+    end_test(test_section, "PR2_EX1_6", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX1 TEST 8  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX1_8", "Request the total rent for a specific date");
+
+    if (!fail_all) {
+        // Calculate  the total rent of 2022-9       
+        date_parse( & date, "01/09/2022");
+
+        // total rent expected 800 + 1300 + 1000 = 3100
+        totalRent = getInvoiceMonthly( & invoiceList, date);
+        if (totalRent != 3100.0f) {
+            failed = true;
+        }
+
+        // Calculate for a date without invoices
+        date_parse( & date, "01/12/2021");
+        totalRent = getInvoiceMonthly( & invoiceList, date);
+        if (totalRent != 0.0f) {
+            failed = true;
+        }
+
+        // Calculate  the total rent of 2023-7	      
+
+        date_parse( & date, "01/07/2023");
+
+        // total rent expected 1400 + 1700 + 1000 = 4100
+        totalRent = getInvoiceMonthly( & invoiceList, date);
+        if (totalRent != 4100.0f) {
+            failed = true;
+        }
+
+        // Calculate for a date without invoices
+        date_parse( & date, "01/01/2024");
+        totalRent = getInvoiceMonthly( & invoiceList, date);
+        if (totalRent != 0.0f) {
+            failed = true;
+        }
+
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+    end_test(test_section, "PR2_EX1_8", !failed);
+
+    // free memory   
+    tenant_free(&tenant);
+    tenant_free(&tenant2);
+    tenant_free(&tenant3);
+    tenant_free(&tenant4);
+    invoiceList_free( & invoiceList);
+    return passed;
+}
+
+// Run all tests for Exercice 2 of PR2
+bool run_pr2_ex2(tTestSection * test_section,
+    const char * input) {
+
+    bool passed = true;
+    bool failed;
+    bool fail_all = false;
+    //tRentInvoiceData invoiceList;
+    tTenant tenant;
+    //tDate dateWithInvoices;
+    tTaxOffice taxOffice;
+    tTaxOffice * pTaxOffice;
+    tTaxOfficeList taxOfficeList;
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 1  //////
+    /////////////////////////////
+
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_1", "Initialize a tax office");
+
+    if (!fail_all) {
+
+        // Set incorrect value
+        taxOffice.rentInvoices.count = -34;
+
+        // Initialize a tax office list
+        taxOffice_init( & taxOffice, "B08016");
+
+        if (taxOffice.rentInvoices.count != 0 || strcmp(taxOffice.office_code, "B08016") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+
+    }
+    end_test(test_section, "PR2_EX2_1", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 2  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_2", "Remove tax office data");
+
+    if (!fail_all) {
+
+        // Define tenant details  
+        memset( & tenant, 0, sizeof(tTenant)); // Ensure all fields are initialized
+        tenant_init(&tenant);
+		tenant_initialize(&tenant,"01/09/2022","31/08/2023","01234567Y","John Doe",1300.0f,30,"ZYX1234","BA08005");		
+           
+        invoiceList_update( & taxOffice.rentInvoices, tenant.start_date, tenant.end_date, tenant.cadastral_ref, tenant.rent);
+
+        // Clean center data
+        taxOffice_free( & taxOffice);
+        if (taxOffice.rentInvoices.count != 0) {
+            failed = true;
+        } else if (taxOffice.rentInvoices.first != NULL) {
+            failed = true;
+        }
+
+        if (failed) {
+            fail_all = true;
+            passed = false;
+        }
+    }
+    end_test(test_section, "PR2_EX2_2", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 3  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_3", "Initialize list of tax office");
+
+    if (!fail_all) {
+        // Set incorrect value
+        taxOfficeList.count = -34;
+
+        // Initialize the data    
+        taxOfficeList_init( & taxOfficeList);
+        if (taxOfficeList.count != 0 || taxOfficeList.first != NULL) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+    }
+    end_test(test_section, "PR2_EX2_3", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 4  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_4", "Check if the office code is correct");
+
+    if (!fail_all) {
+        // Define invalid office codes
+        const char * invalid_codes[] = {
+            "Ca12345", // Lowercase letter in province
+            "CA12A45", // Non-numeric character
+            "CA1234", // Incorrect length (6 instead of 7)
+            "C1234A", // Last character non-numeric
+            "TX123456", // Incorrect length (8 characters)
+            "T1234", // Incorrect length (5 characters)
+            "1234567", // Does not start with letters
+            "A1B2345" // Mix of letters and numbers in incorrect positions
+        };
+        // Define valid office codes
+        const char * valid_codes[] = {
+            "C12345", // 1 uppercase letter province code, followed by 5 digits
+            "CA12345", // 2 uppercase letters province code, followed by 5 digits
+            "N54321", // 1 uppercase letter province code, followed by 5 digits
+            "NY54321", // 2 uppercase letters province code, followed by 5 digits
+            "A00001", // 1 uppercase letter province code with leading zeros
+            "AB99999", // 2 uppercase letters province code with maximum digits
+            "Z12345", // 1 uppercase letter province code, followed by 5 digits
+            "ZX67890", // 2 uppercase letters province code, followed by 5 digits
+            "B54321", // 1 uppercase letter province code, followed by 5 digits
+            "BT12345", // 2 uppercase letters province code, followed by 5 digits
+            "M98765", // 1 uppercase letter province code, followed by 5 digits
+            "ML12345" // 2 uppercase letters province code, followed by 5 digits
+        };
+
+        int num_invalid = sizeof(invalid_codes) / sizeof(invalid_codes[0]);
+
+        for (int i = 0; i < num_invalid; i++) {
+            bool isValid = check_office_code(invalid_codes[i]);
+            if (isValid) {
+                failed = true;
+                passed = false;
+                fail_all = true;
+                break;
+            }
+        }
+
+        int num_valid = sizeof(valid_codes) / sizeof(valid_codes[0]);
+
+        for (int i = 0; i < num_valid; i++) {
+            bool isValid = check_office_code(valid_codes[i]);
+            if (!isValid) {
+                failed = true;
+                passed = false;
+                fail_all = true;
+                break;
+            }
+        }
+
+    }
+    
+    end_test(test_section, "PR2_EX2_4", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 5  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_5", "Insert a tax office to an empty list");
+
+    if (!fail_all) {
+
+        // Initialize the data    
+        taxOfficeList_init( & taxOfficeList);
+
+        // Insert a tax office
+        taxOfficeList_insert( & taxOfficeList, "B08001");
+
+        if (taxOfficeList.count != 1 || taxOfficeList.first == NULL || strcmp(taxOfficeList.first -> elem.office_code, "B08001") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+    }
+    end_test(test_section, "PR2_EX2_5", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 6  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_6", "Test office code is sorting");
+
+    if (!fail_all) {
+        // Initialize the tax office list    
+        tTaxOfficeList list;
+        taxOfficeList_init( & list);
+
+        // Insert a new office
+        taxOfficeList_insert( & list, "C12345");
+
+        // After first insertion, count should be 1 and first element should be "C12345"
+        if (list.count != 1 || list.first == NULL || strcmp(list.first -> elem.office_code, "C12345") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+
+        // Insert a second office
+        taxOfficeList_insert( & list, "B08001");
+
+        // Expected order: "B8001", "C12345"
+        if (list.count != 2 || list.first == NULL || strcmp(list.first -> elem.office_code, "B08001") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        } else if (list.first -> next == NULL || strcmp(list.first -> next -> elem.office_code, "C12345") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+
+        if (!fail_all) {
+            // Insert a third office
+            taxOfficeList_insert( & list, "A08000");
+
+            // Expected order: "A08000", "B8001", "C12345"
+            if (list.count != 3 || list.first == NULL || strcmp(list.first -> elem.office_code, "A08000") != 0) {
+                failed = true;
+                passed = false;
+                fail_all = true;
+            } else if (list.first -> next == NULL || strcmp(list.first -> next -> elem.office_code, "B08001") != 0) {
+                failed = true;
+                passed = false;
+                fail_all = true;
+            } else if (list.first -> next -> next == NULL || strcmp(list.first -> next -> next -> elem.office_code, "C12345") != 0) {
+                failed = true;
+                passed = false;
+                fail_all = true;
+            }
+        }
+        taxOfficeList_free( &list);
+    }
+    end_test(test_section, "PR2_EX2_6", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 7  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_7", "Find an existing office by code");
+
+    if (!fail_all) {
+
+        // Initialize the data   
+        pTaxOffice = taxOfficeList_find( & taxOfficeList, "B08001");
+        if (pTaxOffice == NULL || strcmp(pTaxOffice -> office_code, "B08001") != 0) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+
+    }
+    end_test(test_section, "PR2_EX2_7", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 8  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_8", "Find a non existing office by code");
+
+    if (!fail_all) {
+
+        // Initialize the data    
+        pTaxOffice = taxOfficeList_find( & taxOfficeList, "LE24001");
+        if (pTaxOffice != NULL) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+    }
+    end_test(test_section, "PR2_EX2_8", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX2 TEST 9  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX2_9", "Release a list of list office");
+
+    if (!fail_all) {
+
+        // Initialize the data    
+        taxOfficeList_free( & taxOfficeList);
+		tenant_free(&tenant);
+        if (taxOfficeList.count != 0 || taxOfficeList.first != NULL) {
+            failed = true;
+            passed = false;
+            fail_all = true;
+        }
+    }
+    end_test(test_section, "PR2_EX2_9", !failed);  
+
+    return passed;
+}
+
+// Run all tests for Exercice 3 of PR2
+bool run_pr2_ex3(tTestSection * test_section,
+    const char * input) {
+    tApiData data;
+    tApiError error;
+    int nTenants;
+    int nTaxOffices;
+
+    bool passed = true;
+    bool failed = false;
+    bool fail_all = false;
+
+    /////////////////////////////
+    /////  PR2 EX3 TEST 1  //////
+    /////////////////////////////
+    failed = false;
+    start_test(test_section, "PR2_EX3_1", "Initialize the API data");
+    // Initialize the data    
+    error = api_initData( & data);
+    if (error != E_SUCCESS) {
+        passed = false;
+        failed = true;
+        fail_all = true;
+    } else if (api_taxOfficeCount(data) != 0) {
+        passed = false;
+        failed = true;
+        fail_all = true;
+    }
+
+    end_test(test_section, "PR2_EX3_1", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX3 TEST 2  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX3_2", "Load API data");
+
+    if (!fail_all) {
+        error = api_loadData( & data, input, true);
+
+        nTenants = api_tenantCount(data);
+
+        if (error != E_SUCCESS || nTenants != 3) {
+            passed = false;
+            fail_all = true;
+        }
+    }
+    end_test(test_section, "PR2_EX3_2", !failed);
+
+    /////////////////////////////
+    /////  PR2 EX3 TEST 3  //////
+    /////////////////////////////
+    failed = fail_all;
+    start_test(test_section, "PR2_EX3_3", "Obtain number of centers in the API");
+    if (!fail_all) {
+        nTaxOffices = api_taxOfficeCount(data);
+        if (nTaxOffices != 3) {
+            passed = false;
+            failed = true;
+            fail_all = true;
+        }
+    }
+
+    end_test(test_section, "PR2_EX3_3", !failed);
+
+    // Release all data
+    api_freeData( & data);
+
+    return passed;
+}
+
+
+
+/* 20241-S_PR2/UOC20241/test/src/test_suite.c */
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
+#include "test_suite.h"
+#include <stdarg.h>
+
+#ifdef DSLAB
+#include "lsim.h"
+#include "lsimLogger.h"
+#endif
+
+// Wait user key
+void waitKey(tAppArguments parameters) {
+    if (parameters.wait_on_exit) {
+        printf("Press key to continue...");
+        getchar();
+    }
+}
+
+// Display help text
+void help(const char* app_name) {
+    printf("%s [--help] [--in <input_test_file>] [--out <output_file>] [--progress <progress_file>] [--readme <readme_file>]\n", app_name);    
+    printf("\t[%s] %s\n", "--help", "Show this help information.");
+    printf("\t[%s] %s\n", "--no-wait", "Do not wait user key press on exit.");
+    printf("\t[%s] %s\n", "--in", "Provide file with input test data in CSV format.");
+    printf("\t[%s] %s\n", "--out", "Write the result of tests in a file in JSON format.");    
+    printf("\t[%s] %s\n", "--progress", "Write test progress in an output file.");    
+    printf("\t[%s] %s\n", "--readme", "Path to README.txt file.");
+}
+
+// Parse application arguments
+bool parseArguments(tAppArguments* arguments, int argc, char **argv) {
+    int i;
+    
+    // Initialize the arguments
+    arguments->app_name = NULL;
+    arguments->out_file = NULL;    
+    arguments->in_file = NULL;
+    arguments->readme_file = NULL;
+    arguments->progress_file = NULL;
+    arguments->wait_on_exit = true;
+    
+    // Parse input arguments
+    arguments->app_name = argv[0];
+    for (i=1; i < argc; i ++) {
+        if (strcmp(argv[i], "--help") == 0) {
+            help(argv[0]);
+        }
+        if (strcmp(argv[i], "--no-wait") == 0) {
+            arguments->wait_on_exit = false;
+        }
+        if (strcmp(argv[i], "--in") == 0) {
+            if (argc < i + 1) {
+                help(argv[0]);
+                return false;
+            }
+            arguments->in_file = argv[i+1];
+            i++;
+        }
+        if (strcmp(argv[i], "--out") == 0) {
+            if (argc < i + 1) {
+                help(argv[0]);
+                return false;
+            }
+            arguments->out_file = argv[i+1];
+            i++;
+        }
+        if (strcmp(argv[i], "--progress") == 0) {
+            if (argc < i + 1) {
+                help(argv[0]);
+                return false;
+            }
+            arguments->progress_file = argv[i+1];
+            i++;
+        }
+        if (strcmp(argv[i], "--readme") == 0) {
+            if (argc < i + 1) {
+                help(argv[0]);
+                return false;
+            }
+            arguments->readme_file = argv[i+1];
+            i++;
+        }
+    }
+    
+    return true;
+}
+
+// Initialize a test Suite
+void testSuite_init(tTestSuite* object) {
+    assert(object != NULL);
+    object->learner.email = NULL;
+    object->learner.username = NULL;
+    object->learner.first_name = NULL;
+    object->learner.last_name = NULL;
+    object->learner.environment = NULL;   
+    object->learner.file_exists = false;
+    object->numSections = 0;
+    object->sections = NULL;
+    object->progress_file = NULL;
+}
+
+// Set output progress file
+void testSuite_set_progress_file(tTestSuite* object, char* progress_file) {
+    object->progress_file = progress_file;
+}
+
+// Load learner data
+bool testSuite_load_learner(tTestSuite* object, const char* file) {
+    char buffer[BUFFER_SIZE];
+    FILE *fin=NULL;
+    int state;
+    char* pos;
+    
+    assert(object != NULL);
+    assert(file != NULL);
+    
+    fin = fopen(file, "r");
+    if (fin == NULL) {
+        object->learner.email = NULL;
+        object->learner.username = NULL;
+        object->learner.first_name = NULL;
+        object->learner.last_name = NULL;
+        object->learner.environment = NULL;   
+        object->learner.file_exists = false;
+        return false;
+    }
+    
+    state = 0;
+    while (fgets(buffer, BUFFER_SIZE, fin)) {
+        if (state == 0) {
+            // Read email
+            object->learner.email = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
+            memset(object->learner.email, 0, (strlen(buffer) + 1) * sizeof(char));
+            strncpy(object->learner.email, buffer, strcspn(buffer, "\n\r"));
+        } else if(state == 1) {
+            // Read Surname, Name
+            pos = strchr(buffer, ',');
+            if (pos > 0) {
+                // Copy the surnames
+                object->learner.last_name = (char*) malloc((pos - buffer + 1) * sizeof(char));
+                memset(object->learner.last_name, 0, (pos - buffer + 1) * sizeof(char));
+                strncpy(object->learner.last_name, buffer, strcspn(buffer, ","));
+                // Skip the comma
+                pos++;
+                // Skip initial blank spaces
+                while (pos < &buffer[BUFFER_SIZE] && *pos==' ') pos++;
+                // Copy the first name
+                object->learner.first_name = (char*) malloc((strlen(pos) + 1) * sizeof(char));
+                memset(object->learner.first_name, 0, (strlen(pos) + 1) * sizeof(char));
+                strncpy(object->learner.first_name, pos, strcspn(pos, "\n\r"));
+            } else {
+                object->learner.first_name = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
+                memset(object->learner.first_name, 0, (strlen(buffer) + 1) * sizeof(char));
+                strncpy(object->learner.first_name, buffer, strlen(buffer));
+            }
+        } else if(state == 2) {            
+            object->learner.environment = (char*) malloc((strlen(buffer) + 1) * sizeof(char));
+            strcpy(object->learner.environment, buffer);
+        } else if(state > 2) {
+            object->learner.environment = (char*) realloc(object->learner.environment, (strlen(object->learner.environment) + strlen(buffer) + 1) * sizeof(char));
+            strcat(object->learner.environment, buffer);
+        }
+        state ++;
+    }
+    
+    object->learner.file_exists = true;
+    
+    fclose(fin);
+    return true;
+}
+
+// Remove a test Suite
+void testSuite_free(tTestSuite* object) {
+    int i;
+    assert(object != NULL);
+    // Free learner data
+    if(object->learner.email != NULL) {
+        free(object->learner.email);
+        object->learner.email = NULL;
+    }
+    if(object->learner.username != NULL) {
+        free(object->learner.username);
+        object->learner.username = NULL;
+    }
+    if(object->learner.first_name != NULL) {
+        free(object->learner.first_name);
+        object->learner.first_name = NULL;
+    }
+    if(object->learner.last_name != NULL) {
+        free(object->learner.last_name);
+        object->learner.last_name = NULL;
+    }
+    if(object->learner.environment != NULL) {
+        free(object->learner.environment);
+        object->learner.environment = NULL;
+    }    
+    object->learner.file_exists = false;
+    // Free test data
+    if(object->sections != NULL) {
+        for(i = 0; i < object->numSections; i++) {
+            testSection_free(&(object->sections[i]));
+        }
+        free(object->sections);
+    }
+    object->progress_file=NULL;
+}
+
+// Add a test Section
+void testSuite_addSection(tTestSuite* object, const char* code, const char* title) {
+    assert(object != NULL);
+    object->numSections++;
+    if(object->sections == NULL) {
+        object->sections = (tTestSection*)malloc(object->numSections * sizeof(tTestSection));
+    } else {
+        object->sections = (tTestSection*)realloc(object->sections, object->numSections * sizeof(tTestSection));
+    }
+    assert(object->sections != NULL);
+    testSection_init(&(object->sections[object->numSections - 1]), code, title);
+    if (object->progress_file != NULL) {
+        object->sections[object->numSections - 1].progress_file = object->progress_file;
+    }
+}
+
+// Add a test
+void testSuite_addTest(tTestSuite* object, const char* section_code, const char* code, const char* description, tTestResult result) {
+    tTestSection* section = NULL;
+    assert(object != NULL);
+    assert(section_code != NULL);
+    assert(code != NULL);
+    assert(description != NULL);
+
+    section = testSuite_getSection(object, section_code);
+    assert(section != NULL);
+
+    testSection_addTest(section, code, description, result);
+}
+
+// Update a test result
+void testSuite_updateTest(tTestSuite* object, const char* section_code, const char* test_code, tTestResult result) {
+    tTestSection* section = NULL;
+
+    assert(object != NULL);
+    assert(section_code != NULL);
+    assert(test_code != NULL);
+
+    section = testSuite_getSection(object, section_code);
+    assert(section != NULL);
+
+    testSection_updateTest(section, test_code, result);
+}
+
+// Get a pointer to a section
+tTestSection* testSuite_getSection(tTestSuite* object, const char* section_code) {
+    int i;
+
+    assert(object != NULL);
+    assert(section_code != NULL);
+    for(i = 0; i < object->numSections; i++) {
+        if(strcmp(object->sections[i].code, section_code) == 0) {
+            return &(object->sections[i]);
+        }
+    }
+    return NULL;
+}
+
+// Get a pointer to a test
+tTest* testSuite_getTest(tTestSuite* object, const char* section_code, const char* test_code) {
+    tTestSection* section = NULL;
+
+    assert(object != NULL);
+    assert(section_code != NULL);
+    assert(test_code != NULL);
+    section = testSuite_getSection(object, section_code);
+    assert(section != NULL);
+
+    if(section != NULL) {
+        return testSection_getTest(section, test_code);
+    }
+
+    return NULL;
+}
+
+// Get test statistics
+void testSuite_getStats(tTestSuite* object, int* total, int* passed, int* failed, int* not_implemented) {
+    int i;
+    int s_total, s_passed, s_failed, s_not_implemented;
+    assert(object != NULL);
+    assert(total != NULL);
+    assert(passed != NULL);
+    assert(failed != NULL);
+    assert(not_implemented != NULL);
+
+    *total = 0;
+    *passed = 0;
+    *failed = 0;
+    *not_implemented = 0;
+    for(i = 0; i < object->numSections; i++) {
+        testSection_getStats(&(object->sections[i]), &s_total, &s_passed, &s_failed, &s_not_implemented);
+        *total += s_total;
+        *passed += s_passed;
+        *failed += s_failed;
+        *not_implemented += s_not_implemented;
+    }
+}
+
+// Print test suite
+void testSuite_print(tTestSuite* object) {
+    int i;
+    int total, passed, failed, not_implemented;
+    tBuffer* buffer = NULL;
+  
+    assert(object != NULL);
+
+    // Reserve memory and open buffer
+    buffer = (tBuffer*) malloc(sizeof(tBuffer));
+    assert(buffer != NULL);
+    open_buffer(buffer);
+      
+    // Print the header
+    if (object->learner.file_exists) {
+        bprintf(buffer, "\n=========================================================================\n");
+        if (object->learner.first_name != NULL && object->learner.last_name != NULL) {
+            bprintf(buffer, "\t Name: %s %s\n", object->learner.first_name, object->learner.last_name);
+        } else {
+            bprintf(buffer, "\t Name: <not provided>\n");
+        }
+        if (object->learner.email != NULL) {
+            bprintf(buffer, "\t Email: %s\n", object->learner.email);
+        } else {
+            bprintf(buffer, "\t Email: <not provided>\n");
+        }
+        bprintf(buffer, "=========================================================================\n");        
+    } else {
+        bprintf(buffer, "\n=========================================================================\n");
+        bprintf(buffer, "\t NO LEARNER DATA\n");
+        bprintf(buffer, "=========================================================================\n");        
+    }
+
+    testSuite_getStats(object, &total, &passed, &failed, &not_implemented);
+
+    bprintf(buffer, "\n=========================================================================\n");
+    bprintf(buffer, "\t TEST RESULTS\n");
+    bprintf(buffer, "=========================================================================\n");
+    if(object->numSections == 0) {
+        bprintf(buffer, "NO TEST DEFINED\n");
+    } else {
+        for(i = 0; i < object->numSections; i++) {
+            testSection_print(&(object->sections[i]), buffer);
+        }
+    }
+    bprintf(buffer, "\n=========================================================================\n");
+    if(total > 0) {
+        bprintf(buffer, "Total Tests: %d\n", total);
+        bprintf(buffer, "Passed Tests: %d ( %2.02f %% )\n", passed, ((float)passed / (float)total) * 100.0);
+        bprintf(buffer, "Failed Tests: %d ( %2.02f %% )\n", failed, ((float)failed / (float)total) * 100.0);
+        //fprintf(buffer, "Not Implemented: %d ( %2.02f %% )\n", not_implemented, ((float)not_implemented/(float)total)*100.0);
+        bprintf(buffer, "=========================================================================\n");
+    }
+    
+    printf("%s", buffer->data);
+    
+#ifdef DSLAB
+    float percent = 0.0;
+    char summary[100];
+    if (total > 0)
+        percent = (float)passed / total * 100.0;
+    sprintf(summary, "\tPassed %d of %d [%0.2f%%]\n", passed, total, percent);
+    bool is_Ok = ((float)passed / (float)total) == 1.0;
+    LSim_sendCorreccio(is_Ok, summary, buffer->data);
+#endif
+
+    // Close buffer and free memory
+    close_buffer(buffer);
+    free(buffer);
+}
+
+void write_nullable_field(FILE* fout, const char* value) {
+    if (value == NULL) {
+        fprintf(fout, "null");
+    } else {
+        fprintf(fout, "\"%s\"", value);
+    }
+}
+
+// Export a test suite
+void testSuite_export(tTestSuite* object, const char* output) {
+    int i;
+    int total, passed, failed, not_implemented;
+    FILE* fout = NULL;
+
+    assert(object != NULL);
+    assert(output != NULL);
+    
+    fout = fopen(output, "w");
+    assert(fout != NULL);
+
+    fprintf(fout, "{ \"learner\": {\"first_name\": ");
+    write_nullable_field(fout, object->learner.first_name);
+    fprintf(fout, ", \"last_name\": ");
+    write_nullable_field(fout, object->learner.last_name);
+    fprintf(fout, ", \"email\": ");
+    write_nullable_field(fout, object->learner.email);
+    fprintf(fout, ", \"username\": ");
+    write_nullable_field(fout, object->learner.username);
+    fprintf(fout, ", \"environment\": ");
+    write_nullable_field(fout, object->learner.environment);
+    fprintf(fout, "}, ");
+
+    testSuite_getStats(object, &total, &passed, &failed, &not_implemented);
+
+    fprintf(fout, " \"total\": %d, \"passed\": %d, \"failed\": %d, \"not_implemented\": %d, \"sections\": [", total, passed, failed, not_implemented);
+
+    for(i = 0; i < object->numSections; i++) {
+        if(i > 0) {
+            fprintf(fout, ", ");
+        }
+        testSection_export(&(object->sections[i]), fout);
+    }
+
+    fprintf(fout, "]}");
+    fclose(fout);
+}
+
+
+// Initialize a test Section
+void testSection_init(tTestSection* object, const char* code, const char* title) {
+    assert(object != NULL);
+    object->code = (char*) malloc((strlen(code) + 1) * sizeof(char));
+    assert(object->code != NULL);
+    strcpy(object->code, code);
+    object->title = (char*) malloc((strlen(title) + 1) * sizeof(char));
+    assert(object->title != NULL);
+    strcpy(object->title, title);
+    object->numTests = 0;
+    object->tests = NULL;
+    object->progress_file = NULL;
+}
+
+// Remove a test Section
+void testSection_free(tTestSection* object) {
+    int i;
+    assert(object != NULL);
+    assert(object->code != NULL);
+
+    free(object->code);
+    free(object->title);
+    if(object->tests != NULL) {
+        for(i = 0; i < object->numTests; i++) {
+            test_free(&(object->tests[i]));
+        }
+        free(object->tests);
+    }
+
+}
+
+// Add a test to the Section
+void testSection_addTest(tTestSection* object, const char* code, const char* description, tTestResult result) {
+    assert(object != NULL);
+    object->numTests++;
+    if(object->tests == NULL) {
+        object->tests = (tTest*)malloc(object->numTests * sizeof(tTest));
+    } else {
+        object->tests = (tTest*)realloc(object->tests, object->numTests * sizeof(tTestSection));
+    }
+    assert(object->tests != NULL);
+    test_init(&(object->tests[object->numTests - 1]), code, description, result);
+}
+
+// Update a test result
+void testSection_updateTest(tTestSection* object, const char* test_code, tTestResult result) {
+    tTest* test = NULL;
+
+    assert(object != NULL);
+    test = testSection_getTest(object, test_code);
+
+    assert(test != NULL);
+    test_updateTest(test, result);
+}
+
+// Get a pointer to a test
+tTest* testSection_getTest(tTestSection* object, const char* test_code) {
+    int i;
+    assert(object != NULL);
+    assert(test_code != NULL);
+    for(i = 0; i < object->numTests; i++) {
+        if(strcmp(object->tests[i].code, test_code) == 0) {
+            return &(object->tests[i]);
+        }
+    }
+    return NULL;
+}
+
+// Get test statistics
+void testSection_getStats(tTestSection* object, int* total, int* passed, int* failed, int* not_implemented) {
+    int i;
+    assert(object != NULL);
+    assert(total != NULL);
+    assert(passed != NULL);
+    assert(failed != NULL);
+    assert(not_implemented != NULL);
+
+    *total = object->numTests;
+    *passed = 0;
+    *failed = 0;
+    *not_implemented = 0;
+    for(i = 0; i < object->numTests; i++) {
+        if(object->tests[i].result == TEST_PASSED) {
+            (*passed)++;
+        } else
+            if(object->tests[i].result == TEST_FAILED) {
+                (*failed)++;
+            } else
+                if(object->tests[i].result == TEST_FAILED) {
+                    (*not_implemented)++;
+                }
+    }
+}
+
+// Print test section
+void testSection_print(tTestSection* object, tBuffer* buffer) {
+    int i;
+    int total, passed, failed, not_implemented;
+
+    assert(object != NULL);
+    assert(buffer != NULL);
+    
+    testSection_getStats(object, &total, &passed, &failed, &not_implemented);
+
+    bprintf(buffer, "\n\t=================================================================\n");
+    bprintf(buffer, "\t%s\n", object->title);
+    bprintf(buffer, "\t=================================================================\n");
+    if(object->numTests == 0) {
+        bprintf(buffer, "\tNO TEST DEFINED\n");
+    } else {
+        for(i = 0; i < object->numTests; i++) {
+            test_print(&(object->tests[i]), buffer);
+        }
+    }
+    bprintf(buffer, "\t=================================================================\n");
+    if(total > 0) {
+        bprintf(buffer, "\tTotal Tests: %d\n", total);
+        bprintf(buffer, "\tPassed Tests: %d ( %2.2f %% )\n", passed, ((float)passed / (float)total) * 100.0);
+        bprintf(buffer, "\tFailed Tests: %d ( %2.2f %%)\n", failed, ((float)failed / (float)total) * 100.0);
+        //bprintf(buffer, "\tNot Implemented: %d ( %2.2f %%)\n", not_implemented, ((float)not_implemented/(float)total)*100.0);
+        bprintf(buffer, "\t=================================================================\n");
+    }
+}
+
+// Export a test section
+void testSection_export(tTestSection* object, FILE* fout) {
+    int i;
+    int total, passed, failed, not_implemented;
+
+    assert(object != NULL);
+    assert(fout != NULL);
+
+    testSection_getStats(object, &total, &passed, &failed, &not_implemented);
+
+    fprintf(fout, "{ \"code\": \"%s\", \"title\": \"%s\", \"total\": %d, \"passed\": %d, \"failed\": %d, \"not_implemented\": %d, \"tests\": [", object->code, object->title, total, passed, failed, not_implemented);
+
+    for(i = 0; i < object->numTests; i++) {
+        if(i > 0) {
+            fprintf(fout, ", ");
+        }
+        test_export(&(object->tests[i]), fout);
+    }
+
+    fprintf(fout, "]}");
+}
+
+
+// Initialize a test
+void test_init(tTest* object, const char* code, const char* description, tTestResult result) {
+    assert(object != NULL);
+    object->code = (char*) malloc((strlen(code) + 1) * sizeof(char));
+    assert(object->code != NULL);
+    object->description = (char*) malloc((strlen(description) + 1) * sizeof(char));
+    assert(object->description != NULL);
+    strcpy(object->code, code);
+    strcpy(object->description, description);
+    object->result = TEST_RUNNING;    
+}
+
+// Remove a test
+void test_free(tTest* object) {
+    assert(object != NULL);
+    assert(object->code != NULL);
+    assert(object->description != NULL);
+    free(object->code);
+    free(object->description);    
+}
+
+// Update a test result
+void test_updateTest(tTest* object, tTestResult result) {
+    assert(object != NULL);
+    object->result = result;
+}
+
+// Print test
+void test_print(tTest* object, tBuffer* buffer) {
+    assert(object != NULL);
+    bprintf(buffer, "\t\t");
+    if(object->result == TEST_RUNNING) {
+        bprintf(buffer, "[%s]", "RUNNING");
+    } else
+        if(object->result == TEST_NOT_IMPLEMENTED) {
+            bprintf(buffer, "[%s]", "NOT IMPLEMENTED");
+        } else
+            if(object->result == TEST_PASSED) {
+                bprintf(buffer, "[%s]", "OK");
+            } else
+                if(object->result == TEST_FAILED) {
+                    bprintf(buffer, "[%s]", "FAIL");
+                }
+    bprintf(buffer, ":\t [%s] %s\n", object->code, object->description);
+}
+
+// Export a test
+void test_export(tTest* object, FILE* fout) {
+    assert(object != NULL);
+    assert(fout != NULL);
+
+    fprintf(fout, "{ \"code\": \"%s\", \"description\": \"%s\", \"result\": ", object->code, object->description);
+    if(object->result == TEST_RUNNING) {
+        fprintf(fout, "\"%s\"}", "RUNNING");
+    } else
+        if(object->result == TEST_NOT_IMPLEMENTED) {
+            fprintf(fout, "\"%s\"}", "NOT IMPLEMENTED");
+        } else
+            if(object->result == TEST_PASSED) {
+                fprintf(fout, "\"%s\"}", "OK");
+            } else
+                if(object->result == TEST_FAILED) {
+                    fprintf(fout, "\"%s\"}", "FAIL");
+                }
+}
+
+
+// Start a test
+void start_test(tTestSection* section, const char* code, const char* description) {
+
+    assert(section != NULL);
+    assert(code != NULL);
+    assert(description != NULL);
+
+    _save_progress(section, code, NULL);
+    _print_progress(TEST_RUNNING, code, description);
+
+    testSection_addTest(section, code, description, TEST_RUNNING);
+}
+
+// Finish a test
+void end_test(tTestSection* section, const char* code, bool passed) {
+    tTest* test = NULL;
+    assert(section != NULL);
+    assert(code != NULL);
+
+    test = testSection_getTest(section, code);
+    assert(test != NULL);
+
+    if(passed) {
+        _print_progress(TEST_PASSED, test->code, test->description);
+        _save_progress(section, test->code, "OK");
+        test_updateTest(test, TEST_PASSED);
+    } else {
+        _print_progress(TEST_FAILED, test->code, test->description);
+        _save_progress(section, test->code,  "FAIL");
+        test_updateTest(test, TEST_FAILED);
+    }
+}
+
+// Set output progress file
+void _save_progress(tTestSection* section, const char* test_code, const char* test_result) {
+    FILE *f_progress=NULL;    
+    if (section->progress_file == NULL) {
+        return;
+    }
+    // Open the file
+    f_progress = fopen(section->progress_file, "a");
+    if (f_progress == NULL) {
+        return;
+    }
+    
+    if (test_result == NULL) {
+        fprintf(f_progress, "TEST:START:{\"section_code\": \"%s\", \"test_code\": \"%s\"}\n", section->code,  test_code);        
+    } else {        
+        fprintf(f_progress, "TEST:END:{\"section_code\": \"%s\", \"test_code\": \"%s\", \"result\": \"%s\"}\n", section->code, test_code, test_result);
+    }
+    
+    // Close the file
+    fclose(f_progress);    
+}
+
+// Output test progress
+void _print_progress(tTestResult result, const char *code, const char *description)
+{
+#if defined(PRINT_TEST_PROGRESS) || defined(DSLAB)
+    tBuffer* buffer = NULL;
+
+    // Reserve memory and open buffer
+    buffer = (tBuffer*) malloc(sizeof(tBuffer));
+    assert(buffer != NULL);
+    open_buffer(buffer);
+
+    switch (result) {
+        case TEST_RUNNING: bprintf(buffer, "\n[START] ==> Running test [%s] - %s\n", code, description); break;
+        case TEST_PASSED: bprintf(buffer, "\n[OK] ==> Finished test [%s] - %s\n", code, description); break;
+        case TEST_FAILED: bprintf(buffer, "\n[FAIL] ==> Finished test [%s] - %s\n", code, description); break;
+        case TEST_NOT_IMPLEMENTED: bprintf(buffer, "\n[FAIL] ==> Not implemented test [%s] - %s\n", code, description); break;
+    }
+
+#ifdef PRINT_TEST_PROGRESS
+    printf("%s", buffer->data);
+#endif
+#ifdef DSLAB
+    LSimLogger_log("INFO", buffer->data);
+#endif
+
+    // Close buffer and free memory
+    close_buffer(buffer);
+    free(buffer);
+#endif
+}
+
+// Open and initializes a buffer
+void open_buffer(tBuffer* buffer)
+{
+    assert(buffer != NULL);
+
+    // Reserve memory for 1 char to store NULL at last position
+    buffer->data = (char*) malloc(sizeof(char));
+    assert(buffer->data != NULL);
+
+    // Initialize values
+    memset(buffer->data, 0, sizeof(char));
+    buffer->count = 0;
+}
+
+// Close a buffer and free its internal string
+void close_buffer(tBuffer* buffer) {
+    free(buffer->data);
+    buffer->data = NULL;
+    buffer->count = 0;
+}
+
+// Add a formated string to a buffer. Analog to functions like sprintf or fprintf
+void bprintf(tBuffer* buffer, const char * pString, ...){
+    const int MAX_LENGTH = 2048;
+    int size; //, length;
+    va_list args;
+    char tmp[MAX_LENGTH];
+
+    // Read parameters
+    va_start(args, pString);
+
+    // Determine the size of new string using temporary string
+    size = vsnprintf(tmp, MAX_LENGTH, pString, args);
+
+    // Allocate memory for buffer. Add extra space for NULL termination
+    buffer->count += size;
+    buffer->data = (char*) realloc(buffer->data, (buffer->count+1)*sizeof(char));
+
+    // Update buffer
+    strncat(buffer->data, tmp, size);
+
+    // Close parameter's read
+    va_end(args);
+}
+
+

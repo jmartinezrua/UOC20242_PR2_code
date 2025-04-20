@@ -1,0 +1,91 @@
+# File and Folder Structure of 'UOC20242'
+## Full Path: /home/user/UOC20242
+
+- 📄 Makefile
+- 📄 PR2_20242_75555_enunciado.txt
+- 📄 README.txt
+- 📄 README.txt:Zone.Identifier
+- 📄 UOC20242.project
+- 📄 UOC20242.project:Zone.Identifier
+- 📄 UOC20242.workspace
+- 📄 UOC20242.workspace:Zone.Identifier
+- 📂 **UOCPlay**
+    - 📄 Makefile
+    - 📄 UOCPlay.project
+    - 📄 UOCPlay.project:Zone.Identifier
+    - 📂 **build**
+        - 📄 api.o
+        - 📄 csv.o
+        - 📄 date.o
+        - 📄 film.o
+        - 📄 person.o
+        - 📄 show.o
+        - 📄 subscription.o
+        - 📄 watchstack.o
+    - 📂 **include**
+        - 📄 api.h
+        - 📄 api.h:Zone.Identifier
+        - 📄 csv.h
+        - 📄 csv.h:Zone.Identifier
+        - 📄 date.h
+        - 📄 date.h:Zone.Identifier
+        - 📄 error.h
+        - 📄 error.h:Zone.Identifier
+        - 📄 film.h
+        - 📄 film.h:Zone.Identifier
+        - 📄 person.h
+        - 📄 person.h:Zone.Identifier
+        - 📄 show.h
+        - 📄 show.h:Zone.Identifier
+        - 📄 subscription.h
+        - 📄 subscription.h:Zone.Identifier
+        - 📄 watchstack.h
+        - 📄 watchstack.h:Zone.Identifier
+    - 📂 **src**
+        - 📄 api.c
+        - 📄 api.c:Zone.Identifier
+        - 📄 csv.c
+        - 📄 csv.c:Zone.Identifier
+        - 📄 date.c
+        - 📄 date.c:Zone.Identifier
+        - 📄 film.c
+        - 📄 film.c:Zone.Identifier
+        - 📄 person.c
+        - 📄 person.c:Zone.Identifier
+        - 📄 show.c
+        - 📄 show.c:Zone.Identifier
+        - 📄 subscription.c
+        - 📄 subscription.c:Zone.Identifier
+        - 📄 watchstack.c
+        - 📄 watchstack.c:Zone.Identifier
+- 📂 **bin**
+    - 📄 UOC20242d
+- 📂 **build-Debug**
+- 📂 **lib**
+    - 📄 libUOCPlay.a
+- 📂 **src**
+    - 📄 main.c
+    - 📄 main.c:Zone.Identifier
+- 📂 **test**
+    - 📂 **include**
+        - 📄 test.h
+        - 📄 test.h:Zone.Identifier
+        - 📄 test_data.h
+        - 📄 test_data.h:Zone.Identifier
+        - 📄 test_pr1.h
+        - 📄 test_pr1.h:Zone.Identifier
+        - 📄 test_pr2.h
+        - 📄 test_pr2.h:Zone.Identifier
+        - 📄 test_suite.h
+        - 📄 test_suite.h:Zone.Identifier
+    - 📂 **src**
+        - 📄 test.c
+        - 📄 test.c:Zone.Identifier
+        - 📄 test_pr1.c
+        - 📄 test_pr1.c:Zone.Identifier
+        - 📄 test_pr2.c
+        - 📄 test_pr2.c:Zone.Identifier
+        - 📄 test_suite.c
+        - 📄 test_suite.c:Zone.Identifier
+- 📄 test_data_pr1.csv
+- 📄 test_data_pr2.csv

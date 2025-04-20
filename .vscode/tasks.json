@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar UOCPlay",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "mkdir -p ${workspaceFolder}/bin && gcc -g -o ${workspaceFolder}/bin/UOC20242d ${workspaceFolder}/src/main.c ${workspaceFolder}/test/src/test_suite.c ${workspaceFolder}/test/src/test.c ${workspaceFolder}/test/src/test_pr1.c ${workspaceFolder}/test/src/test_pr2.c -I ${workspaceFolder}/UOCPlay/include -I ${workspaceFolder}/test/include ${workspaceFolder}/UOCPlay/src/*.c"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Compila el proyecto UOCPlay"
+        }
+    ]
+}

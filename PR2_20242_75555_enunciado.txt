@@ -1,0 +1,137 @@
+Análisis dinámico 
+En esta actividad se utiliza memoria dinámica, que requiere que el programador reserve, inicialice y libere la memoria. Para ayudar a detectar memoria que no se ha liberado correctamente, o errores en las operaciones con punteros relacionadas, hay herramientas que ejecutan un análisis dinámico del programa. Una herramienta de código abierto muy empleada es Valgrind (https://valgrind.org/).
+
+Enunciado 
+El punto de partida de esta práctica es la solución oficial de la PR1. El código base del enunciado incluye todos los archivos necesarios de las actividades anteriores, con los que veréis que todos los tests de la PR1 pasan correctamente. 
+La estructura tCatalog ha sido renombrada a tFilmCatalog, y se ha añadido una nueva para almacenar series llamada tShowCatalog. 
+ type 
+ 
+    tFilmstackNode = record 
+        elem : tFilm; 
+        next : pointer to tFilmstackNode; 
+    end record 
+ 
+    tFilmstack = record 
+        top : pointer to tFilmstackNode; 
+        count : integer; 
+    end record 
+ 
+    tEpisode = record 
+        title : pointer to char; 
+        number : integer; 
+        duration : tTime; 
+        rating : float; 
+    end record 
+   
+    tEpisodeNode = record 
+        episode : tEpisode; 
+        next : pointer to tEpisodeNode; 
+    end record 
+ 
+    tEpisodeQueue = record 
+        first : pointer to tEpisodeNode; 
+        last : pointer to tEpisodeNode; 
+        count : integer; 
+    end record 
+ 
+    tSeason = record 
+        number : integer; 
+        releaseDate : tDate; 
+        numEpisodes : integer; 
+        episodes : tEpisodeQueue; 
+    end record 
+ 
+    tSeasonNode = record 
+        season : tSeason; 
+        next : pointer to tSeasonNode; 
+    end record 
+ 
+    tSeasonList = record 
+        first : pointer to tSeasonNode; 
+        count : integer; 
+    end record 
+ 
+    tShow = record 
+        name : pointer to char; 
+        seasons : tSeasonList; 
+    end record 
+ 
+    tShowNode = record 
+        show : tShow; 
+        next : pointer to tShowNode; 
+        prev : pointer to tShowNode; 
+    end record 
+ 
+    tShowCatalog = record 
+        first : pointer to tShowNode; 
+        last : pointer to tShowNode; 
+        count : integer; 
+    end record 
+ 
+end type 
+
+Ejercicio 1: Gestión de series [50%]​​En este ejercicio trabajaremos con la gestión de series de televisión utilizando estructuras de datos en C. Se os proporcionará un conjunto de archivos con definiciones y funciones básicas relacionadas con series, temporadas y episodios. A partir de ese código base, deberéis completar la implementación de varios métodos clave que permitirán inicializar, añadir y consultar información dentro del catálogo de series. 
+Este ejercicio está diseñado para que pongáis en práctica el uso de estructuras dinámicas, la correcta gestión de memoria y la organización modular del código en un proyecto más complejo. Prestad atención a los requisitos de cada apartado, así como a los posibles errores que debéis contemplar en los casos indicados. 
+En el código proporcionado encontraréis los archivos  shows.c y shows.h con la definición de los tipos de datos anteriores y los principales métodos relacionados.  
+En el fichero shows.c implementad: 
+a)​PR2_1a: El método showList_init que dada una estructura de tipo tShowCatalog, la inicialice correctamente. 
+b)​PR2_1b: El método show_init que dada una estructura de tipo tShowCatalog, la inicialice correctamente. 
+c)​PR2_1c: El método episodeQueue_enqueue que dada una estructura de tipo tEpisodeQueue y uno de tipo tEpisode, añade el episodio a la cola de episodios 
+d)​PR2_1d: El método season_addEpisode que dada una estructura de tipo tShowCatalog, un nombre de serie, un número de temporada y un tipo tEpisode, añade el episodio a la serie. En caso de ya existir el episodio, se devolverá deberá devolver un error de tipo E_EPISODE_DUPLICATED. 
+En caso de finalizar correctamente, la función debe devolver E_SUCCESS. 
+e)​PR2_1e: El método seasonList_add que dada una estructura de tipo tSeasonList y una estructura de tipo tSeason, añade la nueva temporada al principio de la lista. 
+f)​PR2_1f: El método showList_add que dada una estructura de tipo tSeasonList y una estructura de tipo tShow, está podrá contener una única temporada con un único episodio, que en caso de no existir, se añadirán también.  
+g)​PR2_1g: El método show_seasonTotalDuration que dada una estructura de tipo tShowCatalog y una estructura de tipo tShow, un nombre de serie, un número de temporada, nos devuelve la duración de tiempo de la temporada en un tipo tTime. 
+h)​PR2_1h: El método show_seasonAverageRating que dada una estructura de tipo tShowCatalog, un nombre de serie y un número de temporada, nos devuelve la media de valoración de los episodios de esa temporada. Si no tuviera episodios la temporada o no tuviera episodios, nos devolverá 0.0f 
+i)​PR2_1i: El método showList_free , que dado un objeto de tipo tShowCatalog, elimina los datos que contiene. 
+j)​PR2_1j: El método showsList_len, que dado un objeto de tipo tShowCatalog, devuelve el número de series que contiene.​ 
+En el código proporcionado también encontraréis la definición e implementación de otras funciones que os pueden ser de utilidad: 
+​El método season_init, que dado un objeto de tipo tSeason, lo inicializa con los datos recibidos como parámetros.​ 
+El método episode_init, que dado un objeto de tipo tEpisode, lo inicializa con los datos recibidos como parámetros.​ 
+El método show_cpy, que realiza una copia de una estructura tShow junto a todos los los punteros dentro del show. 
+El método season_cpy, que realiza una copia de una estructura tSeason junto a todos los los punteros dentro del show. 
+El método episode_cpy, que realiza una copia de una estructura tEpisode junto a todos los los punteros dentro del show. 
+El método show_free que dado un objeto de tipo tShow elimina todos los datos que contiene. 
+​El método seasonList_free, que dado un objeto de tipo tSeasonList, elimina los datos que contiene. 
+​El método showList_print, que imprime por pantalla la información de un objeto de tipo tShowCatalog.​ 
+El método show_print, que imprime por pantalla la información de un objeto de tipo tShow. 
+ 
+Ejercicio 2: Pila de seguimiento de películas [30%]​ 
+En muchas plataformas de streaming encuentras una funcionalidad llamada "lista de seguimiento" o "watchlist", donde puedes almacenar las películas que te interesan para verlas más adelante. Esta lista facilita que no se te olvide ningún título deseado y te permite acceder rápidamente a tus próximas opciones de visionado.  
+El siguiente ejercicio se centra en implementar una versión simplificada de este concepto, utilizando una pila (estructura LIFO) para gestionar la lista de películas. A través de este ejercicio, aprenderás a inicializar, modificar y liberar una pila de seguimiento asociada a una suscripción, replicando una de las funciones esenciales que ofrecen las plataformas para una experiencia de usuario más organizada y personalizada. 
+En el código proporcionado encontraréis los ficheros watchstack.h y watchstack.c con la definición de los tipos de datos y los principales métodos relacionados con la gestión de la pila de seguimiento de películas para ver asociada a una suscripción. 
+En el fichero subscription.c modifica los siguientes métodos: 
+a)​PR2_2a: subscriptions_add: Completa la función para que inicialice la pila de seguimiento de peliculas (tFilmstack) asociada a una suscripción.​ 
+b)​PR2_2b: subscription_free: Completa la función para que libere la memoria ocupada por la pila de visionado (tFilmstack) asociada a una suscripción. 
+En el fichero watchstack.c implementa los siguientes métodos: 
+c)​PR2_2c: filmstack_init: Inicializa una estructura tFilmstack como una pila vacía. Devuelve E_SUCCESS si se inicializa correctamente.​ 
+d)​PR2_2d: filmstack_isEmpty: Indica si la pila que se le pasa está vacía (true) o, por el contrario, contiene elementos (false).​ 
+e)​PR2_2e: filmstack_push: Añade una película (tFilm) a la pila. Devuelve E_SUCCESS si se añade correctamente, si se intenta añadir uno repetido devolverá E_FILM_ALREADY_EXISTS y en caso de que no se pueda asignar memoria para el nuevo elemento devolverá  E_MEMORY_ERROR​ 
+f)​PR2_2f: filmstack_top: Devuelve un puntero al elemento (tFilm) que está en la cima de la pila. Este elemento no se eliminará de la pila. En caso de que la pila esté vacía, devuelve NULL.​ 
+g)​PR2_2g: filmstack_pop: Extrae el elemento que está en la cima de la pila y lo devuelve por referencia. Devuelve E_SUCCESS si la extracción se realiza correctamente, o E_STRUCTURE_EMPTY si la pila está vacía.​ 
+h)​PR2_2h: filmstack_free: Elimina todos los elementos de la pila y libera la memoria ocupada por ellos. Devuelve E_SUCCESS tras liberar correctamente la pila. 
+
+Ejercicio 3: Integración en la API [20%]​ 
+Finalmente queremos incorporar la gestión de las series y la pila de seguimiento de películas en la estructura del API, definida e implementada en los ficheros api.h y api.c. Se pide: 
+a)​PR2_3a: Completa la definición del tipo de datos tApiData del archivo api.h para que guarde la lista de series tShowCatalog definida en el ejercicio anterior.​ 
+b)​PR2_3b: Modifica la función api_initData del archivo api.c para que inicialice la lista de series. 
+c)​PR2_3c: Implementa la función api_addToWatchlist para que cuando se añada un nueva película a la lista de seguimiento para la id de una subscripción: 
+i)​Añade una película a la suscripción. 
+ii)​Si la película ya existe, no la añadirá.​ 
+d)​PR2_3d: Implementa la función api_findShow en el archivo api.c, que busca  una serie por su nombre dentro del catálogo de series en la tApiData dada. Si no encuentra la serie devolverá NULL.​ 
+e)​PR2_3e: Modifica el método api_addDataEntry del archivo api.c para que cuando se añada un nuevo show: 
+i)​Añade un show, temporada y episodio al catálogo de series. 
+ii)​Si el show, la temporada o el episodio ya existen, no los añadirá.​ 
+f)​PR2_3f: Implementa el método api_addShow del archivo api.c que, dada una estructura de tipo tApiData y el nombre de una serie, almacene la información de la serie con dicho nombre en una estructura de tipo tCSVEntry.  
+El formato de la serie que debe devolver es el siguiente: 
+“showName;seasonNumber;seasonDate;episodeNumber;episodeTitle;duration;rating” 
+​Por ejemplo: 
+"SHOW;Breaking Bad;1;20/01/2008;1;Pilot;00:58;4.9"​"SHOW;Breaking Bad;1;27/01/2008;2;Cat's in the Bag...;00:48;4.8"                             "SHOW;Stranger Things;1;15/07/2016;1;The Vanishing of Will Byers;00:47;4.7"​"SHOW;Stranger Things;1;15/07/2016;2;The Weirdo on Maple Street;00:55;4.6"​ 
+Para cada dato, será necesario comprobar que el formato es correcto (asumimos que es correcto si el número de campos es el esperado, error asociado E_INVALID_ENTRY_FORMAT) y que el tipo es “SHOW” (puedes acceder al tipo mediante el método csv_getType, error asociado E_INVALID_ENTRY_TYPE). 
+En caso de finalizar correctamente, la función debe devolver E_SUCCESS. 
+Nota: En los archivos show.h y show.c encontrarás una nueva definición de show_parse que devuelve la información de una serie en una estructura de tipo tShow. También encontrarás los métodos para gestionar las estructuras de datos de la serie tShow. Asimismo, recuerda que en el primer ejercicio implementaste el método show_free para eliminar la memoria dinámica reservada temporalmente para guardar los datos de la serie. 
+g)​PR1_3g: Implementa el método api_showsCount que dada una estructura de datos de tipo tApiData, retornen la cantidad de series. 
+h)​PR1_3h: Modifica el método api_freeData del archivo api.c, para que elimine todos los datos referentes a las series.​ 
+
+ 
+
