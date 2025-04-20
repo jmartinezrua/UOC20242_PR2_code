@@ -358,11 +358,42 @@ tSeason* seasonList_find(tSeasonList list, int number) {
 
 // Add an episode to a specific season of a specific show
 tApiError show_addEpisode(tShowCatalog* shows, const char* showName, int seasonNumber, tEpisode episode) {
-    /////////////////////////////////
-    // PR2_2b 
-    /////////////////////////////////
-    
-    return E_NOT_IMPLEMENTED;
+    // Validar precondiciones
+    if (shows == NULL || showName == NULL || episode.title == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    // Buscar el show por su nombre
+    tShow* show = showList_find(*shows, showName);
+    if (show == NULL) {
+        return E_FILM_NOT_FOUND; // Show no encontrado
+    }
+
+    // Buscar la temporada por su número
+    tSeason* season = seasonList_find(show->seasons, seasonNumber);
+    if (season == NULL) {
+        return E_INVALID_ENTRY_TYPE; // Temporada no encontrada
+    }
+
+    // Verificar si el episodio ya existe en la temporada
+    tEpisodeNode* current = season->episodes.first;
+    while (current != NULL) {
+        if (current->episode.number == episode.number) {
+            return E_EPISODE_DUPLICATED; // Episodio duplicado
+        }
+        current = current->next;
+    }
+
+    // Añadir el episodio a la cola de episodios de la temporada
+    tApiError error = episodeQueue_enqueue(&season->episodes, episode);
+    if (error != E_SUCCESS) {
+        return error; // Error al añadir el episodio
+    }
+
+    // Incrementar el contador de episodios en la temporada
+    season->numEpisodes++;
+
+    return E_SUCCESS;
 }
 
 
