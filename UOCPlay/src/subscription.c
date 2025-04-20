@@ -123,7 +123,7 @@ tApiError subscriptions_add(tSubscriptions* data, tPeople people, tSubscription 
     // PR2_2a
     /////////////////////////////////
     
-    
+    filmstack_init(&(data->elems[data->count].watchlist));
     
     /////////////////////////////////
 	// Increase the number of elements
@@ -198,7 +198,10 @@ tApiError subscriptions_free(tSubscriptions* data) {
     /////////////////////////////////
     // PR2_2b
     /////////////////////////////////
-        
+      
+    for (int i = 0; i < data->count; i++) {
+        filmstack_free(&(data->elems[i].watchlist));
+    }
         
     /////////////////////////////////
         free(data->elems);
