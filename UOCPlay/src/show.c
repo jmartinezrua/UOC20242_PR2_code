@@ -440,11 +440,41 @@ tTime show_seasonTotalDuration(tShowCatalog shows, const char* showName, int sea
 
 // Calculate average rating of episodes in a season
 float show_seasonAverageRating(tShowCatalog shows, const char* showName, int seasonNumber) {
-    /////////////////////////////////
-	// Ex1 PR2 1h
-	/////////////////////////////////
-  
-    return  0.0f;
+    // Validar precondiciones
+    if (showName == NULL) {
+        return 0.0f;
+    }
+
+    // Buscar el show por su nombre
+    tShow* show = showList_find(shows, showName);
+    if (show == NULL) {
+        return 0.0f; // Show no encontrado
+    }
+
+    // Buscar la temporada por su número
+    tSeason* season = seasonList_find(show->seasons, seasonNumber);
+    if (season == NULL) {
+        return 0.0f; // Temporada no encontrada
+    }
+
+    // Recorrer los episodios de la temporada y calcular la media de valoraciones
+    tEpisodeNode* current = season->episodes.first;
+    float totalRating = 0.0f;
+    int episodeCount = 0;
+
+    while (current != NULL) {
+        totalRating += current->episode.rating;
+        episodeCount++;
+        current = current->next;
+    }
+
+    // Si no hay episodios, devolver 0.0f
+    if (episodeCount == 0) {
+        return 0.0f;
+    }
+
+    // Calcular y devolver la media
+    return totalRating / episodeCount;
 }
 
 // Return the number of total shows
