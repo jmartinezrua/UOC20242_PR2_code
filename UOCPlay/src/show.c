@@ -479,12 +479,8 @@ float show_seasonAverageRating(tShowCatalog shows, const char* showName, int sea
 
 // Return the number of total shows
 int showsList_len(tShowCatalog shows) {
-	/////////////////////////////////
-	// PR2_1j
-	/////////////////////////////////
-	
-	/////////////////////////////////
-    return -1;
+    // Retornar el contador de shows en el catálogo
+    return shows.count;
 }
 
 // Free the memory allocated for show list
