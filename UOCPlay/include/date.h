@@ -1,6 +1,7 @@
 #ifndef __DATE_H__
 #define __DATE_H__
 #include <stdbool.h>
+#include "date.h"
 
 // Length of the date
 #define DATE_LENGTH 10
@@ -37,6 +38,9 @@ void date_cpy(tDate *dst, tDate src);
 
 // Compare two dates
 int date_cmp(tDate date1, tDate date2);
+
+// Initialize a tDate structure
+void date_init(tDate* date);
 
 // Parse a tDateTime from string information
 void dateTime_parse(tDateTime* dateTime, const char* date, const char* time);

@@ -1,6 +1,8 @@
 #ifndef __UOCHEALTHCENTER_ERROR__H
 #define __UOCHEALTHCENTER_ERROR__H
 
+#include "subscription.h"
+
 // Define error codes
 enum _tApiError
 {

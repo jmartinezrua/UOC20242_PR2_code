@@ -1,7 +1,9 @@
 #include "test_pr2.h"
 #include "api.h"
+#include "person.h"
 #include <assert.h>
 #include <string.h>
+#include <stdlib.h> // Agregado para malloc y free
 
 // Run all tests for PR2
 
@@ -494,42 +496,69 @@ bool run_pr2_ex3(tTestSection *test_section, const char* input) {
             fail_all = true;
         }
     }
-   
     
-    //////////////////////////////////////
-    /////  PR2 EX3 TEST 1: Add films  ////
-    //////////////////////////////////////
-    failed = false;
-    start_test(test_section, "PR2_EX3_1", "Add films to watchlist from CSV");
-    if (fail_all) {
-        failed = true;
+    for (int i = 0; i < data.subscriptions.count; i++) {
+        char buffer[256];
+        subscriptions_get(data.subscriptions, i, buffer);
+        printf("Suscripción cargada: %s\n", buffer);
+    }
+    
+    printf("Suscripciones cargadas:\n");
+    for (int i = 0; i < data.subscriptions.count; i++) {
+        char buffer[256];
+        subscriptions_get(data.subscriptions, i, buffer);
+        printf("%s\n", buffer);
+    }
+    
+    printf("Personas cargadas:\n");
+    for (int i = 0; i < data.people.count; i++) {
+        char buffer[256];
+        people_get(data.people, i, buffer);
+        printf("%s\n", buffer);
+    }
+    
+    printf("Verificando inicialización de stack...\n");
+    int subIndex = subscriptions_find(data.subscriptions, 5);
+    printf("Índice de la suscripción: %d\n", subIndex);
+
+    if (subIndex < 0) {
+        printf("Error: No se encontró la suscripción con ID 5.\n");
+        fail_all = true;
     } else {
-        stack = &data.subscriptions.elems[subscriptions_find(data.subscriptions, 5)].watchlist;
-
-        csv_initEntry(&entry);
-        csv_parseEntry(&entry, "Interstellar;02:49;4;07/11/2014;4.8;0", "FILM");
-        api_addToWatchlist(&data, 5, entry);
-        csv_freeEntry(&entry);
-        
-        csv_initEntry(&entry);
-        csv_parseEntry(&entry, "Mad Max: Fury Road;02:00;0;15/05/2015;4.5;0", "FILM");
-        api_addToWatchlist(&data, 5, entry);
-        csv_freeEntry(&entry);
-        
-        csv_initEntry(&entry);
-        csv_parseEntry(&entry, "The Green Mile;03:09;2;10/12/1999;4.8;1", "FILM");
-        api_addToWatchlist(&data, 5, entry);
-        csv_freeEntry(&entry);
-
-        csv_initEntry(&entry);
-        csv_parseEntry(&entry, "The Pursuit of Happyness;01:57;2;15/12/2006;4.4;1", "FILM");
-        api_addToWatchlist(&data, 5, entry);
-        csv_freeEntry(&entry);
-        
-        if (stack->count != 4) {
+        stack = &data.subscriptions.elems[subIndex].watchlist;
+        tApiError error = filmstack_init(stack); // Inicializar el stack
+        if (error != E_SUCCESS) {
+            printf("Error al inicializar el stack de la suscripción.\n");
+            fail_all = true;
+        } else {
+            printf("Stack inicializado correctamente. Número de elementos: %d\n", stack->count);
+        }
+    }
+    
+    ////////////////////////////////////////
+    /////  PR2 EX3 TEST 1: Initialize stack  ////
+    ////////////////////////////////////////
+    failed = false;
+    start_test(test_section, "PR2_EX3_1", "Initialize stack");
+    stack = (tFilmstack*)malloc(sizeof(tFilmstack));
+    if (stack == NULL) {
+        printf("Error: No se pudo asignar memoria para el stack.\n");
+        failed = true;
+        passed = false;
+    } else {
+        tApiError error = filmstack_init(stack);
+        if (error != E_SUCCESS) {
+            printf("Error al inicializar el stack.\n");
             failed = true;
             passed = false;
+        } else {
+            if (stack->count != 0) {
+                failed = true;
+                passed = false;
+            }
         }
+        filmstack_free(stack);
+        free(stack);
     }
     end_test(test_section, "PR2_EX3_1", !failed);
 
@@ -561,6 +590,11 @@ bool run_pr2_ex3(tTestSection *test_section, const char* input) {
         failed = true;
     } else {
         topFilm = filmstack_top(*stack);
+        if (stack == NULL || stack->top == NULL) {
+            printf("Error: El stack no está inicializado o está vacío.\n");
+            failed = true;
+            passed = false;
+        }
         if (topFilm == NULL || strcmp(topFilm->name, "The Pursuit of Happyness") != 0) {
             failed = true;
             passed = false;

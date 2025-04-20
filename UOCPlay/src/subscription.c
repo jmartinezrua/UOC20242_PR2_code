@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "subscription.h"
+#include "date.h"
 
 // Parse input from CSVEntry
 void subscription_parse(tSubscription* data, tCSVEntry entry) {
@@ -70,7 +71,7 @@ void subscription_cpy(tSubscription* destination, tSubscription source) {
 // Get subscription data using a string
 void subscription_get(tSubscription data, char* buffer) {
     // Print all data at same time
-    sprintf(buffer,"%d;%s;%02d/%02d/%04d;%02d/%02d/%04d;%s;%g;%d",
+    sprintf(buffer, "%d;%s;%02d/%02d/%04d;%02d/%02d/%04d;%s;%.2f;%d",
         data.id,
         data.document,
         data.start_date.day, data.start_date.month, data.start_date.year,
@@ -81,13 +82,15 @@ void subscription_get(tSubscription data, char* buffer) {
 }
 
 // Initialize subscriptions data
-tApiError subscriptions_init(tSubscriptions* data) {
-    // Check input data
-    assert(data != NULL);
-    data->elems = NULL;
-    data->count = 0; 
-	
-	return E_SUCCESS;
+tApiError subscriptions_init(tSubscriptions* subscriptions) {
+    if (subscriptions == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    subscriptions->count = 0;
+    subscriptions->elems = NULL;
+
+    return E_SUCCESS;
 }
 
 // Return the number of subscriptions
@@ -96,40 +99,19 @@ int subscriptions_len(tSubscriptions data) {
 }
 
 // Add a new subscription
-tApiError subscriptions_add(tSubscriptions* data, tPeople people, tSubscription subscription) {
+tApiError subscriptions_add(tSubscriptions* subscriptions, tSubscription sub) {
+    if (subscriptions == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
 
-    // Check input data
-    assert(data != NULL);
+    subscriptions->count++;
+    subscriptions->elems = (tSubscription*)realloc(subscriptions->elems, subscriptions->count * sizeof(tSubscription));
+    if (subscriptions->elems == NULL) {
+        return E_MEMORY_ERROR;
+    }
 
-	// If subscription already exists, return an error
-	if (subscriptions_find(*data, subscription.id) >= 0)
-		return E_SUBSCRIPTION_DUPLICATED;
-
-	// If the person does not exist, return an error
-	if (people_find(people, subscription.document) < 0)
-		return E_PERSON_NOT_FOUND;
-
-    // Copy the data to the new position
-	if (data->elems == NULL) {
-		data->elems = (tSubscription*) malloc(sizeof(tSubscription));
-	} else {
-		data->elems = (tSubscription*) realloc(data->elems, (data->count + 1) * sizeof(tSubscription));
-	}
-	assert(data->elems != NULL);
-	subscription_cpy(&(data->elems[data->count]), subscription);
-    
-
-    /////////////////////////////////
-    // PR2_2a
-    /////////////////////////////////
-    
-    filmstack_init(&(data->elems[data->count].watchlist));
-    
-    /////////////////////////////////
-	// Increase the number of elements
-	data->count++;
-	
-	return E_SUCCESS;
+    subscription_cpy(&subscriptions->elems[subscriptions->count - 1], sub);
+    return E_SUCCESS;
 }
 
 // Remove a subscription
@@ -138,6 +120,7 @@ tApiError subscriptions_del(tSubscriptions* data, int id) {
     int i;
     
     // Check if an entry with this data already exists
+    printf("Buscando suscripción con ID: %d\n", id);
     idx = subscriptions_find(*data, id);
 	
 	// If the subscription does not exist, return an error
@@ -163,23 +146,36 @@ tApiError subscriptions_del(tSubscriptions* data, int id) {
 }
 
 // Get subscription data of position index using a string
-void subscriptions_get(tSubscriptions data, int index, char* buffer)
-{
-    assert(index >= 0 && index < data.count);
-    subscription_get(data.elems[index], buffer);
+tApiError subscriptions_get(tSubscriptions subscriptions, int index, char* buffer) {
+    if (index < 0 || index >= subscriptions.count) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    tSubscription* sub = &subscriptions.elems[index];
+    if (sub == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    sprintf(buffer, "%d;%s;%02d/%02d/%04d;%02d/%02d/%04d;%s;%.2f;%d",
+            sub->id,
+            sub->document,
+            sub->start_date.day, sub->start_date.month, sub->start_date.year,
+            sub->end_date.day, sub->end_date.month, sub->end_date.year,
+            sub->plan,
+            sub->price,
+            sub->numDevices);
+
+    return E_SUCCESS;
 }
 
 // Returns the position of a subscription looking for id's subscription. -1 if it does not exist
-int subscriptions_find(tSubscriptions data, int id) {
-    int i = 0;
-    while (i < data.count) {
-        if (data.elems[i].id == id) {
+int subscriptions_find(tSubscriptions subscriptions, int id) {
+    for (int i = 0; i < subscriptions.count; i++) {
+        if (subscriptions.elems[i].id == id) {
             return i;
         }
-        i++;
     }
-
-    return -1;
+    return -1; // No encontrado
 }
 
 // Print subscriptions data
@@ -192,22 +188,34 @@ void subscriptions_print(tSubscriptions data) {
     }
 }
 
-// Remove all elements 
-tApiError subscriptions_free(tSubscriptions* data) {    
+// Remove all elements
+tApiError subscriptions_free(tSubscriptions* data) {
     if (data->elems != NULL) {
-    /////////////////////////////////
-    // PR2_2b
-    /////////////////////////////////
-      
-    for (int i = 0; i < data->count; i++) {
-        filmstack_free(&(data->elems[i].watchlist));
-    }
-        
-    /////////////////////////////////
+        for (int i = 0; i < data->count; i++) {
+            filmstack_free(&(data->elems[i].watchlist));
+        }
         free(data->elems);
     }
     subscriptions_init(data);
 	
 	return E_SUCCESS;
-  
+}
+
+// Initialize subscription data
+tApiError subscription_init(tSubscription* sub) {
+    if (sub == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    sub->id = 0;
+    strcpy(sub->document, "");
+    strcpy(sub->plan, "");
+    sub->price = 0.0;
+    sub->numDevices = 0;
+
+    date_init(&(sub->start_date));
+    date_init(&(sub->end_date));
+
+    // Inicializar el stack
+    return filmstack_init(&sub->watchlist);
 }

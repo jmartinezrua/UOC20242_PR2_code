@@ -2,7 +2,9 @@
 #include <assert.h>
 #include "csv.h"
 #include "api.h"
+#include "error.h"
 #include <string.h>
+#include "subscription.h"
 
 // Get the API version information
 const char* api_version()
@@ -11,80 +13,53 @@ const char* api_version()
 }
 
 // Load data from a CSV file. If reset is true, remove previous data
-tApiError api_loadData(tApiData* data, const char* filename, bool reset)
-{
-    tApiError error;
-    FILE *fin;    
-    char buffer[FILE_READ_BUFFER_SIZE];
-    tCSVEntry entry;
-    
-    // Check input data
-    assert( data != NULL );
+tApiError api_loadData(tApiData* data, const char* filename, bool reset) {
+    assert(data != NULL);
     assert(filename != NULL);
-    
-    // Reset current data    
-    if (reset) {
-        // Remove previous information
-        error = api_freeData(data);
-        if (error != E_SUCCESS) {
-            return error;
-        }
-        
-        // Initialize the data
-        error = api_initData(data);
-        if (error != E_SUCCESS) {
-            return error;
-        }
-    }
 
-    // Open the input file
-    fin = fopen(filename, "r");
+    FILE* fin = fopen(filename, "r");
     if (fin == NULL) {
         return E_FILE_NOT_FOUND;
     }
-    
-    // Read file line by line
-    while (fgets(buffer, FILE_READ_BUFFER_SIZE, fin)) {
-        // Remove new line character     
-        buffer[strcspn(buffer, "\n\r")] = '\0';
-        
+
+    if (reset) {
+        api_freeData(data);
+        api_initData(data);
+    }
+
+    char buffer[FILE_READ_BUFFER_SIZE];
+    tCSVEntry entry;
+    tApiError error = E_SUCCESS;
+
+    while (fgets(buffer, FILE_READ_BUFFER_SIZE, fin) != NULL) {
         csv_initEntry(&entry);
         csv_parseEntry(&entry, buffer, NULL);
-        // Add this new entry to the api Data
+
+        printf("Procesando entrada: %s\n", buffer);
+
         error = api_addDataEntry(data, entry);
-        if (error != E_SUCCESS) {
-			csv_freeEntry(&entry);
-			fclose(fin);
-            return error;
-        }
         csv_freeEntry(&entry);
 
+        if (error != E_SUCCESS) {
+            fclose(fin);
+            return error;
+        }
     }
-    
+
     fclose(fin);
-    
     return E_SUCCESS;
 }
 
 // Initialize the data structure
 tApiError api_initData(tApiData* data) {
-	/////////////////////////////////
-	// PR1_3b
-	/////////////////////////////////
-    // Check preconditions
-	assert(data != NULL);
-	
-	people_init(&(data->people));
-	subscriptions_init(&(data->subscriptions));
-	film_catalog_init(&(data->films));
-	/////////////////////////////////
-	// PR2_3b
-	/////////////////////////////////
-	
-	
-    /////////////////////////////////
+    assert(data != NULL);
+
+    people_init(&(data->people));
+    subscriptions_init(&(data->subscriptions)); // Inicializar suscripciones
+    film_catalog_init(&(data->films));
+    showList_init(&(data->shows));
+
     return E_SUCCESS;
-    //return E_NOT_IMPLEMENTED;
 }
 
 // Add a person into the data if it does not exist
@@ -122,29 +97,23 @@ tApiError api_addPerson(tApiData* data, tCSVEntry entry) {
 
 // Add a subscription if it does not exist
 tApiError api_addSubscription(tApiData* data, tCSVEntry entry) {
-	/////////////////////////////////
-	// PR1_3d
-	/////////////////////////////////
-	tSubscription subscription;
-	
-	// Check preconditions
-	assert(data != NULL);
-	
-	// Check the entry type
-    if (strcmp(csv_getType(&entry), "SUBSCRIPTION") != 0)
+    tSubscription subscription;
+
+    assert(data != NULL);
+
+    if (strcmp(csv_getType(&entry), "SUBSCRIPTION") != 0) {
         return E_INVALID_ENTRY_TYPE;
-    
-    // Check the number of fields
-    if(csv_numFields(entry) != NUM_FIELDS_SUBSCRIPTION)
+    }
+
+    if (csv_numFields(entry) != NUM_FIELDS_SUBSCRIPTION) {
         return E_INVALID_ENTRY_FORMAT;
-	
-	// Parse a subscription
-	subscription_parse(&subscription, entry);
-	
-	// Add the subscription or return an error if person does not exist or subscription already exists
-	return subscriptions_add(&(data->subscriptions), data->people, subscription);
-	/////////////////////////////////
-    // return E_NOT_IMPLEMENTED;
+    }
+
+    subscription_parse(&subscription, entry);
+
+    printf("Añadiendo suscripción con ID: %d y documento: %s\n", subscription.id, subscription.document);
+
+    return subscriptions_add(&(data->subscriptions), subscription);
 }
 
 // Add a film if it does not exist
@@ -191,22 +160,68 @@ tShow* api_findShow(tApiData data, const char* name) {
 
 // Add a show with one season and one episode (from CSV entry)
 tApiError api_addShow(tApiData* data, tCSVEntry entry) {
-	/////////////////////////////////
-	// PR2_3f
-	/////////////////////////////////
- 
-   
-    return E_NOT_IMPLEMENTED;
+    if (data == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    const char* showName = entry.fields[1];
+    if (showName == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    tShow* show = showList_find(data->shows, showName);
+    if (show == NULL) {
+        return E_FILM_NOT_FOUND;
+    }
+
+    char buffer[256];
+    tSeasonNode* seasonNode = show->seasons.first;
+    while (seasonNode != NULL) {
+        tSeason* season = &seasonNode->season;
+        tEpisodeNode* episodeNode = season->episodes.first;
+        while (episodeNode != NULL) {
+            tEpisode episode = episodeNode->episode;
+            snprintf(buffer, sizeof(buffer), 
+                     "SHOW;%s;%d;%02d/%02d/%04d;%d;%s;%02d:%02d;%.1f",
+                     showName,
+                     season->number,
+                     season->releaseDate.day,
+                     season->releaseDate.month,
+                     season->releaseDate.year,
+                     episode.number,
+                     episode.title,
+                     episode.duration.hour,
+                     episode.duration.minutes,
+                     episode.rating);
+
+            csv_parseEntry(&entry, buffer, "SHOW");
+            episodeNode = episodeNode->next;
+        }
+        seasonNode = seasonNode->next;
+    }
+
+    return E_SUCCESS;
 }
 
 // Add a film to a subscription's watchlist from a CSV entry, avoiding duplicates
 tApiError api_addToWatchlist(tApiData* data, int subscriptionId, tCSVEntry entry) {
-    /////////////////////////////////
-	// PR2_3c
-	/////////////////////////////////
- 
+    if (data == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
 
-    return E_NOT_IMPLEMENTED;
+    int subscriptionIndex = subscriptions_find(data->subscriptions, subscriptionId);
+    if (subscriptionIndex < 0) {
+        return E_SUBSCRIPTION_NOT_FOUND;
+    }
+
+    tFilm film;
+    film_parse(&film, entry);
+
+    tSubscription* subscription = &data->subscriptions.elems[subscriptionIndex];
+    tApiError error = filmstack_push(&(subscription->watchlist), film);
+
+    film_free(&film);
+    return error;
 }
 
 // Get the number of people registered on the application
@@ -251,72 +266,39 @@ int api_freeFilmsCount(tApiData data) {
 
 // Get the number of shows registered on the application
 int api_showsCount(tApiData data) {
-	/////////////////////////////////
-	// PR2_3g
-	/////////////////////////////////
-	return 0;
-	/////////////////////////////////
-    // return -1;
+    return showsList_len(data.shows);
 }
-
 
 // Free all used memory
 tApiError api_freeData(tApiData* data) {
-	/////////////////////////////////
-	// PR1_3g
-	/////////////////////////////////
-	// Check preconditions
-	assert(data != NULL);
-	
-	people_free(&(data->people));
-	subscriptions_free(&(data->subscriptions));
-	film_catalog_free(&(data->films));
-	/////////////////////////////////
-	// PR2 3h
-	/////////////////////////////////
-    
-	
-    /////////////////////////////////
+    assert(data != NULL);
+
+    people_free(&(data->people));
+    subscriptions_free(&(data->subscriptions));
+    film_catalog_free(&(data->films));
+    showList_free(&(data->shows)); // PR2_3h
+
     return E_SUCCESS;
 }
 
 // Add a new entry
 tApiError api_addDataEntry(tApiData* data, tCSVEntry entry) {
-	/////////////////////////////////
-	// Ex1 PR1 3h
-	/////////////////////////////////
-	tApiError error;
-	
-	// Check preconditions
-	assert(data != NULL);
-	
-	// Assign default value to return it if does not match any type
-	error = E_INVALID_ENTRY_TYPE;
-	
-	if (strcmp(csv_getType(&entry), "PERSON") == 0){
-		// Add a person
-		error = api_addPerson(data, entry);
-        
-    }
-	else if (strcmp(csv_getType(&entry), "SUBSCRIPTION") == 0){
-        // Add a subscription
-		error = api_addSubscription(data, entry);
-    }		
-	else if (strcmp(csv_getType(&entry), "FILM") == 0){
-		// Add a film to the films catalog
-		error = api_addFilm(data, entry);
-        
-    }
-    /////////////////////////////////
-	// Ex1 PR2 3e
-	/////////////////////////////////
-   
+    const char* type = csv_getType(&entry);
 
- 
-    /////////////////////////////////
-	return error;
-    
-    //return E_NOT_IMPLEMENTED;
+    if (strcmp(type, "SUBSCRIPTION") == 0) {
+        printf("Procesando suscripción con ID: %d\n", csv_getAsInteger(entry, 0));
+        return api_addSubscription(data, entry);
+    }
+
+    if (strcmp(type, "PERSON") == 0) {
+        char buffer[256]; // Crear un buffer para almacenar el resultado
+        csv_getAsString(entry, 0, buffer, sizeof(buffer)); // Llamar correctamente a la función
+        printf("Añadiendo persona con documento: %s\n", buffer);
+        return api_addPerson(data, entry);
+    }
+
+    // Manejo de otros tipos (FILM, SHOW, etc.)
+    return E_INVALID_ENTRY_TYPE;
 }
 
 // Get subscription data

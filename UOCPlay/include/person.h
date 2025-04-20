@@ -56,6 +56,9 @@ void people_print(tPeople data);
 // Remove the data from all persons
 tApiError people_free(tPeople* data);
 
+// Get the person data at a specific index
+void people_get(tPeople data, int index, char* buffer);
+
 ////////////////////////////////////////////
 
 #endif

@@ -47,13 +47,13 @@ tApiError subscriptions_init(tSubscriptions* data);
 int subscriptions_len(tSubscriptions data);
 
 // Add a new subscription
-tApiError subscriptions_add(tSubscriptions* data, tPeople people, tSubscription subscription);
+tApiError subscriptions_add(tSubscriptions* subscriptions, tSubscription sub);
 
 // Remove a subscription
 tApiError subscriptions_del(tSubscriptions* data, int id);
 
 // Get subscription data of position index using a string
-void subscriptions_get(tSubscriptions data, int index, char* buffer);
+tApiError subscriptions_get(tSubscriptions subscriptions, int index, char* buffer);
 
 // Returns the position of a subscription looking for id's subscription. -1 if it does not exist
 int subscriptions_find(tSubscriptions data, int id);

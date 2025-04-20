@@ -1,3 +1,4 @@
+#include "api.h" // Incluir para acceder a tApiData
 #include "show.h"
 #include <stdio.h>
 #include <stdlib.h>

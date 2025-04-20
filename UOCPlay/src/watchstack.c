@@ -8,14 +8,12 @@
 
 // Initializes the stack
 tApiError filmstack_init(tFilmstack* stack) {
-    // Validar precondiciones
     if (stack == NULL) {
         return E_INVALID_ENTRY_FORMAT;
     }
 
-    // Inicializar la pila
-    stack->top = NULL;  // La pila comienza vacía
-    stack->count = 0;   // El contador de elementos es 0
+    stack->top = NULL;
+    stack->count = 0;
 
     return E_SUCCESS;
 }
@@ -77,11 +75,8 @@ tApiError filmstack_pop(tFilmstack* stack) {
     tFilmstackNode* temp = stack->top;
     stack->top = stack->top->next;
 
-    // Liberar la película
-    film_free(&temp->elem);
-
-    // Liberar el nodo
-    free(temp);
+    film_free(&temp->elem); // Liberar la película
+    free(temp);             // Liberar el nodo
 
     stack->count--;
     return E_SUCCESS;
@@ -97,15 +92,64 @@ void filmstack_free(tFilmstack* stack) {
     while (current != NULL) {
         tFilmstackNode* temp = current;
         current = current->next;
-
-        // Liberar la película (asegúrate de que film_free no cause problemas)
         film_free(&temp->elem);
-
-        // Liberar el nodo
         free(temp);
     }
 
-    // Reinicializar la pila
     stack->top = NULL;
     stack->count = 0;
+}
+
+// Example usage of the stack
+void example_usage() {
+    tFilmstack* stack = (tFilmstack*)malloc(sizeof(tFilmstack));
+    if (stack == NULL) {
+        printf("Error: No se pudo asignar memoria para el stack.\n");
+        return;
+    }
+
+    tApiError error = filmstack_init(stack);
+    if (error != E_SUCCESS) {
+        printf("Error al inicializar el stack.\n");
+        free(stack);
+        return;
+    }
+
+    // Crear películas de ejemplo
+    tFilm film1, film2, film3;
+    tTime duration1 = {2, 28}; // Duración en horas y minutos
+    tTime duration2 = {2, 49};
+    tTime duration3 = {2, 32};
+    tDate release1 = {2010, 7, 16}; // Fecha de lanzamiento (año, mes, día)
+    tDate release2 = {2014, 11, 7};
+    tDate release3 = {2008, 7, 18};
+
+    // Usar los géneros correctos
+    film_init(&film1, "Inception", duration1, GENRE_ACTION, release1, 8.8, true);
+    film_init(&film2, "Interstellar", duration2, GENRE_SCIENCE_FICTION, release2, 8.6, false);
+    film_init(&film3, "The Dark Knight", duration3, GENRE_ACTION, release3, 9.0, true);
+
+    // Agregar películas al stack
+    filmstack_push(stack, film1);
+    filmstack_push(stack, film2);
+    filmstack_push(stack, film3);
+
+    // Mostrar el elemento superior del stack
+    tFilm* topFilm = filmstack_top(*stack);
+    if (topFilm != NULL) {
+        printf("Película en la cima del stack: %s (%d)\n", topFilm->name, topFilm->release.year);
+    }
+
+    // Eliminar el elemento superior del stack
+    filmstack_pop(stack);
+
+    // Mostrar el nuevo elemento superior
+    topFilm = filmstack_top(*stack);
+    if (topFilm != NULL) {
+        printf("Nueva película en la cima del stack: %s (%d)\n", topFilm->name, topFilm->release.year);
+    }
+
+    // Liberar el stack
+    filmstack_free(stack);
+    free(stack);
 }

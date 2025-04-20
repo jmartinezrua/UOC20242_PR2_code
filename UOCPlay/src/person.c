@@ -2,7 +2,25 @@
 #include <assert.h>
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 #include "person.h"
+
+// Check if the date format is valid
+bool isValidDateFormat(const char* date) {
+    if (strlen(date) != 10) return false;
+    if (date[2] != '/' || date[5] != '/') return false;
+    for (int i = 0; i < 10; i++) {
+        if (i == 2 || i == 5) continue;
+        if (!isdigit(date[i])) return false;
+    }
+    return true;
+}
+
+void trimNewline(char* str) {
+    char* pos;
+    if ((pos = strchr(str, '\n')) != NULL) *pos = '\0';
+    if ((pos = strchr(str, '\r')) != NULL) *pos = '\0';
+}
 
 // Parse input from CSVEntry
 void person_parse(tPerson* data, tCSVEntry entry) {
@@ -54,8 +72,13 @@ void person_parse(tPerson* data, tCSVEntry entry) {
     memset(data->cp, 0, (strlen(entry.fields[6]) + 1) * sizeof(char));
     csv_getAsString(entry, 6, data->cp, strlen(entry.fields[6]) + 1);
     
-    // Check birthday lenght
-    assert(strlen(entry.fields[7]) == 10);
+    // Clean and validate birthday
+    trimNewline(entry.fields[7]);
+    printf("Fecha de nacimiento procesada: '%s'\n", entry.fields[7]);
+    if (!isValidDateFormat(entry.fields[7])) {
+        fprintf(stderr, "Error: Fecha de nacimiento con formato incorrecto: '%s'\n", entry.fields[7]);
+        exit(EXIT_FAILURE);
+    }
     // Parse the birthday date
     sscanf(entry.fields[7], "%d/%d/%d", &(data->birthday.day), &(data->birthday.month), &(data->birthday.year));
 }
@@ -188,6 +211,7 @@ tApiError people_del(tPeople* data, const char *document) {
     assert(data != NULL);
     
     // Find if it exists
+    printf("Buscando persona con documento: %s\n", document);
     pos = people_find(data[0], document);
     
 	// If person does not exist, return an error
@@ -217,16 +241,13 @@ tApiError people_del(tPeople* data, const char *document) {
 }
 
 // Return the position of a person with provided document. -1 if it does not exist
-int people_find(tPeople data, const char* document) {
-    int i;
-    
-    for(i = 0; i < data.count; i++) {
-        if(strcmp(data.elems[i].document, document) == 0 ) {
+int people_find(tPeople people, const char* document) {
+    for (int i = 0; i < people.count; i++) {
+        if (strcmp(people.elems[i].document, document) == 0) {
             return i;
         }
     }
-    
-    return -1;
+    return -1; // No encontrado
 }
 
 // Print the person data
@@ -269,4 +290,10 @@ tApiError people_free(tPeople* data) {
     }
 	
 	return E_SUCCESS;
+}
+
+// Get the person data as a formatted string
+void people_get(tPeople data, int index, char* buffer) {
+    assert(index >= 0 && index < data.count);
+    snprintf(buffer, 256, "ID: %s, Name: %s %s", data.elems[index].document, data.elems[index].name, data.elems[index].surname);
 }

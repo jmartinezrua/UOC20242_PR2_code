@@ -16,17 +16,17 @@ typedef struct _ApiData {
     /////////////////////////////////
 	// PR1_3a
 	/////////////////////////////////
-    // People
+    // Personas
     tPeople people;	
-	// Subscriptions
+	// Suscripciones
     tSubscriptions subscriptions;
-    // Catalog of films
+    // Catálogo de películas
     tFilmCatalog films;
-   /////////////////////////////////
+    /////////////////////////////////
 	// PR2_3a
 	/////////////////////////////////
-    
-    /////////////////////////////////
+    // Catálogo de series
+    tShowCatalog shows;
 } tApiData;
 
 // Get the API version information
