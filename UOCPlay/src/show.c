@@ -71,12 +71,24 @@ void show_parse(tShow* show, tCSVEntry entry) {
 
 // Initialize a show with the given name and an empty season list
 tApiError show_init(tShow* data, const char* name) {
-    /////////////////////////////////
-	// PR2_1a
-	/////////////////////////////////
-   
+    if (data == NULL || name == NULL) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
 
-    return E_NOT_IMPLEMENTED;
+    // Reservar memoria para el nombre del show
+    data->name = (char*)malloc(strlen(name) + 1);
+    if (data->name == NULL) {
+        return E_MEMORY_ERROR;
+    }
+    strcpy(data->name, name);
+
+    // Inicializar la lista de temporadas
+    if (seasonList_init(&data->seasons) != E_SUCCESS) {
+        free(data->name);
+        return E_MEMORY_ERROR;
+    }
+    
+    return E_SUCCESS;
 }
 
 // Initialize a season with the given number and release date
@@ -143,12 +155,38 @@ tApiError episodeQueue_init(tEpisodeQueue* queue) {
 
 // Add a new show, or if it exists, add season and episode if they don't exist
 tApiError showList_add(tShowCatalog* list, tShow show) {
-    /////////////////////////////////
-	// PR2_1f
-	/////////////////////////////////
-    
-        
-    return E_NOT_IMPLEMENTED;
+    // Validar precondiciones
+    if (list == NULL) {
+        return E_INVALID_ENTRY_FORMAT; // Handle null pointer
+    }
+
+    // Allocate memory for the new node
+    tShowNode* newNode = (tShowNode*)malloc(sizeof(tShowNode));
+    if (newNode == NULL) {
+        return E_MEMORY_ERROR; // Handle memory allocation failure
+    }
+
+    // Copy the show into the new node
+    tApiError err = show_cpy(&newNode->show, &show);
+    if (err != E_SUCCESS) {
+        free(newNode); // Free allocated memory if copying fails
+        return err;
+    }
+
+    // Initialize the new node
+    newNode->next = NULL;
+    newNode->prev = list->last;
+
+    // Update the list
+    if (list->last != NULL) {
+        list->last->next = newNode;
+    } else {
+        list->first = newNode; // If the list was empty, set the first node
+    }
+    list->last = newNode;
+    list->count++;
+
+    return E_SUCCESS;
 }
 
 // Add a new season at the beginning of the season list
@@ -162,12 +200,47 @@ tApiError seasonList_add(tSeasonList* list, tSeason season) {
 
 
 tApiError episodeQueue_enqueue(tEpisodeQueue* queue, tEpisode episode) {
-    /////////////////////////////////
-    // PR2_2a 
-    /////////////////////////////////
-   
-   
-    return E_NOT_IMPLEMENTED;
+    // Validar parámetro de entrada
+    if(queue == NULL || episode.title == NULL) {
+        return E_INVALID_ENTRY_FORMAT; // o algún otro error adecuado
+    }
+    
+    // Reservar memoria para el nuevo nodo de episodio
+    tEpisodeNode* newNode = (tEpisodeNode*)malloc(sizeof(tEpisodeNode));
+    if(newNode == NULL) {
+        return E_MEMORY_ERROR;
+    }
+    
+    // Copiar los datos del episodio en el nuevo nodo
+    newNode->episode.number = episode.number;
+    newNode->episode.rating = episode.rating;
+    newNode->episode.duration = episode.duration;  // Se asume que tTime es copiable por asignación
+    
+    // Reserva y copia profunda del título
+    newNode->episode.title = (char*)malloc(strlen(episode.title) + 1);
+    if(newNode->episode.title == NULL) {
+        free(newNode);
+        return E_MEMORY_ERROR;
+    }
+    strcpy(newNode->episode.title, episode.title);
+    
+    // Inicializar el puntero siguiente del nodo
+    newNode->next = NULL;
+    
+    // Inserción en la cola:
+    // Si la cola está vacía, se establece como primer y último nodo; de lo contrario se enlaza al final
+    if(queue->first == NULL) {
+        queue->first = newNode;
+        queue->last = newNode;
+    } else {
+        queue->last->next = newNode;
+        queue->last = newNode;
+    }
+    
+    // Incrementar el contador de nodos en la cola
+    queue->count++;
+    
+    return E_SUCCESS;
 }
 
 
