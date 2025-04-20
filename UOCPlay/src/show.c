@@ -399,13 +399,43 @@ tApiError show_addEpisode(tShowCatalog* shows, const char* showName, int seasonN
 
 // Calculate total duration of a season
 tTime show_seasonTotalDuration(tShowCatalog shows, const char* showName, int seasonNumber) {
-    /////////////////////////////////
-	// PR2_1g
-	/////////////////////////////////   
-    tTime time;
-    time_parse(&time,"00:00");
-  
-    return time;
+    // Inicializar la duración total a 0
+    tTime totalDuration;
+    time_parse(&totalDuration, "00:00");
+
+    // Validar precondiciones
+    if (showName == NULL) {
+        return totalDuration;
+    }
+
+    // Buscar el show por su nombre
+    tShow* show = showList_find(shows, showName);
+    if (show == NULL) {
+        return totalDuration; // Show no encontrado
+    }
+
+    // Buscar la temporada por su número
+    tSeason* season = seasonList_find(show->seasons, seasonNumber);
+    if (season == NULL) {
+        return totalDuration; // Temporada no encontrada
+    }
+
+    // Recorrer los episodios de la temporada y sumar sus duraciones
+    tEpisodeNode* current = season->episodes.first;
+    while (current != NULL) {
+        totalDuration.hour += current->episode.duration.hour;
+        totalDuration.minutes += current->episode.duration.minutes;
+
+        // Ajustar los minutos si exceden 60
+        if (totalDuration.minutes >= 60) {
+            totalDuration.hour += totalDuration.minutes / 60;
+            totalDuration.minutes %= 60;
+        }
+
+        current = current->next;
+    }
+
+    return totalDuration;
 }
 
 // Calculate average rating of episodes in a season
